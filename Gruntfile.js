@@ -144,6 +144,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'acceptance', [
 
 		'prepare:development',
+		'bower_concat:development',
 		'ftp-deploy:acceptance',
 	]);
 };
