@@ -1,0 +1,42 @@
+//
+// Overwrite and extend variables
+// --------------------------------------------------
+
+
+//== Colors
+
+@white:                 #FFFFFF;
+@black:                 #000000;
+@brand-primary:         #FFFF00;
+
+
+//== Scaffolding
+
+@body-bg:               @white;
+@text-color:            @black;
+@link-color:            @black;
+@link-hover-color:      @brand-primary;
+
+
+//== Typography
+
+@font-family-sans-serif:  'AktivGrotesk-Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@font-family-base:        @font-family-sans-serif;
+@font-size-base:          22px;
+
+@font-size-h1:            round(( @font-size-base * 2.5 )); // ~55px
+
+@line-height-base:        1.3636363636; // 30/22
+
+@headings-font-family:    @font-family-sans-serif;
+@headings-font-weight:    normal;
+
+
+//== Grid system
+//
+//## Define your custom responsive grid.
+
+//** Number of columns in the grid.
+@grid-columns:              10;
+//** Padding between columns. Gets divided in half for the left and right.
+@grid-gutter-width:         20px;

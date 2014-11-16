@@ -1,0 +1,38 @@
+.site-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	z-index: 10;
+
+	&.headroom {
+	    transition-property: transform;
+	    transition-duration: 200ms;
+	    transition-timing-function: linear;
+	}
+
+	&.headroom--pinned {
+	    transform: translateY(0%);
+	}
+
+	&.headroom--unpinned {
+	    transform: translateY(-100%);
+	}
+
+	.container {
+
+		padding-bottom: 15px;
+		background-color: @white;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		border-bottom-color: @black;
+
+		.logotype {
+			width: 100px;
+			height: 100px;
+			background-color: @brand-primary;
+		}
+	}
+}

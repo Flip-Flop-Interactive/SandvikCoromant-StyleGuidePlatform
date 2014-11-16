@@ -1,0 +1,23 @@
+{
+  "name": "SandvikCoromant.StyleGuidePlatform.com",
+  "version": "1.0.0",
+  "authors": [
+    "Koen Dirk van Esterik <koen@flipflopinteractive.com>"
+  ],
+  "description": "Style guide platform for Sandvik Coromant",
+  "main": "Gruntfile.js",
+  "license": "GNU",
+  "homepage": "http://www.flipflopinteractive.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "~3.3.1",
+    "headroom.js": "~0.7.0",
+    "holderjs": "~2.4.1"
+  }
+}

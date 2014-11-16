@@ -14,6 +14,32 @@
 /* =Theme customization starts here
 -------------------------------------------------------------- */
 
-body {
-	background-color: #CC0000;
-}
+// Core variables and mixins
+@import './bower_components/bootstrap/less/variables.less';
+@import './bower_components/bootstrap/less/mixins.less';
+
+// Dependencies
+@import '_fonts.less';
+
+// Overwrite and extend variables
+@import '_variables.less';
+
+// Core CSS
+@import './bower_components/bootstrap/less/scaffolding.less';
+@import './bower_components/bootstrap/less/type.less';
+@import './bower_components/bootstrap/less/grid.less';
+
+// Components
+
+// Plugins
+
+// Custom
+@import '_scaffolding.less';
+@import '_grid.less';
+@import '_header.less';
+@import '_content.less';
+@import '_footer.less';
+
+
+// Utility classes
+@import './bower_components/bootstrap/less/utilities.less';

@@ -14,7 +14,12 @@ module.exports = function(grunt) {
 
 		clean: {
 			development: {
-				src: '<%= globals.dist %>'
+				src: [ 
+					'<%= globals.dist %>/*.php',
+					'<%= globals.dist %>/*.png',
+					'<%= globals.dist %>/fonts/*.*',
+					'<%= globals.dist %>/js/scripts.js',
+				]
 			},
 		},
 
@@ -23,7 +28,7 @@ module.exports = function(grunt) {
 				expand: true,
 				dest: '<%= globals.dist %>',
 				cwd: '<%= globals.src %>',
-				src: [ '*.php', '*.png' ]
+				src: [ '*.php', '*.png', 'fonts/*.*', 'js/*.*' ]
 			},
 		},
 
@@ -78,6 +83,13 @@ module.exports = function(grunt) {
 			]
 		},
 
+		bower_concat: {
+			development: {
+				dest: '<%= globals.dist %>/js/libs.js',
+				dependencies: {}
+			}
+		},
+
 		watch: {
 		    development: {
 		    	files: [
@@ -117,9 +129,9 @@ module.exports = function(grunt) {
 
 		'clean:development',
 		'copy:development',
-		'jshint:development',
 		'less:development',
 		'autoprefixer:development',
+		'jshint:development',
 	]);	
 
 	grunt.registerTask( 'development', [
