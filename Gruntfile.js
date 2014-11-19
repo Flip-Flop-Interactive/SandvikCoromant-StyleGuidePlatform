@@ -7,18 +7,15 @@ module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
 
-		globals: {
-			src: './src/wp-content/themes/twentyfifteen-child',
-			dist: './dist/wp-content/themes/twentyfifteen-child'
-		},
+		config: grunt.file.readJSON( 'config.json' ),
 
 		clean: {
 			development: {
 				src: [ 
-					'<%= globals.dist %>/*.php',
-					'<%= globals.dist %>/*.png',
-					'<%= globals.dist %>/fonts/*.*',
-					'<%= globals.dist %>/js/scripts.js',
+					'<%= config.dist %>/*.php',
+					'<%= config.dist %>/*.png',
+					'<%= config.dist %>/fonts/*.*',
+					'<%= config.dist %>/js/scripts.js',
 				]
 			},
 		},
@@ -26,8 +23,8 @@ module.exports = function(grunt) {
 		copy: {
 			development: {
 				expand: true,
-				dest: '<%= globals.dist %>',
-				cwd: '<%= globals.src %>',
+				dest: '<%= config.dist %>',
+				cwd: '<%= config.src %>',
 				src: [ '*.php', '*.png', 'fonts/*.*', 'js/*.*' ]
 			},
 		},
@@ -35,7 +32,7 @@ module.exports = function(grunt) {
 		less: {
 			development: {
 				files: {
-					'<%= globals.dist %>/style.css': '<%= globals.src %>/styles/style.less'
+					'<%= config.dist %>/style.css': '<%= config.src %>/styles/style.less'
 				}
 			},
 			production: {
@@ -43,7 +40,7 @@ module.exports = function(grunt) {
 					cleancss: true,
 				},
 				files: {
-					'<%= globals.dist %>/style.css': '<%= globals.src %>/styles/style.less'
+					'<%= config.dist %>/style.css': '<%= config.src %>/styles/style.less'
 				}
 			}
 		},
@@ -62,10 +59,10 @@ module.exports = function(grunt) {
 				]
 			},
 			development: {
-				src: '<%= globals.dist %>/style.css'
+				src: '<%= config.dist %>/style.css'
 			},
 			production: {
-				src: '<%= globals.dist %>/style.css'
+				src: '<%= config.dist %>/style.css'
 			},
 		},
 
@@ -85,7 +82,7 @@ module.exports = function(grunt) {
 
 		bower_concat: {
 			development: {
-				dest: '<%= globals.dist %>/js/libs.js',
+				dest: '<%= config.dist %>/js/libs.js',
 				dependencies: {}
 			}
 		},
@@ -94,7 +91,7 @@ module.exports = function(grunt) {
 		    development: {
 		    	files: [
 		    		'Gruntfile.js',
-					'<%= globals.src %>/**/*.*',
+					'<%= config.src %>/**/*.*',
 		    	],
 		    	tasks: [ 
 		    		'prepare:development'
@@ -107,7 +104,7 @@ module.exports = function(grunt) {
 
 		open: {
 			development: {
-				path: 'http://local.sandvikcoromant.styleguideplatform.com/'
+				path: '<%= config.local_url %>'
 			}
 		},
 
@@ -118,9 +115,9 @@ module.exports = function(grunt) {
 					port: 21,
 					authKey: 'key',
 				},
-				src: '<%= globals.dist %>',
+				src: '<%= config.dist %>',
 				dest: './wp-content/themes/twentyfifteen-child/',
-				exclusions: [ '<%= globals.dist %>/**/.DS_Store' ]
+				exclusions: [ '<%= config.dist %>/**/.DS_Store' ]
 			},
 		}
 	});

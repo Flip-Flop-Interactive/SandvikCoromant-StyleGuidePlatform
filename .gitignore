@@ -1,4 +1,5 @@
 .ftppass
+config.json
 dist/
 bower_components/
 node_modules/
