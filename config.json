@@ -1,0 +1,9 @@
+{
+	"src": "./src/wp-content/themes/twentyfifteen-child",
+
+	"dist": "./dist/wp-content/themes/twentyfifteen-child",
+
+	"local_url": "http://local.sandvikcoromant.styleguideplatform.com/",
+
+	"ftp_dest": "./wp-content/themes/twentyfifteen-child/"
+}
