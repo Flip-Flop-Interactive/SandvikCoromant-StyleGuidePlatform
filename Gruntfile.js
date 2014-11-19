@@ -116,7 +116,7 @@ module.exports = function(grunt) {
 					authKey: 'key',
 				},
 				src: '<%= config.dist %>',
-				dest: './wp-content/themes/twentyfifteen-child/',
+				dest: '<%= config.ftp_dest %>',
 				exclusions: [ '<%= config.dist %>/**/.DS_Store' ]
 			},
 		}
