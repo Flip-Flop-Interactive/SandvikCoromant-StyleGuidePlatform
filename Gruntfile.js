@@ -39,8 +39,8 @@ module.exports = function(grunt) {
 		copy: {
 			development: {
 				expand: true,
-				dest: '<%= config.dist %>',
-				cwd: '<%= config.src %>',
+				dest: '<%= config.dist %>/',
+				cwd: '<%= config.src %>/',
 				src: [ '*.php', '*.png', 'fonts/*.*', 'js/*.*', 'images/*.*' ]
 			},
 		},
