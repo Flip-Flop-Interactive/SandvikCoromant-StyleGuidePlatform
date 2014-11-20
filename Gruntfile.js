@@ -4,10 +4,26 @@ module.exports = function(grunt) {
 	// load all grunt tasks
 	require( 'load-grunt-tasks' )( grunt );
 
-	// Project configuration.
+  /**
+  * load configuration from any number of JSON files
+  * merging them in order specified
+  */
+	grunt.mergeConfig = function(paths) {
+    var config = {};
+    for (var i in paths) {
+      var path = paths[i];
+      if (grunt.file.exists(path)) {
+        config = grunt.file.readJSON( path );
+        grunt.config.merge ( {config:config} );
+        grunt.log.subhead('merged in ' + path);
+      }
+    }
+  };
+  
+  // Project configuration.
 	grunt.initConfig({
 
-		config: grunt.file.readJSON( 'config.json' ),
+    config: grunt.file.readJSON( 'config.json' ),
 
 		clean: {
 			development: {
@@ -144,4 +160,8 @@ module.exports = function(grunt) {
 		'bower_concat:development',
 		'ftp-deploy:acceptance',
 	]);
+	
+	// optional overrides from local config file
+	grunt.mergeConfig(['config.local.json']);
+    
 };
