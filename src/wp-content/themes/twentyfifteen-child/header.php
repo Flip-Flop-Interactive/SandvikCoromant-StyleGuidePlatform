@@ -18,7 +18,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2">
-					<div class="logotype"></div>
+					<div class="logo"><a href="/" class="logotype" rel="home" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></div>
 				</div>
 				<div class="col-md-2"><img data-src="holder.js/100%x100/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
 				<div class="col-md-2"><img data-src="holder.js/100%x100/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>

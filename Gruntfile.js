@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 				expand: true,
 				dest: '<%= config.dist %>',
 				cwd: '<%= config.src %>',
-				src: [ '*.php', '*.png', 'fonts/*.*', 'js/*.*' ]
+				src: [ '*.php', '*.png', 'fonts/*.*', 'js/*.*', 'images/*.*' ]
 			},
 		},
 

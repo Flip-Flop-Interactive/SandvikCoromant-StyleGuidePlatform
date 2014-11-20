@@ -1,18 +1,18 @@
 <?php
 /**
+ * The template for displaying the footer.
+ *
+ * Contains the closing of the "site-content" div and all content after.
+ *
  * @package WordPress
- * @subpackage Theme_Compat
- * @deprecated 3.0
- *
- * This file is here for Backwards compatibility with old themes and will be removed in a future version
- *
+ * @subpackage Twenty_Fifteen
+ * @since Twenty Fifteen 1.0
  */
-_deprecated_file( sprintf( __( 'Theme without %1$s' ), basename(__FILE__) ), '3.0', null, sprintf( __('Please include a %1$s template in your theme.'), basename(__FILE__) ) );
 ?>
+    </div>
+	</div><!-- .site-content -->
 
-		</div>
-	</div>
-	<div id="footer" class="site-footer headroom" role="contentinfo">
+	<footer id="footer" class="site-footer headroom" role="contentinfo">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2"><img data-src="holder.js/100%x50/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
@@ -22,7 +22,7 @@ _deprecated_file( sprintf( __( 'Theme without %1$s' ), basename(__FILE__) ), '3.
 				<div class="col-md-2"><img data-src="holder.js/100%x50/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
 			</div>
 		</div>
-	</div>
+	</footer>
 	<?php wp_footer(); ?>
 </body>
 </html>
