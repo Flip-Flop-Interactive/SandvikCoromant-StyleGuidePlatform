@@ -33,30 +33,6 @@ get_header(); ?>
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
 
-<?php
-if (DEBUG) {
-   $categories = array(
-     'Our Brand' => 1,
-     'Toolbox' => 2,
-     'Activities' => 3,
-   );
-
-  // @FIXME -- DEBUGGING MENU
-  echo '<div id="debug-bar" style="position:absolute;top:200px;z-index:100;right:0;width:100%;text-align:center;">';
-  echo '<h3><ul id="debug-menu">';
-  foreach($categories as $category_name => $category_id) {
-    $selected = "$category_id-$category";
-    if ($category_id == $category) {
-      $selected = 'active';
-    }
-    echo sprintf('<li style="display:inline-block;padding:0 1em;"><a href="?category=%d" class="%s">%s</a></li>', $category_id, $selected, $category_name);
-  }
-  echo '</ul></h3></div><style type="text/css">.active{font-weight:700;text-decoration:underline;}</style>';
-  // END DEBUGGING
-}
-
-?>
-
 		<?php while ( have_posts() ) : the_post(); ?>
 
 			<?php get_template_part( 'content', 'page' ); ?>

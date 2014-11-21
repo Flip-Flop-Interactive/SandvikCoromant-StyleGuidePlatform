@@ -20,10 +20,30 @@
 				<div class="col-md-2">
 					<div class="logo"><a href="/" class="logotype" rel="home" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></div>
 				</div>
-				<div class="col-md-2"><img data-src="holder.js/100%x100/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
-				<div class="col-md-2"><img data-src="holder.js/100%x100/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
-				<div class="col-md-2"><img data-src="holder.js/100%x100/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
-				<div class="col-md-2"><img data-src="holder.js/100%x100/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
+				<div class="col-md-2"></div>
+<?php
+if (DEBUG) {
+   $categories = array(
+     'Our Brand' => 1,
+     'Toolbox' => 2,
+     'Activities' => 3,
+   );
+
+  // @FIXME -- DEBUGGING MENU
+  // echo '<div id="debug-bar" style="position:absolute;top:200px;z-index:100;right:0;width:100%;text-align:center;">';
+  // echo '<h3><ul id="debug-menu">';
+  foreach($categories as $category_name => $category_id) {
+    $selected = "$category_id-$category";
+    if ($category_id == $category) {
+      $selected = 'active';
+    }
+    echo sprintf('<div class="col-md-2" style="padding-top:70px;"><a href="?category=%d" class="%s">%s</a></div>', $category_id, $selected, $category_name);
+  }
+  // echo '</ul></h3></div><style type="text/css">.active{font-weight:700;text-decoration:underline;}</style>';
+  // END DEBUGGING
+}
+?>
+				
 			</div>
 		</div>
 	</header>

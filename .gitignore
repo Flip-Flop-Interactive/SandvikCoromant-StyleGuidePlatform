@@ -3,7 +3,6 @@ config.json
 dist/
 bower_components/
 node_modules/
-src/*
 dist/*
 config.local.json
 .DS_Store
