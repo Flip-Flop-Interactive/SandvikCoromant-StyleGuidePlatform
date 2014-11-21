@@ -25,9 +25,9 @@
 
   /**
   * background image
-  */
   bgImg = '/wp-content/themes/twentyfifteen-child/images/bg-CoroTurnRC.jpg';
   $("body").backstretch(bgImg);
+  */
 
 // END
 })(jQuery, this, this.document);
