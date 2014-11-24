@@ -23,15 +23,10 @@
 				<div class="col-md-2"></div>
 <?php
 if (DEBUG) {
-   $categories = array(
-     'Our Brand' => 1,
-     'Toolbox' => 2,
-     'Activities' => 3,
-   );
-
   // @FIXME -- DEBUGGING MENU
   // echo '<div id="debug-bar" style="position:absolute;top:200px;z-index:100;right:0;width:100%;text-align:center;">';
   // echo '<h3><ul id="debug-menu">';
+  global $categories, $category;
   foreach($categories as $category_name => $category_id) {
     $selected = "$category_id-$category";
     if ($category_id == $category) {

@@ -11,14 +11,6 @@
  * @since Twenty Fifteen 1.0
  */
 
-define('DEBUG', true);
-
-if (isset($_GET['category']) && $_GET['category'] > 0) {
-  $category = (int)$_GET['category'];
-} else {
-  $category = 1;
-}
-
 /**
 * fetch posts by category
 */

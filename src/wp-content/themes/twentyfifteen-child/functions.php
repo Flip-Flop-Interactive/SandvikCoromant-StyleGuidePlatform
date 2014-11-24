@@ -61,3 +61,22 @@ function twentyfifteen_child_scripts() {
 add_action('init', 'remove_twentyfifteen_scripts');
 add_action('wp_enqueue_scripts', 'twentyfifteen_child_scripts');
 
+/**
+* DEBUGGING
+*/
+define('DEBUG', true);
+
+if (isset($_GET['category']) && $_GET['category'] > 0) {
+  $category = (int)$_GET['category'];
+} else {
+  $category = 1;
+}
+
+global $categories, $category;
+$categories = array(
+  'Our Brand' => 1,
+  'Toolbox' => 2,
+  'Activities' => 3,
+);
+
+
