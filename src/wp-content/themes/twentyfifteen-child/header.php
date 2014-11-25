@@ -19,7 +19,6 @@
 
 	<!-- Modal: Menu -->
 	<div class="modal fade" id="menu" role="dialog" aria-hidden="true">
-		
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2">
@@ -44,29 +43,25 @@
 					<h1>Activities</h1>
 				</div>
 			</div>
-
-				<?php
-					// global $category, $categories;
-
-					// /**
-					// * category menu
-					// */
-					// foreach($categories as $category_info) {
-					//   $selected = "";
-					//   if ($category_info->term_id == $category) {
-					//     $selected = 'active';
-					//   }
-					//   $link = get_category_link( $category_info->term_id );
-					  
-					//   echo sprintf('<div class="col-md-2 category-link"><a href="%s" class="%s">%s</a></div>', $link, $selected, $category_info->name);
-					// }
-				?>
-				
-			</div>
 		</div>
-	
-
 	</div>
+
+	<?php
+		// global $category, $categories;
+
+		// /**
+		// * category menu
+		// */
+		// foreach($categories as $category_info) {
+		//   $selected = "";
+		//   if ($category_info->term_id == $category) {
+		//     $selected = 'active';
+		//   }
+		//   $link = get_category_link( $category_info->term_id );
+		  
+		//   echo sprintf('<div class="col-md-2 category-link"><a href="%s" class="%s">%s</a></div>', $link, $selected, $category_info->name);
+		// }
+	?>
 
 	<header id="header" class="site-header headroom" role="banner">
 		<div class="container">
@@ -78,3 +73,15 @@
 				<div class="col-md-2"><a href="/" title="Search" data-toggle="modal" data-target="#search"><i class="icon icon_search-icon"></i></a></div>
 				<div class="col-md-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Info' ) ) ); ?>" title="Info"><i class="icon icon_info-icon"></i></a></div>
 				<div class="col-md-2"><a href="/" title="Menu" data-toggle="modal" data-target="#menu"><i class="icon icon_menu-icon"></i></a></div>
+			</div>
+		</div>
+	</header>
+
+
+	<div id="page" class="hfeed site">
+		<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'twentyfifteen' ); ?></a>
+		<div id="content" class="site-content">
+
+
+
+
