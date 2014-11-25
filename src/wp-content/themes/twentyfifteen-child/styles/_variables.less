@@ -8,6 +8,7 @@
 @white:                 #FFFFFF;
 @black:                 #0B0B0B;
 @gray: 					#9E9E9E;
+@gray-dark: 			#333333;
 @brand-primary:         #FFFF00;
 
 
@@ -16,7 +17,8 @@
 @body-bg:               @white;
 @text-color:            @black;
 @link-color:            @black;
-@link-hover-color:      @brand-primary;
+@link-hover-color:      @gray;
+@link-hover-decoration: none;
 
 
 //== Typography
@@ -32,6 +34,8 @@
 @headings-font-family:    @font-family-sans-serif;
 @headings-font-weight:    normal;
 
+@font-size-h1:            floor((@font-size-base * 1.7727272727)); // ~39px
+
 
 //== Grid system
 //
@@ -41,3 +45,13 @@
 @grid-columns:              10;
 //** Padding between columns. Gets divided in half for the left and right.
 @grid-gutter-width:         20px;
+
+
+//== Modals
+//
+//##
+
+//** Modal backdrop background color
+@modal-backdrop-bg:           @gray-dark;
+//** Modal backdrop opacity
+@modal-backdrop-opacity:      .95;

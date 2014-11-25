@@ -15,11 +15,11 @@
 	<footer id="footer" class="site-footer headroom" role="contentinfo">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2"><img data-src="holder.js/100%x50/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
-				<div class="col-md-2"><img data-src="holder.js/100%x50/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
-				<div class="col-md-2"><img data-src="holder.js/100%x50/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
-				<div class="col-md-2"><img data-src="holder.js/100%x50/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
-				<div class="col-md-2"><img data-src="holder.js/100%x50/#BFBFBF:#FFFFFF/font:AktivGrotesk-Light"></div>
+				<div class="col-md-2"><br/></div>
+				<div class="col-md-2"></div>
+				<div class="col-md-2"></div>
+				<div class="col-md-2"></div>
+				<div class="col-md-2"></div>
 			</div>
 		</div>
 	</footer>

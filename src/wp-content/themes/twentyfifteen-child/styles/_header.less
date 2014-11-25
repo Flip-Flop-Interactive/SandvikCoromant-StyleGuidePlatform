@@ -29,14 +29,30 @@
 		border-bottom-style: solid;
 		border-bottom-color: @black;
 
-		.logotype {
-			width: 0;
-			height: 100px;
-			background: @brand-primary url(images/logo.png) no-repeat scroll 0 0;
-			padding: 0 0 0 100px;
-			text-indent: -1000px;
-			overflow: hidden;
-			display: block;
+		.row {
+
+			.logotype {
+				width: 0;
+				height: 100px;
+				background: @brand-primary url(images/logo.png) no-repeat scroll 0 0;
+				padding: 0 0 0 100px;
+				text-indent: -1000px;
+				overflow: hidden;
+				display: block;
+			}
+
+			a {
+				outline: none;
+
+				.icon {
+					margin-top: 71px;
+					font-size: 29px;
+				}
+
+				&:focus {
+					color: @black;
+				}
+			}
 		}
 	}
 }

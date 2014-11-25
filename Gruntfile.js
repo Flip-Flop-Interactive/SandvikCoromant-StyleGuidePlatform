@@ -4,26 +4,26 @@ module.exports = function(grunt) {
 	// load all grunt tasks
 	require( 'load-grunt-tasks' )( grunt );
 
-  /**
-  * load configuration from any number of JSON files
-  * merging them in order specified
-  */
+	/**
+	* load configuration from any number of JSON files
+	* merging them in order specified
+	*/
 	grunt.mergeConfig = function(paths) {
-    var config = {};
-    for (var i in paths) {
-      var path = paths[i];
-      if (grunt.file.exists(path)) {
-        config = grunt.file.readJSON( path );
-        grunt.config.merge ( {config:config} );
-        grunt.log.subhead('merged in ' + path);
-      }
-    }
-  };
-  
-  // Project configuration.
+		var config = {};
+		for (var i in paths) {
+			var path = paths[i];
+			if (grunt.file.exists(path)) {
+				config = grunt.file.readJSON( path );
+				grunt.config.merge ( {config:config} );
+				grunt.log.subhead('merged in ' + path);
+			}
+		}
+	};
+	
+	// Project configuration.
 	grunt.initConfig({
 
-    config: grunt.file.readJSON( 'config.json' ),
+		config: grunt.file.readJSON( 'config.json' ),
 
 		clean: {
 			development: {
@@ -82,6 +82,31 @@ module.exports = function(grunt) {
 			},
 		},
 
+		webfont: {
+			icons: {
+				src: '<%= config.src %>/icons/*.svg',
+				dest: '<%= config.dist %>/fonts/',
+				destCss: '<%= config.src %>/styles/',
+				options: {
+					engine: 'node',
+					font: 'icons',
+					stylesheet: 'less',
+					relativeFontPath: './fonts/',
+					destHtml: '<%= config.src %>/icons/'
+				}
+			}
+		},
+
+		rename: {
+			development: {
+
+				files: [
+
+					{ src: [ '<%= config.src %>/styles/icons.less' ], dest: [ '<%= config.src %>/styles/_icons.less' ] },
+				]
+			}
+		},
+
 		concat: {},
 
 		uglify: {},
@@ -104,18 +129,18 @@ module.exports = function(grunt) {
 		},
 
 		watch: {
-		    development: {
-		    	files: [
-		    		'Gruntfile.js',
+				development: {
+					files: [
+						'Gruntfile.js',
 					'<%= config.src %>/**/*.*',
-		    	],
-		    	tasks: [ 
-		    		'prepare:development'
-		    	],
-	            options: {
-    	            livereload: true
-		        }
-		    }
+					],
+					tasks: [ 
+						'prepare:development'
+					],
+							options: {
+									livereload: true
+						}
+				}
 		},
 
 		open: {
@@ -138,14 +163,21 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.registerTask( 'prepare:icons', [
+
+		'webfont:icons',
+		'rename:development'
+	]);
+
 	grunt.registerTask( 'prepare:development', [
 
 		'clean:development',
 		'copy:development',
 		'less:development',
+		'prepare:icons',
 		'autoprefixer:development',
 		'jshint:development',
-	]);	
+	]);
 
 	grunt.registerTask( 'development', [
 
@@ -163,5 +195,5 @@ module.exports = function(grunt) {
 	
 	// optional overrides from local config file
 	grunt.mergeConfig(['config.local.json']);
-    
+		
 };
