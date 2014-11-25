@@ -19,30 +19,43 @@
 
 	<!-- Modal: Menu -->
 	<div class="modal fade" id="menu" role="dialog" aria-hidden="true">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-2">
-					<div class="logo"><a href="/" class="logotype" rel="home" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></div>
+		<div class="modal-dialog">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="logo"><a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><i class="icon icon_sandvik-coromant-icon"></i></a></div>
+					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-2"><a href="/" title="Search" data-toggle="modal" data-target="#search"><i class="icon icon_search-icon"></i></a></div>
+					<div class="col-md-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Info' ) ) ); ?>" title="Info"><i class="icon icon_info-icon"></i></a></div>
+					<div class="col-md-2"><a href="/" title="Close" data-dismiss="modal"><i class="icon icon_close-icon"></i></a></div>
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-md-4">
-					<h1>Our Brand</h1>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<h1>Our Brand</h1>
+					</div>
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-md-4">
-					<h1>Toolbox</h1>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<h1>Toolbox</h1>
+					</div>
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-md-4">
-					<h1>Activities</h1>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<h1>Activities</h1>
+					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 
@@ -67,7 +80,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2">
-					<div class="logo"><a href="/" class="logotype" rel="home" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></div>
+					<div class="logo"><a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><i class="icon icon_sandvik-coromant-icon"></i></a></div>
 				</div>
 				<div class="col-md-2"></div>
 				<div class="col-md-2"><a href="/" title="Search" data-toggle="modal" data-target="#search"><i class="icon icon_search-icon"></i></a></div>
