@@ -33,26 +33,33 @@
 				a {
 					outline: none;
 
+					h1, .icon {
+
+						color: @brand-primary;
+					}
+
+					h1 {
+						margin-top: 0;
+					}
+
 					.icon {
 						margin-top: 71px;
-						color: @brand-primary;
 						font-size: 29px;
 					}
 
 					&:hover {
 
-						.icon {
+						h1, .icon {
 							color: darken( @brand-primary, 20% );
 						}
 					}
 
 					&:focus {
-						color: @brand-primary;
-					}
-				}
 
-				h1 {
-					margin-top: 0;
+						h1, .icon {
+							color: @brand-primary;
+						}
+					}
 				}
 			}
 

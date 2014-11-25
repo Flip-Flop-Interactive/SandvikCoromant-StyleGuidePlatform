@@ -32,49 +32,28 @@
 				</div>
 			</div>
 
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<h1>Our Brand</h1>
-					</div>
-				</div>
-			</div>
+			<?php
+				global $category, $categories;
 
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<h1>Toolbox</h1>
-					</div>
-				</div>
-			</div>
+				/**
+				* category menu
+				*/
 
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<h1>Activities</h1>
-					</div>
-				</div>
-			</div>
+				foreach($categories as $category_info) {
+					$selected = "";
+					if ($category_info->term_id == $category) {
+						$selected = 'active';
+					}
+					$link = get_category_link( $category_info->term_id );
+					
+					echo sprintf('<div class="container"><div class="row"><div class="col-md-4"><a href="%s" class="%s"><h1>%s</h1></a></div></div></div>', $link, $selected, $category_info->name);
+				}
+			?>
 
 		</div>
 	</div>
 
-	<?php
-		// global $category, $categories;
 
-		// /**
-		// * category menu
-		// */
-		// foreach($categories as $category_info) {
-		//   $selected = "";
-		//   if ($category_info->term_id == $category) {
-		//     $selected = 'active';
-		//   }
-		//   $link = get_category_link( $category_info->term_id );
-		  
-		//   echo sprintf('<div class="col-md-2 category-link"><a href="%s" class="%s">%s</a></div>', $link, $selected, $category_info->name);
-		// }
-	?>
 
 	<header id="header" class="site-header headroom" role="banner">
 		<div class="container">
