@@ -63,8 +63,8 @@ add_action('wp_enqueue_scripts', 'twentyfifteen_child_scripts');
 
 global $category, $categories;
 
-if (isset($_GET['category']) && $_GET['category'] > 0) {
-  $category = (int)$_GET['category'];
+if (isset($_GET['cat']) && $_GET['cat'] > 0) {
+  $category = (int)$_GET['cat'];
 } else {
   $category = 1;
 }
@@ -75,19 +75,12 @@ $taxonomies = array(
 
 $args = array(
     'orderby'           => 'id', 
-    'order'             => 'ASC',
-    'hide_empty'        => true, 
-    'fields'            => 'all', 
-    'slug'              => '', 
-    'parent'            => '',
-    'hierarchical'      => true, 
-    'child_of'          => 0, 
-    'get'               => '', 
-    'name__like'        => '',
-    'description__like' => '',
-    'offset'            => '', 
-    'search'            => '', 
-    'cache_domain'      => 'core'
 ); 
 
 $categories = get_terms($taxonomies, $args);
+
+/**
+* fetch posts by category
+*/
+query_posts('cat=' . $category);
+

@@ -33,7 +33,7 @@ foreach($categories as $category_info) {
   if ($category_info->term_id == $category) {
     $selected = 'active';
   }
-  $link = $category_info->slug;
+  $link = get_category_link( $category_info->term_id );
   
   echo sprintf('<div class="col-md-2 category-link"><a href="%s" class="%s">%s</a></div>', $link, $selected, $category_info->name);
 }

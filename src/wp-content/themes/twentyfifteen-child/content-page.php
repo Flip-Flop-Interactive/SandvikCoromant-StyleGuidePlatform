@@ -1,4 +1,10 @@
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<?php
+/**
+* content-page.php
+*
+* used to render an article on category pages and the front page.
+*/
+?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php twentyfifteen_post_thumbnail(); ?>
 
 	<header class="entry-header">
