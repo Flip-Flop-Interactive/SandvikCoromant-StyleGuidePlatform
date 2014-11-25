@@ -61,10 +61,7 @@ function twentyfifteen_child_scripts() {
 add_action('init', 'remove_twentyfifteen_scripts');
 add_action('wp_enqueue_scripts', 'twentyfifteen_child_scripts');
 
-/**
-* DEBUGGING
-*/
-define('DEBUG', true);
+global $category, $categories;
 
 if (isset($_GET['category']) && $_GET['category'] > 0) {
   $category = (int)$_GET['category'];
@@ -72,11 +69,25 @@ if (isset($_GET['category']) && $_GET['category'] > 0) {
   $category = 1;
 }
 
-global $categories, $category;
-$categories = array(
-  'Our Brand' => 1,
-  'Toolbox' => 2,
-  'Activities' => 3,
+$taxonomies = array( 
+    'category',
 );
 
+$args = array(
+    'orderby'           => 'id', 
+    'order'             => 'ASC',
+    'hide_empty'        => true, 
+    'fields'            => 'all', 
+    'slug'              => '', 
+    'parent'            => '',
+    'hierarchical'      => true, 
+    'child_of'          => 0, 
+    'get'               => '', 
+    'name__like'        => '',
+    'description__like' => '',
+    'offset'            => '', 
+    'search'            => '', 
+    'cache_domain'      => 'core'
+); 
 
+$categories = get_terms($taxonomies, $args);

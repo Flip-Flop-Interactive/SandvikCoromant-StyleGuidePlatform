@@ -22,20 +22,20 @@
 				</div>
 				<div class="col-md-2"></div>
 <?php
-if (DEBUG) {
-  // @FIXME -- DEBUGGING MENU
-  // echo '<div id="debug-bar" style="position:absolute;top:200px;z-index:100;right:0;width:100%;text-align:center;">';
-  // echo '<h3><ul id="debug-menu">';
-  global $categories, $category;
-  foreach($categories as $category_name => $category_id) {
-    $selected = "$category_id-$category";
-    if ($category_id == $category) {
-      $selected = 'active';
-    }
-    echo sprintf('<div class="col-md-2" style="padding-top:70px;"><a href="?category=%d" class="%s">%s</a></div>', $category_id, $selected, $category_name);
+
+global $category, $categories;
+
+/**
+* category menu
+*/
+foreach($categories as $category_info) {
+  $selected = "";
+  if ($category_info->term_id == $category) {
+    $selected = 'active';
   }
-  // echo '</ul></h3></div><style type="text/css">.active{font-weight:700;text-decoration:underline;}</style>';
-  // END DEBUGGING
+  $link = $category_info->slug;
+  
+  echo sprintf('<div class="col-md-2 category-link"><a href="%s" class="%s">%s</a></div>', $link, $selected, $category_info->name);
 }
 ?>
 				
