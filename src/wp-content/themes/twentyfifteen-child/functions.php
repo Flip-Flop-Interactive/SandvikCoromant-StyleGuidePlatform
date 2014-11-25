@@ -61,3 +61,26 @@ function twentyfifteen_child_scripts() {
 add_action('init', 'remove_twentyfifteen_scripts');
 add_action('wp_enqueue_scripts', 'twentyfifteen_child_scripts');
 
+global $category, $categories;
+
+if (isset($_GET['cat']) && $_GET['cat'] > 0) {
+  $category = (int)$_GET['cat'];
+} else {
+  $category = 1;
+}
+
+$taxonomies = array( 
+    'category',
+);
+
+$args = array(
+    'orderby'           => 'id', 
+); 
+
+$categories = get_terms($taxonomies, $args);
+
+/**
+* fetch posts by category
+*/
+query_posts('cat=' . $category);
+
