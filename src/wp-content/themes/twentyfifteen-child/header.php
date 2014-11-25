@@ -15,7 +15,28 @@
 <body <?php body_class(); ?>>
 
 	<!-- Modal: Search -->
-	<div class="modal fade" id="search" role="dialog" aria-hidden="true"></div>
+	<div class="modal fade" id="search" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="logo"><a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><i class="icon icon_sandvik-coromant-icon"></i></a></div>
+					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-2"></div>
+					<div class="col-md-2"></div>
+					<div class="col-md-2"><a href="/" title="Close" data-dismiss="modal"><i class="icon icon_close-icon"></i></a></div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<a href="#" title="Search" data-dismiss="modal"><h1>Search</h1></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Modal: Menu -->
 	<div class="modal fade" id="menu" role="dialog" aria-hidden="true">
@@ -26,18 +47,19 @@
 						<div class="logo"><a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><i class="icon icon_sandvik-coromant-icon"></i></a></div>
 					</div>
 					<div class="col-md-2"></div>
-					<div class="col-md-2"><a href="/" title="Search" data-toggle="modal" data-target="#search"><i class="icon icon_search-icon"></i></a></div>
-					<div class="col-md-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Info' ) ) ); ?>" title="Info"><i class="icon icon_info-icon"></i></a></div>
+					<div class="col-md-2"></div>
+					<div class="col-md-2"></div>
 					<div class="col-md-2"><a href="/" title="Close" data-dismiss="modal"><i class="icon icon_close-icon"></i></a></div>
 				</div>
 			</div>
 
 			<?php
+
 				global $category, $categories;
 
-				/**
-				* category menu
-				*/
+				// /**
+				// * category menu
+				// */
 
 				foreach($categories as $category_info) {
 					$selected = "";
@@ -45,15 +67,13 @@
 						$selected = 'active';
 					}
 					$link = get_category_link( $category_info->term_id );
-					
+
 					echo sprintf('<div class="container"><div class="row"><div class="col-md-4"><a href="%s" class="%s"><h1>%s</h1></a></div></div></div>', $link, $selected, $category_info->name);
 				}
 			?>
 
 		</div>
 	</div>
-
-
 
 	<header id="header" class="site-header headroom" role="banner">
 		<div class="container">
@@ -68,7 +88,6 @@
 			</div>
 		</div>
 	</header>
-
 
 	<div id="page" class="hfeed site">
 		<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'twentyfifteen' ); ?></a>

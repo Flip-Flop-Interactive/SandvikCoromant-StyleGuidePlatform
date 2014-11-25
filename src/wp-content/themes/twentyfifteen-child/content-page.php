@@ -9,13 +9,17 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php twentyfifteen_post_thumbnail(); ?>
 
-	<header class="entry-header">
-		<?php // the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
+	<header class="entry-header"></header><!-- .entry-header -->
 
 	<div class="entry-content">
 		<div class="container">
-			<?php the_content(); ?>
+
+			<div class="row">
+				<div class="col-md-4"><?php the_title( '<h1 class="entry-title">', '</h1>' ); ?></div>
+				<div class="col-md-4"><?php the_content(); ?></div>
+				<div class="col-md-2"></div>
+			</div>
+
 		</div>
 	</div><!-- .entry-content -->
 

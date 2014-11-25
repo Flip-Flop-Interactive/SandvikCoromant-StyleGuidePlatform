@@ -25,10 +25,29 @@
 	}
 
 	.container {
-		padding-top: 15px;
+
 		background-color: @white;
 		border-top-width: 2px;
 		border-top-style: solid;
 		border-top-color: @black;
+
+		.row {
+			padding: 30px 0;
+
+			a {
+				outline: none;
+
+				.icon {
+					font-size: 29px;
+				}
+
+				&:focus {
+
+					.icon {
+						color: @black;
+					}
+				}
+			}
+		}
 	}
 }

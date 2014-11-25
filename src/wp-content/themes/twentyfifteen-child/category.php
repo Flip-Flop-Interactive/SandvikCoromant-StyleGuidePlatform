@@ -17,14 +17,24 @@
 */
 get_header(); ?>
 
-<div id="primary" class="content-area">
-	<main id="main" class="site-main" role="main">
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
 
-		<?php while ( have_posts() ) : the_post(); ?>
+			<header class="category-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4">
+							<h1><?php single_cat_title( '', true ); ?></h1>
+						</div>
+					</div>
+				</div>
+			</header>
 
-			<?php get_template_part( 'content', 'page' ); ?>
+			<?php while ( have_posts() ) : the_post(); ?>
 
-		<?php endwhile; // end of the loop. ?>
+				<?php get_template_part( 'content', 'page' ); ?>
+
+			<?php endwhile; // end of the loop. ?>
 
 		</main><!-- .site-main -->
 	</div><!-- .content-area -->
