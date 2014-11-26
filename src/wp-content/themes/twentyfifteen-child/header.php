@@ -56,24 +56,7 @@
 				</div>
 			</div>
 
-			<?php
-
-				global $category, $categories;
-
-				// /**
-				// * category menu
-				// */
-
-				foreach($categories as $category_info) {
-					$selected = "";
-					if ($category_info->term_id == $category) {
-						$selected = 'active';
-					}
-					$link = get_category_link( $category_info->term_id );
-
-					echo sprintf('<div class="container"><div class="row"><div class="col-md-4"><a href="%s" class="%s"><h1>%s</h1></a></div></div></div>', $link, $selected, $category_info->name);
-				}
-			?>
+			<?php echo render_header_menu(); ?>
 
 		</div>
 	</div>
