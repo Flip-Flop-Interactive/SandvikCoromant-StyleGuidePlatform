@@ -55,56 +55,61 @@ function twentyfifteen_child_scripts() {
   }
 }
 
+function show_category() {
+  global $category, $categories;
+
+  $taxonomies = array( 
+      'category',
+  );
+
+  $args = array(
+      'orderby'           => 'id', 
+  );
+
+  // default category
+  $category = 1;
+
+  /**
+  * parse the current category from the URL
+  */
+  if (is_category()) {
+    global $wp_query;
+
+    $category_info = $wp_query->get_queried_object();
+    if (!empty($category_info)) {
+      $category = $category_info->term_id;
+    }
+  } else {
+    // extract category from last URL path component
+    // this dirty hack seems to be the way things are done in WordPress ;(
+    $path = $_SERVER['REQUEST_URI'];
+    $path = explode('/', $path);
+    $slug = array_pop($path);
+    if (empty($slug)) {
+      $slug = array_pop($path);
+    }
+    $category_info = get_category_by_path($slug);
+    if (!empty($category_info)) {
+      $category = $category_info->term_id;
+    }
+  }
+
+  $categories = get_terms($taxonomies, $args);
+  
+  return $category;
+}
+
 /**
  * register hooks
  */
 add_action('init', 'remove_twentyfifteen_scripts');
 add_action('wp_enqueue_scripts', 'twentyfifteen_child_scripts');
 
-global $category, $categories;
-
-$taxonomies = array( 
-    'category',
-);
-
-$args = array(
-    'orderby'           => 'id', 
-);
-
-// default category
-$category = 1;
-
-/**
-* parse the current category from the URL
-*/
-if (is_category()) {
-  global $wp_query;
-
-  $category_info = $wp_query->get_queried_object();
-  if (!empty($category_info)) {
-    $category = $category_info->term_id;
-  }
-} else {
-  // extract category from last URL path component
-  // this dirty hack seems to be the way things are done in WordPress ;(
-  global $_REQUEST;
-
-  $path = $_SERVER['REQUEST_URI'];
-  $path = explode('/', $path);
-  $slug = array_pop($path);
-  if (empty($slug)) {
-    $slug = array_pop($path);
-  }
-  $category_info = get_category_by_path($slug);
-  if (!empty($category_info)) {
-    $category = $category_info->term_id;
-  }
-}
-
-$categories = get_terms($taxonomies, $args);
-
 /**
 * fetch posts by category
 */
-query_posts('cat=' . $category);
+if (empty($_SERVER['QUERY_STRING'])) {
+  $category = show_category();
+  query_posts('cat=' . $category);
+}
 
