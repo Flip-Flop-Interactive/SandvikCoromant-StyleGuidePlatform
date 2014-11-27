@@ -29,6 +29,7 @@ module.exports = function(grunt) {
 			development: {
 				src: [ 
 					'<%= config.dist %>/*.php',
+					'<%= config.dist %>/page-templates/*.php',
 					'<%= config.dist %>/*.png',
 					'<%= config.dist %>/fonts/*.*',
 					'<%= config.dist %>/js/scripts.js',
@@ -41,7 +42,7 @@ module.exports = function(grunt) {
 				expand: true,
 				dest: '<%= config.dist %>/',
 				cwd: '<%= config.src %>/',
-				src: [ '*.php', '*.png', 'fonts/*.*', 'js/*.*', 'images/*.*' ]
+				src: [ '*.php', 'page-templates/*.php', '*.png', 'fonts/*.*', 'js/*.*', 'images/*.*' ]
 			},
 		},
 

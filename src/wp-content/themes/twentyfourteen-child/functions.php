@@ -186,6 +186,16 @@ function sandvik_media_data($post_id) {
 }
 
 /**
+* get featured image url
+*/
+function get_featured_image_as_background( $post_id ) {
+
+  $featured_image_url = wp_get_attachment_url( get_post_thumbnail_id( $post_id ));
+  return sprintf( 'style="background-image:url(\'%s\');"', $featured_image_url );
+}
+
+
+/**
  * register hooks
  */
 add_action('init', 'remove_twentyfourteen_scripts');
