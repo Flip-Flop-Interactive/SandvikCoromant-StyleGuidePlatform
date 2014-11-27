@@ -26,7 +26,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10">
-					<?php edit_post_link( esc_html__( 'Edit', 'twentyfifteen' ), '<div class="edit-link">', '</div>' ); ?>
+					<?php edit_post_link( esc_html__( 'Edit', 'twentyfourteen' ), '<div class="edit-link">', '</div>' ); ?>
 				</div>
 			</div>
 		</div>

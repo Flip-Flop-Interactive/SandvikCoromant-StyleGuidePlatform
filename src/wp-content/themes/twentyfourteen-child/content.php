@@ -4,16 +4,16 @@
 		<?php
 			/* translators: %s: Name of current post */
 			the_content( sprintf(
-				esc_html__( 'Continue reading %s', 'twentyfifteen' ),
+				esc_html__( 'Continue reading %s', 'twentyfourteen' ),
 				the_title( '<span class="screen-reader-text">', '</span>', false )
 			) );
 
 			wp_link_pages( array(
-				'before'      => '<div class="page-links"><span class="page-links-title">' . esc_html__( 'Pages:', 'twentyfifteen' ) . '</span>',
+				'before'      => '<div class="page-links"><span class="page-links-title">' . esc_html__( 'Pages:', 'twentyfourteen' ) . '</span>',
 				'after'       => '</div>',
 				'link_before' => '<span>',
 				'link_after'  => '</span>',
-				'pagelink'    => '<span class="screen-reader-text">' . esc_html__( 'Page', 'twentyfifteen' ) . ' </span>%',
+				'pagelink'    => '<span class="screen-reader-text">' . esc_html__( 'Page', 'twentyfourteen' ) . ' </span>%',
 				'separator'   => '<span class="screen-reader-text">, </span>',
 			) );
 		?>
