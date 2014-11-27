@@ -1,7 +1,7 @@
 {
-	"src": "./src/wp-content/themes/twentyfifteen-child",
+	"src": "./src/wp-content/themes/twentyfourteen-child",
 
-	"dist": "./dist/wp-content/themes/twentyfifteen-child",
+	"dist": "./dist/wp-content/themes/twentyfourteen-child",
 
 	"local_url": "http://local.sandvikcoromant.styleguideplatform.com/",
 

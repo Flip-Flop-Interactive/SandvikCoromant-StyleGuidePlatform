@@ -1,0 +1,43 @@
+body {
+	&:before {
+		width: auto;
+	}
+
+	&.modal-open {
+		padding-right: 0px !important;
+	}
+}
+
+.site {
+
+	max-width: none;
+	background-color: transparent;
+
+	&:before {
+
+		background-color: transparent;
+		content: ""; 
+		display: block; 
+		width: auto; 
+		height: auto; 
+		min-height: none;
+		position: static; 
+		top: auto; 
+		left: auto; 
+		z-index: auto; 
+	}
+
+	.site-content {
+
+		.content-area {
+
+			padding-bottom: 72px;
+		}
+	}
+}
+
+
+::selection {
+	background: @brand-primary;
+	color: @brand-secondary;
+}

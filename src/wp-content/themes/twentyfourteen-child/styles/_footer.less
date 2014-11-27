@@ -1,0 +1,60 @@
+.site-footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background: none;
+	border-top: none;
+	box-shadow: none;
+	z-index: 10;
+
+	&.headroom {
+	    transition-property: transform;
+	    transition-duration: 200ms;
+	    transition-timing-function: linear;
+	}
+
+	&.headroom--pinned {
+	    transform: translateY(0%);
+	}
+
+	&.headroom--unpinned {
+	    transform: translateY(100%);
+	}
+
+	.container {
+
+		background-color: @white;
+		border-top-width: 2px;
+		border-top-style: solid;
+		border-top-color: @black;
+
+		.row {
+			padding: 30px 0;
+
+			a {
+				outline: none;
+
+				.icon {
+					font-size: 29px;
+				}
+
+				label {
+					position: relative;
+					top: 2px;
+					left: 5px;
+					font-size: @font-size-base;
+				}
+
+				&:focus {
+
+					.icon {
+						color: @black;
+					}
+				}
+			}
+		}
+	}
+}
