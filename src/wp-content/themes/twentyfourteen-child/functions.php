@@ -165,6 +165,27 @@ function render_page_menu($category_id) {
 }
 
 /**
+* fetch media metadata using simple_fields API
+*/
+function sandvik_media_data($post_id) {
+  $data = array();
+  
+  $media = simple_fields_get_post_group_values($post_id, 'Media', true, 1);
+  
+  if (!empty($media) && !empty($media['Image'])) {
+    foreach ($media['Image'] as $index => $media_id) {
+      list($image_url, $image_width, $image_height) = wp_get_attachment_image_src($media_id);
+      $image_caption = $media['Image Caption'][$index];
+      $image_size = $media['Image Thumbnail Size'][$index];
+
+      $data[] = compact('image_url', 'image_width', 'image_height', 'image_caption', 'image_size');
+    }
+  }
+  
+  return $data;
+}
+
+/**
  * register hooks
  */
 add_action('init', 'remove_twentyfourteen_scripts');
