@@ -47,12 +47,120 @@ function twentyfifteen_child_scripts() {
 
   // Load custom javascript scripts
   wp_enqueue_script('custom-scripts', get_child_template_directory_uri() . '/js/scripts.js', array(), '1.0.0', TRUE);
+}
 
-  // enable livereload on localhost
+/**
+* enable livereload on localhost
+*/
+function livereload() {
   if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
-    wp_register_script('livereload', 'http://localhost:35729/livereload.js?snipver=1', NULL, FALSE, TRUE);
-    wp_enqueue_script('livereload');
+    if (gethostname() != 'monarch.local') {
+      wp_register_script('livereload', 'http://localhost:35729/livereload.js?snipver=1', NULL, FALSE, TRUE);
+      wp_enqueue_script('livereload');
+    }
   }
+}
+
+function show_category() {
+  global $category, $categories;
+
+  $taxonomies = array( 
+      'category',
+  );
+
+  $args = array(
+      'orderby'           => 'id', 
+  );
+
+  // default category
+  $category = 1;
+
+  /**
+  * parse the current category from the URL
+  */
+  if (is_category()) {
+    global $wp_query;
+
+    $category_info = $wp_query->get_queried_object();
+    if (!empty($category_info)) {
+      $category = $category_info->term_id;
+    }
+  } else {
+    // extract category from last URL path component
+    // this dirty hack seems to be the way things are done in WordPress ;(
+    $path = $_SERVER['REQUEST_URI'];
+    $path = explode('/', $path);
+    $slug = array_pop($path);
+    if (empty($slug)) {
+      $slug = array_pop($path);
+    }
+    $category_info = get_category_by_path($slug);
+    if (!empty($category_info)) {
+      $category = $category_info->term_id;
+    }
+  }
+
+  $categories = get_terms($taxonomies, $args);
+  
+  return $category;
+}
+
+/**
+* render_header_menu
+*/
+function render_header_menu() {
+  global $category, $categories;
+
+  $html = '';
+
+	// /**
+	// * category menu
+	// */
+
+	foreach($categories as $category_info) {
+		$selected = "";
+		if ($category_info->term_id == $category) {
+			$selected = 'active';
+		}
+		$link = get_category_link( $category_info->term_id );
+
+		$html .= '<div class="container"><div class="row">';
+		$html .= sprintf('<div class="col-md-4"><a href="%s" class="%s"><h1>%s</h1></a></div>', $link, $selected, $category_info->name);
+		$html .= sprintf('<div class="col-md-2">%s</div>', render_page_menu($category_info->term_id));
+		$html .= '</div></div>';
+	}
+	
+	return $html;
+}
+
+/**
+*
+*/
+function render_page_menu($category_id) {
+  $args = array(
+  	'posts_per_page'   => 20,
+  	'category'         => $category_id,
+  	'orderby'          => 'menu_order',
+  	'post_type'        => 'post',
+  	'post_parent'      => '',
+  	'post_status'      => 'publish',
+  	'suppress_filters' => true );
+  
+  $html = '<ul class="menu">';
+
+  $myposts = get_posts( $args );
+  foreach ( $myposts as $post ) {
+    setup_postdata( $post );
+    $html .= '<li class="menu-item">';
+    $html .= sprintf('<a class="menu-link" href="/%s">%s</a>', $post->post_name, $post->post_title);
+    //$html .= json_encode($post);
+    $html .= '</li>';
+  }
+  $html .= '</ul>';
+
+  wp_reset_postdata();
+
+	return $html;
 }
 
 /**
@@ -60,27 +168,9 @@ function twentyfifteen_child_scripts() {
  */
 add_action('init', 'remove_twentyfifteen_scripts');
 add_action('wp_enqueue_scripts', 'twentyfifteen_child_scripts');
-
-global $category, $categories;
-
-if (isset($_GET['cat']) && $_GET['cat'] > 0) {
-  $category = (int)$_GET['cat'];
-} else {
-  $category = 1;
-}
-
-$taxonomies = array( 
-    'category',
-);
-
-$args = array(
-    'orderby'           => 'id', 
-); 
-
-$categories = get_terms($taxonomies, $args);
+add_action('wp_enqueue_scripts', 'livereload');
 
 /**
-* fetch posts by category
+* set globals
 */
-query_posts('cat=' . $category);
-
+$category = show_category();
