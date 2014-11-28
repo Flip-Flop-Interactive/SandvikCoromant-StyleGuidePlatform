@@ -30,12 +30,9 @@
 			</div>
 			<div class="container">
 				<div class="row">
-				<div class="col-md-4">
-					<a href="#" title="Search" data-dismiss="modal"><h1>Search</h1></a>
-				</div>
-				<div class="col-md-6">
-				<?php get_search_form( true ); ?>
-				</div>
+					<div class="col-md-10">
+						<?php get_search_form( true ); ?>
+					</div>
 				</div>
 			</div>
 		</div>
