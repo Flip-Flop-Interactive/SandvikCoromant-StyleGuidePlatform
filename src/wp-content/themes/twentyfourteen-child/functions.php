@@ -169,18 +169,38 @@ function render_page_menu($category_id) {
 */
 function sandvik_media_data($post_id) {
   $data = array();
+  $keys = array();
   
   $media = simple_fields_get_post_group_values($post_id, 'Media', true, 1);
   
   if (!empty($media) && !empty($media['Image'])) {
     foreach ($media['Image'] as $index => $media_id) {
-      list($image_url, $image_width, $image_height) = wp_get_attachment_image_src($media_id);
       $image_caption = $media['Image Caption'][$index];
       $image_size = $media['Image Thumbnail Size'][$index];
+      $image_size = strtolower($image_size);
+      
+      $size = $image_size == 'small' ? 'thumbnail' : $image_size;
+      list($image_url, $image_width, $image_height) = wp_get_attachment_image_src($media_id, $size);
+      
+      // save the keys for sorting the data later
+      switch ($image_size) {
+        case 'small':
+        $keys[$index] = 0;
+        break;
+        case 'medium':
+        $keys[$index] = 1;
+        break;
+        case 'large':
+        $keys[$index] = 2;
+        default:
+      }
 
       $data[] = compact('image_url', 'image_width', 'image_height', 'image_caption', 'image_size');
     }
   }
+  
+  // sort the data using the image sizes, order = small, medium, large
+  array_multisort($keys, SORT_ASC, $data);
   
   return $data;
 }
