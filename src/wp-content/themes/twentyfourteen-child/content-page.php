@@ -13,49 +13,16 @@
 	<div class="entry-content">
 		<div class="container">
 		
-      <!-- text -->
+			<!-- text -->
 			<div class="row">
 				<div class="col-md-4"><?php the_title( '<h1 class="entry-title">', '</h1>' ); ?></div>
 				<div class="col-md-4"><?php the_content(); ?></div>
 				<div class="col-md-2"></div>
 			</div>
 			
-      <!-- media -->
+			<!-- media -->
 			<div class="row">
-				<div class="col-md-8 post-media"><?php
-
-          $media = sandvik_media_data(get_the_ID());
-          $classes = array();
-          $lastclass = '';
-          $newclass = '';
-          
-          foreach ($media as $metadata) {
-            $classes = array('post-image');
-            
-            switch ($metadata['image_size']) {
-              case 'small':
-              $newclass = 'col-md-2';
-              break;
-              case 'medium':
-              $newclass = 'col-md-4';
-              break;
-              case 'large':
-              $newclass = 'col-md-8';
-              default:
-            }
-            
-            $classes[] = $newclass;
-            if ($newclass != $lastclass) {
-              $classes[] = 'clearfix';
-            }
-            
-            $classes[] = $metadata['image_size'];
-            $lastclass = $newclass;
-
-            echo sprintf('<div class="%s"><img src="%s" width="%s" height="%s"/><div class="image-caption">%s</div></div>', join(' ', $classes), $metadata['image_url'], $metadata['image_width'], $metadata['image_height'], $metadata['image_caption']);
-          }
-        
-				 ?></div>
+				<div class="col-md-8 post-media"><?php print sandvik_render_post_media(get_the_ID()); ?></div>
 				<div class="col-md-2"></div>
 			</div>
 		</div>

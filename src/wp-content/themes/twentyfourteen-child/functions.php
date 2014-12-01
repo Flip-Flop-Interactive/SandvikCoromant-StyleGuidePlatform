@@ -206,6 +206,57 @@ function sandvik_media_data($post_id) {
 }
 
 /**
+* get featured image url
+*/
+function get_featured_image_as_background( $post_id ) {
+
+  $featured_image_url = wp_get_attachment_url( get_post_thumbnail_id( $post_id ));
+  return sprintf( 'style="background-image:url(\'%s\');"', $featured_image_url );
+}
+
+/**
+* render media metadata for responsive layout
+*/
+function sandvik_render_post_media($post_id) {
+	$media     = sandvik_media_data($post_id);
+
+	$classes = array();
+	$html = array();
+	$lastclass = '';
+	$newclass  = '';
+
+	foreach ($media as $metadata) {
+	  $classes = array('post-image');
+
+	  switch ($metadata['image_size']) {
+	    case 'small':
+	      $newclass = 'col-md-2';
+	      break;
+
+	    case 'medium':
+	      $newclass = 'col-md-4';
+	      break;
+
+	    case 'large':
+	      $newclass = 'col-md-8';
+	    default:
+	  }
+
+	  $classes[] = $newclass;
+	  if ($newclass != $lastclass) {
+	    $classes[] = 'clearfix';
+	  }
+
+	  $classes[] = $metadata['image_size'];
+	  $lastclass = $newclass;
+
+	  $html[] = sprintf('<div class="%s"><img src="%s" width="%s" height="%s"/><div class="image-caption">%s</div></div>', join(' ', $classes), $metadata['image_url'], $metadata['image_width'], $metadata['image_height'], $metadata['image_caption']);
+	}
+	
+	return implode("\n", $html);
+}
+
+/**
  * register hooks
  */
 add_action('init', 'remove_twentyfourteen_scripts');
