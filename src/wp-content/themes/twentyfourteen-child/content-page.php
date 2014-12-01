@@ -4,9 +4,7 @@
 *
 * used to render an article on category pages and the front page.
 */
-?>
-
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<header class="entry-header"></header><!-- .entry-header -->
 
@@ -21,10 +19,7 @@
 			</div>
 			
 			<!-- media -->
-			<div class="row">
-				<div class="col-md-8 post-media"><?php print sandvik_render_post_media(get_the_ID()); ?></div>
-				<div class="col-md-2"></div>
-			</div>
+			<?php print sandvik_render_post_media(get_the_ID()); ?>
 		</div>
 	</div><!-- .entry-content -->
 

@@ -225,7 +225,7 @@ function sandvik_render_post_media($post_id) {
 	$lastclass = '';
 	$newclass  = '';
 
-	foreach ($media as $metadata) {
+	foreach ($media as $index => $metadata) {
 	  $classes = array('post-image');
 
 	  switch ($metadata['image_size']) {
@@ -243,8 +243,13 @@ function sandvik_render_post_media($post_id) {
 	  }
 
 	  $classes[] = $newclass;
+
 	  if ($newclass != $lastclass) {
-	    $classes[] = 'clearfix';
+      // start new row
+      if ($index > 0) {
+  	    $html[] = '</div>';
+      }
+	    $html[] = '<div class="row post-media">';
 	  }
 
 	  $classes[] = $metadata['image_size'];
@@ -253,6 +258,9 @@ function sandvik_render_post_media($post_id) {
 	  $html[] = sprintf('<div class="%s"><img src="%s" width="%s" height="%s"/><div class="image-caption">%s</div></div>', join(' ', $classes), $metadata['image_url'], $metadata['image_width'], $metadata['image_height'], $metadata['image_caption']);
 	}
 	
+	// end row
+  $html[] = '</div>';
+
 	return implode("\n", $html);
 }
 
