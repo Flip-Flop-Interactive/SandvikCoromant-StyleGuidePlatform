@@ -169,18 +169,38 @@ function render_page_menu($category_id) {
 */
 function sandvik_media_data($post_id) {
   $data = array();
+  $keys = array();
   
   $media = simple_fields_get_post_group_values($post_id, 'Media', true, 1);
   
   if (!empty($media) && !empty($media['Image'])) {
     foreach ($media['Image'] as $index => $media_id) {
-      list($image_url, $image_width, $image_height) = wp_get_attachment_image_src($media_id);
       $image_caption = $media['Image Caption'][$index];
       $image_size = $media['Image Thumbnail Size'][$index];
+      $image_size = strtolower($image_size);
+      
+      $size = $image_size == 'small' ? 'thumbnail' : $image_size;
+      list($image_url, $image_width, $image_height) = wp_get_attachment_image_src($media_id, $size);
+      
+      // save the keys for sorting the data later
+      switch ($image_size) {
+        case 'small':
+        $keys[$index] = 0;
+        break;
+        case 'medium':
+        $keys[$index] = 1;
+        break;
+        case 'large':
+        $keys[$index] = 2;
+        default:
+      }
 
       $data[] = compact('image_url', 'image_width', 'image_height', 'image_caption', 'image_size');
     }
   }
+  
+  // sort the data using the image sizes, order = small, medium, large
+  array_multisort($keys, SORT_ASC, $data);
   
   return $data;
 }
@@ -194,6 +214,58 @@ function get_featured_image_as_background( $post_id ) {
   return sprintf( 'style="background-image:url(\'%s\');"', $featured_image_url );
 }
 
+/**
+* render media metadata for responsive layout
+*/
+function sandvik_render_post_media($post_id) {
+	$media     = sandvik_media_data($post_id);
+
+	$classes = array();
+	$html = array();
+	$lastclass = '';
+	$newclass  = '';
+	$index = 0;
+
+	foreach ($media as $index => $metadata) {
+	  $classes = array('post-image');
+
+	  switch ($metadata['image_size']) {
+	    case 'small':
+	      $newclass = 'col-md-2';
+	      break;
+
+	    case 'medium':
+	      $newclass = 'col-md-4';
+	      break;
+
+	    case 'large':
+	      $newclass = 'col-md-8';
+	    default:
+	  }
+
+	  $classes[] = $newclass;
+
+	  if ($newclass != $lastclass) {
+      // start new row
+      if ($index > 0) {
+  	    $html[] = '</div>';
+      }
+	    $html[] = '<div class="row post-media">';
+	  }
+
+	  $classes[] = $metadata['image_size'];
+	  $lastclass = $newclass;
+
+	  $html[] = sprintf('<div class="%s"><img src="%s" width="%s" height="%s"/><div class="image-caption">%s</div></div>', join(' ', $classes), $metadata['image_url'], $metadata['image_width'], $metadata['image_height'], $metadata['image_caption']);
+	}
+	
+  if ($index > 0) {
+  	// end row
+    $html[] = '</div>';
+  }
+
+	return implode("\n", $html);
+}
 
 /**
  * register hooks
