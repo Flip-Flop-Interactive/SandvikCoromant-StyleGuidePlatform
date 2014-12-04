@@ -81,10 +81,12 @@
 }
 
 .search-field {
-  padding: 1em;
+  &:extend(h1);
+  
   background-color: rgba(0, 0, 0, 0);
   border-width: 0 0 2px 0 !important;
   border-color: #000 !important;
+  margin-top: 6px;
   
   &:focus {
     appearance: none;
@@ -100,12 +102,31 @@
 * search autocomplete
 */
 .ui-autocomplete {
+  border: 0;
   z-index: 1100;
 }
+.ui-widget-content {
+  background-image: none !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+.ui-menu .ui-menu-item {
+  background-color: @white;
+}
+.ui-menu-item a {
+  &:extend(h1);
 
+  color: @gray;
+  font-weight: 400;
+  padding: 2px 6px;
+  line-height: 1;
+  padding-top: 15px;
+  padding-bottom: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
 .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-  color: inherit;
-  background: @brand-primary none;
+  color: @brand-primary;
+  background: @white none;
   border: 0 !important;
   margin: 0 !important;
 	cursor: pointer;
