@@ -166,10 +166,12 @@ function render_page_menu($category_id) {
 
 /**
 * fetch media metadata using simple_fields API
+* 
+* @param $post_id numeric ID
+* @returns an array of images, in the order specified by the admin
 */
 function sandvik_media_data($post_id) {
   $data = array();
-  $keys = array();
   
   $media = simple_fields_get_post_group_values($post_id, 'Media', true, 1);
   
@@ -180,27 +182,11 @@ function sandvik_media_data($post_id) {
       $image_size = strtolower($image_size);
       
       $size = $image_size == 'small' ? 'thumbnail' : $image_size;
-      list($image_url, $image_width, $image_height) = wp_get_attachment_image_src($media_id, $size);
+      $image_tag = wp_get_attachment_image($media_id, $size);
       
-      // save the keys for sorting the data later
-      switch ($image_size) {
-        case 'small':
-        $keys[$index] = 0;
-        break;
-        case 'medium':
-        $keys[$index] = 1;
-        break;
-        case 'large':
-        $keys[$index] = 2;
-        default:
-      }
-
-      $data[] = compact('image_url', 'image_width', 'image_height', 'image_caption', 'image_size');
+      $data[] = compact('image_tag', 'image_caption', 'image_size');
     }
   }
-  
-  // sort the data using the image sizes, order = small, medium, large
-  array_multisort($keys, SORT_ASC, $data);
   
   return $data;
 }
@@ -256,7 +242,7 @@ function sandvik_render_post_media($post_id) {
 	  $classes[] = $metadata['image_size'];
 	  $lastclass = $newclass;
 
-	  $html[] = sprintf('<div class="%s"><img src="%s" width="%s" height="%s"/><div class="image-caption">%s</div></div>', join(' ', $classes), $metadata['image_url'], $metadata['image_width'], $metadata['image_height'], $metadata['image_caption']);
+	  $html[] = sprintf('<div class="%s">%s<div class="image-caption">%s</div></div>', join(' ', $classes), $metadata['image_tag'], $metadata['image_caption']);
 	}
 	
   if ($index > 0) {
