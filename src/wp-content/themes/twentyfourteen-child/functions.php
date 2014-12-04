@@ -106,7 +106,7 @@ function show_category() {
 }
 
 /**
- * render_header_menu
+ * render header menu overlay
  */
 function render_header_menu() {
   global $category, $categories;
@@ -126,7 +126,7 @@ function render_header_menu() {
 
     $html .= '<div class="container"><div class="row">';
     $html .= sprintf('<div class="col-md-4"><a href="%s" class="%s"><h1>%s</h1></a></div>', $link, $selected, $category_info->name);
-    $html .= sprintf('<div class="col-md-2">%s</div>', render_page_menu($category_info->term_id));
+    $html .= sprintf('<div class="col-md-2">%s</div>', render_page_menu($category_info->term_id, $link));
     $html .= '</div></div>';
   }
 
@@ -134,9 +134,9 @@ function render_header_menu() {
 }
 
 /**
- *
+  * render submenus within header menu overlay
  */
-function render_page_menu($category_id) {
+function render_page_menu($category_id = 0, $category_link = '') {
   $args = array(
     'posts_per_page' => 20,
     'category' => $category_id,
@@ -152,9 +152,13 @@ function render_page_menu($category_id) {
   $myposts = get_posts($args);
   foreach ($myposts as $post) {
     setup_postdata($post);
-    $html .= '<li class="menu-item">';
-    $html .= sprintf('<a class="menu-link" href="/%s">%s</a>', $post->post_name, $post->post_title);
     //$html .= json_encode($post);
+    
+    //$link = $post->post_name;
+    $link = $category_link . '#post-' . $post->ID;
+
+    $html .= '<li class="menu-item">';
+    $html .= sprintf('<a class="menu-link" href="%s">%s</a>', $link, $post->post_title);
     $html .= '</li>';
   }
   $html .= '</ul>';
@@ -223,22 +227,42 @@ function sandvik_render_post_media($post_id) {
 	$lastclass = '';
 	$image_size  = '';
 	$index = 0;
+	$index_of_type = 0;
 
 	foreach ($media as $index => $metadata) {
 	  $classes = array('post-image');
 
     $image_size = $metadata['image_size'];
 
+    switch ($image_size) {
+      case 'small':
+      $classes[] = 'col-md-2';
+      break;
+      case 'medium':
+      $classes[] = 'col-md-4';
+      break;
+      case 'large':
+      default;
+      $classes[] = 'col-md-8';
+    }
+    
 	  if ($image_size != $lastclass) {
+    	$index_of_type = 0;
+
       // start new row
       if ($index > 0) {
   	    $html[] = '</div>';
       }
-	    $html[] = '<div class="row post-media col-md-8">';
+	    $html[] = '<div class="row">';
 	  } else {
-	    if ($index == 3 && $image_size == 'small') {
-    	  $classes[] = 'right';
-	    }
+	    // keep a count of how many images are in this row
+	    ++$index_of_type;
+	    
+	    $box_is_ticked = false;
+
+    	if ($box_is_ticked) {
+    	  // close the row
+    	}
 	  }
 
 	  $lastclass = $image_size;
