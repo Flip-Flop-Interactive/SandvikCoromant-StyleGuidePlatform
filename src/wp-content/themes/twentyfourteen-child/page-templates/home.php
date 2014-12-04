@@ -24,7 +24,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> <?php echo get_featured_image_as_background( $post->ID ); ?>>
 
 	<!-- Modal: Search -->
 	<div class="modal fade" id="search" role="dialog" aria-hidden="true">
@@ -67,7 +67,7 @@
 		</div>
 	</header>
 
-	<div id="page" class="hfeed site" <?php echo get_featured_image_as_background( $post->ID ); ?>>
+	<div id="page" class="hfeed site">
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area">
 				<main id="main" class="site-main" role="main">
