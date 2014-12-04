@@ -210,7 +210,8 @@ module.exports = function(grunt) {
 
 		'prepare:development',
 		'bower_concat:development',
-		'ftp-deploy:acceptance',
+		'ftp-deploy:theme',
+		'ftp-deploy:plugin',
 	]);
 	
 	// optional overrides from local config file
