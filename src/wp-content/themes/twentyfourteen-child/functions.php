@@ -221,38 +221,28 @@ function sandvik_render_post_media($post_id) {
 	$classes = array();
 	$html = array();
 	$lastclass = '';
-	$newclass  = '';
+	$image_size  = '';
 	$index = 0;
 
 	foreach ($media as $index => $metadata) {
 	  $classes = array('post-image');
 
-	  switch ($metadata['image_size']) {
-	    case 'small':
-	      $newclass = 'col-md-2';
-	      break;
+    $image_size = $metadata['image_size'];
 
-	    case 'medium':
-	      $newclass = 'col-md-4';
-	      break;
-
-	    case 'large':
-	      $newclass = 'col-md-8';
-	    default:
-	  }
-
-	  $classes[] = $newclass;
-
-	  if ($newclass != $lastclass) {
+	  if ($image_size != $lastclass) {
       // start new row
       if ($index > 0) {
   	    $html[] = '</div>';
       }
-	    $html[] = '<div class="row post-media">';
+	    $html[] = '<div class="row post-media col-md-8">';
+	  } else {
+	    if ($index == 3 && $image_size == 'small') {
+    	  $classes[] = 'right';
+	    }
 	  }
 
-	  $classes[] = $metadata['image_size'];
-	  $lastclass = $newclass;
+	  $lastclass = $image_size;
+	  $classes[] = $image_size;
 
 	  $html[] = sprintf('<div class="%s">%s<div class="image-caption">%s</div></div>', join(' ', $classes), $metadata['image_tag'], $metadata['image_caption']);
 	}
