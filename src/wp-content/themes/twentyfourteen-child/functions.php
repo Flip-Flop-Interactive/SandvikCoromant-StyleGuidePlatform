@@ -172,6 +172,7 @@ function render_page_menu($category_id) {
 */
 function sandvik_media_data($post_id) {
   $data = array();
+  $thumbnail_size = array();
   
   $media = simple_fields_get_post_group_values($post_id, 'Media', true, 1);
   
@@ -181,8 +182,19 @@ function sandvik_media_data($post_id) {
       $image_size = $media['Image Thumbnail Size'][$index];
       $image_size = strtolower($image_size);
       
-      $size = $image_size == 'small' ? 'thumbnail' : $image_size;
-      $image_tag = wp_get_attachment_image($media_id, $size);
+      // specify image derivative sizes
+      switch ($image_size) {
+        case 'small':
+        $thumbnail_size = array(296, 183);
+        break;
+        case 'medium':
+        $thumbnail_size = array(612, 378);
+        break;
+        case 'large':
+        $thumbnail_size = array(1244, 768);
+        default:
+      }
+      $image_tag = wp_get_attachment_image($media_id, $thumbnail_size);
       
       $data[] = compact('image_tag', 'image_caption', 'image_size');
     }
