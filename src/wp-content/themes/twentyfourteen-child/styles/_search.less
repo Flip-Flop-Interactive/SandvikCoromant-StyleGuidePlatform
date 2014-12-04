@@ -83,12 +83,13 @@
 .search-field {
   padding: 1em;
   background-color: rgba(0, 0, 0, 0);
-  outline: 0;
-  border-width: 0 0 2px 0;
-  border-color: #000;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  appearance:none;
+  border-width: 0 0 2px 0 !important;
+  border-color: #000 !important;
+  
+  &:focus {
+    appearance: none;
+    outline: 0;
+  }
 }
 
 #secondary #primary-sidebar {
