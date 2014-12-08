@@ -52,10 +52,13 @@
 					<div class="col-md-2"><a href="/" title="Close" data-dismiss="modal"><i class="icon icon_close-icon"></i></a></div>
 				</div>
 			</div>
-
 			<?php echo render_header_menu(); ?>
-
 		</div>
+	</div>
+
+	<!-- Modal: Image -->
+	<div class="modal fade" id="image" role="dialog" aria-hidden="true">
+		<div class="modal-dialog"></div>
 	</div>
 
 	<header id="header" class="site-header headroom" role="banner">

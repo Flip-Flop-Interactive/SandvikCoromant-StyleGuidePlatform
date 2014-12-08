@@ -19,7 +19,11 @@
 			</div>
 			
 			<!-- media -->
-			<?php print sandvik_render_post_media(get_the_ID()); ?>
+			<?php echo render_row_two_small_images( get_the_ID() ); ?>
+			<?php echo render_row_four_small_images( get_the_ID() ); ?>
+			<?php echo render_row_two_medium_images( get_the_ID() ); ?>
+			<?php echo render_row_one_large_image( get_the_ID() ); ?>
+
 		</div>
 	</div><!-- .entry-content -->
 
