@@ -1,7 +1,49 @@
+#secondary {
+  display: none;
+}
 .site-content {
 
 	float: none;
 	margin-left: 0;
 	margin-right: 0;
 	width: auto;
+}
+.post-media {
+  float: none;
+  font-size: 0; // hack to remove spacing between inline-block elements
+  letter-spacing: 0px;
+  word-spacing: 0px;
+  padding: 0;
+}
+.post-image {
+/*  float: none;
+  display: inline-block;
+*/
+  vertical-align: top;
+  text-align: left;
+/*  padding: 0 10px 20px 0;
+  box-sizing: content-box;
+*/
+}
+/*.post-image.small {
+  width: 25%;
+}
+.post-image.medium {
+  width: 50%;
+}
+.post-image.large {
+  width: 100%;
+}
+.post-image.right {
+  padding-right: 0;
+}
+*/
+.image-caption {
+  font-size: round(@font-size-base * 0.7272);
+}
+.image-caption p {
+  margin: 0;
+}
+.clearfix {
+  clear: left;
 }

@@ -14,30 +14,6 @@
 
 <body <?php body_class(); ?>>
 
-	<!-- Modal: Search -->
-	<div class="modal fade" id="search" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-2">
-						<div class="logo"><a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><i class="icon icon_sandvik-coromant-icon"></i></a></div>
-					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-2"></div>
-					<div class="col-md-2"></div>
-					<div class="col-md-2"><a href="/" title="Close" data-dismiss="modal"><i class="icon icon_close-icon"></i></a></div>
-				</div>
-			</div>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-10">
-						<?php get_search_form( true ); ?>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- Modal: Menu -->
 	<div class="modal fade" id="menu" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
@@ -68,7 +44,7 @@
 					<div class="logo"><a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><i class="icon icon_sandvik-coromant-icon"></i></a></div>
 				</div>
 				<div class="col-md-2"></div>
-				<div class="col-md-2"><a href="/" title="Search" data-toggle="modal" data-target="#search"><i class="icon icon_search-icon"></i></a></div>
+				<div class="col-md-2"><a href="/?s=" title="Search"><i class="icon icon_search-icon"></i></a></div>
 				<div class="col-md-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Info' ) ) ); ?>" title="Info"><i class="icon icon_info-icon"></i></a></div>
 				<div class="col-md-2"><a href="/" title="Menu" data-toggle="modal" data-target="#menu"><i class="icon icon_menu-icon"></i></a></div>
 			</div>
