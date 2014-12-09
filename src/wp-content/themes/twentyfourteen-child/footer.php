@@ -3,7 +3,10 @@
 	</div><!-- .site-content -->
 
 	<?php
-		foreach( get_categories() as $all_cat ){ $cat_ids[] = $all_cat->term_id; }
+    $cat_ids = array();
+    foreach( get_categories() as $all_cat ){
+		  $cat_ids[] = $all_cat->term_id;
+		}
 		$this_cat = get_query_var( 'cat' );
 		$this_cat_position = array_search( $this_cat, $cat_ids );
 	?>
