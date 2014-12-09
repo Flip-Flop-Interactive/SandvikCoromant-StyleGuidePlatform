@@ -71,112 +71,96 @@ function livereload() {
 	}
 }
 
-function show_category() {
-	global $category, $categories;
-
-	$taxonomies = array(
-		'category',
-	);
-
-	$args = array(
-		'orderby' => 'id',
-	);
-
-	// default category
-	$category = 1;
-
-	/**
-	 * parse the current category from the URL
-	 */
-	if (is_category()) {
-		global $wp_query;
-
-		$category_info = $wp_query->get_queried_object();
-		if (!empty($category_info)) {
-			$category = $category_info->term_id;
-		}
-	}
-	else {
-		// extract category from last URL path component
-		// this dirty hack seems to be the way things are done in WordPress ;(
-		$path = $_SERVER['REQUEST_URI'];
-		$path = explode('/', $path);
-		$slug = array_pop($path);
-		if (empty($slug)) {
-			$slug = array_pop($path);
-		}
-		$category_info = get_category_by_path($slug);
-		if (!empty($category_info)) {
-			$category = $category_info->term_id;
-		}
-	}
-
-	$categories = get_terms($taxonomies, $args);
-
-	return $category;
-}
-
 /**
  * render header menu overlay
  */
 function render_header_menu() {
-	global $category, $categories;
+  $menu = array();
 
-	$html = '';
+  $args = array(
+  	'sort_order' => 'ASC',
+    'sort_column' => 'menu_order, post_title',
+  	'hierarchical' => 1,
+    'exclude' => '2',
+  	'include' => '',
+  	'meta_key' => '',
+  	'meta_value' => '',
+  	'authors' => '',
+  	'child_of' => 0,
+  	'parent' => -1,
+  	'exclude_tree' => '',
+  	'number' => '',
+  	'offset' => 0,
+  	'post_type' => 'page',
+  	'post_status' => 'publish'
+  ); 
+  
+  $pages = get_pages( $args );
+  
+  // transform the array of all page data into a hierarchical array of menu link metadata
+  foreach ($pages as $page_metadata) {
+    $menu[$page_metadata->post_parent][] = array(
+      'post_id'	=> $page_metadata->ID,
+      'post_title'	=> $page_metadata->post_title,
+      'post_name'	=> $page_metadata->post_name,
+      'post_parent'	=> $page_metadata->post_parent,
+      'guid'	=> $page_metadata->guid,
+    );
+  }
 
-	// /**
-	// * category menu
-	// */
-
-	foreach ($categories as $category_info) {
-		$selected = "";
-		if ($category_info->term_id == $category) {
-			$selected = 'active';
-		}
-		$link = get_category_link($category_info->term_id);
-
-	    $html .= '<div class="container"><div class="row">';
-	    $html .= sprintf('<div class="col-md-4"><a href="%s" class="%s"><h1>%s</h1></a></div>', $link, $selected, $category_info->name);
-	    $html .= sprintf('<div class="col-md-2">%s</div>', render_page_menu($category_info->term_id, $link));
-	    $html .= '</div></div>';
-	  }
-
-	return $html;
+	return sandvik_render_menu($menu);
 }
 
 /**
-  * render submenus within header menu overlay
- */
-function render_page_menu($category_id = 0, $category_link = '') {
-  $args = array(
-    'posts_per_page' => 20,
-    'category' => $category_id,
-    'orderby' => 'menu_order',
-    'post_type' => 'post',
-    'post_parent' => '',
-    'post_status' => 'publish',
-    'suppress_filters' => TRUE,
-  );
+* render HTML for a hierarchical menu structure
+*/
+function sandvik_render_menu(&$menu, $post_parent = 0) {
+	$html = '';
 
-  $html = '<ul class="menu">';
-
-  $myposts = get_posts($args);
-  foreach ($myposts as $post) {
-    setup_postdata($post);
-    //$html .= json_encode($post);
-    
-    //$link = $post->post_name;
-    $link = $category_link . '#post-' . $post->ID;
-
-    $html .= '<li class="menu-item">';
-    $html .= sprintf('<a class="menu-link" href="%s">%s</a>', $link, $post->post_title);
-    $html .= '</li>';
+  if (!isset($menu[$post_parent])) {
+    return $html;
   }
-  $html .= '</ul>';
 
-  wp_reset_postdata();
+  $current_page_id = get_the_ID();
+  $current_page_parents = get_post_ancestors($current_page_id);
+  
+  $classes = array('menu-link');
 
-  return $html;
+	// transform menu link metadata into HTML links
+  foreach ($menu[$post_parent] AS $link) {
+    if ($link['post_id'] == $current_page_id) {
+      $classes[] = 'active';
+    } else if (in_array($link['post_parent'], $current_page_parents)) {
+      $classes[] = 'active-trail';
+    }
+
+    $permalink = get_permalink($link['post_id']);
+    
+    if ($post_parent == 0) {
+      // open parent-level row
+      $html .= '<div class="container menu-items"><div class="row">';
+      
+      $html .= sprintf('<div class="col-md-4"><h1 class="menu-item-top"><a href="%s" class="%s">%s</a></h1></div>', $permalink, implode(' ', $classes), $link['post_title']);
+
+      if (isset($menu[$link['post_id']])) {
+        // render child links recursively
+        $submenu = sandvik_render_menu($menu, $link['post_id']);
+      } else {
+        $submenu = '';
+      }
+
+      $html .= sprintf('<div class="col-md-2 menu-items">%s</div><div class="col-md-2">&nbsp;</div>', $submenu);
+      
+      // close parent-level row
+      $html .= '</div></div>';
+      
+    } else {
+      // child row
+      $html .= sprintf('<div class="menu-item"><a href="%s" class="%s">%s</a></div>', $permalink, implode(' ', $classes), $link['post_title']);
+    }
+  }
+
+	return $html;
 }
 
 /**
@@ -402,9 +386,4 @@ function render_row_one_large_image( $id ){
 add_action('init', 'remove_twentyfourteen_scripts');
 add_action('wp_enqueue_scripts', 'twentyfourteen_child_scripts');
 add_action('wp_enqueue_scripts', 'livereload');
-
-/**
- * set globals
- */
-$category = show_category();
 
