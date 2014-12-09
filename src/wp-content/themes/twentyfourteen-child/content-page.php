@@ -10,32 +10,13 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<div class="entry-content">
+	<div class="entry-header">
 		<div class="container">
-		
 			<div class="row">
-				<div class="col-md-4"><?php the_title( '<h1 class="entry-title">', '</h1>' ); ?></div>
-				<div class="col-md-4"><?php the_content(); ?></div>
-				<div class="col-md-2"></div>
+				<div class="col-md-10"><?php the_title( '<h1 class="entry-title">', '</h1>' ); ?></div>
 			</div>
-			
-			<?php echo render_row_two_small_images( get_the_ID() ); ?>
-			<?php echo render_row_four_small_images( get_the_ID() ); ?>
-			<?php echo render_row_two_medium_images( get_the_ID() ); ?>
-			<?php echo render_row_one_large_image( get_the_ID() ); ?>
-
 		</div>
 	</div>
-
-	<footer class="entry-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10">
-					<?php edit_post_link( esc_html__( 'Edit', 'twentyfourteen' ), '<div class="edit-link">', '</div>' ); ?>
-				</div>
-			</div>
-		</div>
-	</footer>
 
 </article>
 
@@ -51,7 +32,7 @@
 <?php $chapters = get_pages( array( 'sort_order' => 'ASC', 'sort_column' => 'menu_order', 'parent' => get_the_ID() )); ?>
 <?php foreach( $chapters as $chapter ): ?>
 
-<article id="post-<?php echo $chapter->ID; ?>" <?php post_class(); ?>>
+<article id="post-<?php echo $chapter->ID; ?>" <?php post_class( 'chapter' ); ?>>
 
 	<div class="entry-content">
 		<div class="container">
@@ -69,16 +50,6 @@
 
 		</div>
 	</div>
-
-	<footer class="entry-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10">
-					<?php edit_post_link( esc_html__( 'Edit', 'twentyfourteen' ), '<div class="edit-link">', '</div>', $paragraph->ID ); ?>
-				</div>
-			</div>
-		</div>
-	</footer>
 
 </article>
 
@@ -112,16 +83,6 @@
 
 		</div>
 	</div>
-
-	<footer class="entry-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10">
-					<?php edit_post_link( esc_html__( 'Edit', 'twentyfourteen' ), '<div class="edit-link">', '</div>', $paragraph->ID ); ?>
-				</div>
-			</div>
-		</div>
-	</footer>
 
 </article>
 
