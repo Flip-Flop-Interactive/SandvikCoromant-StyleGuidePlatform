@@ -1,31 +1,31 @@
 <?php
 /**
-* content-page.php
-*
-* used to render an article on category pages and the front page.
-*/
-?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+ * The template used for displaying page content
+ *
+ * @package WordPress
+ * @subpackage Twenty_Fourteen
+ * @since Twenty Fourteen 1.0
+ */
+?>
 
-	<header class="entry-header"></header><!-- .entry-header -->
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<div class="entry-content">
 		<div class="container">
 		
-			<!-- text -->
 			<div class="row">
 				<div class="col-md-4"><?php the_title( '<h1 class="entry-title">', '</h1>' ); ?></div>
 				<div class="col-md-4"><?php the_content(); ?></div>
 				<div class="col-md-2"></div>
 			</div>
 			
-			<!-- media -->
 			<?php echo render_row_two_small_images( get_the_ID() ); ?>
 			<?php echo render_row_four_small_images( get_the_ID() ); ?>
 			<?php echo render_row_two_medium_images( get_the_ID() ); ?>
 			<?php echo render_row_one_large_image( get_the_ID() ); ?>
 
 		</div>
-	</div><!-- .entry-content -->
+	</div>
 
 	<footer class="entry-footer">
 		<div class="container">
@@ -35,6 +35,95 @@
 				</div>
 			</div>
 		</div>
-	</footer><!-- .entry-footer -->
+	</footer>
 
-</article><!-- #post-## -->
+</article>
+
+
+<?php
+/**
+ *
+ * Loop through all second level pages
+ *
+ */
+?>
+
+<?php $chapters = get_pages( array( 'sort_order' => 'ASC', 'sort_column' => 'menu_order', 'parent' => get_the_ID() )); ?>
+<?php foreach( $chapters as $chapter ): ?>
+
+<article id="post-<?php echo $chapter->ID; ?>" <?php post_class(); ?>>
+
+	<div class="entry-content">
+		<div class="container">
+		
+			<div class="row">
+				<div class="col-md-4"><h1 class="entry-title"><?php echo $chapter->post_title; ?></h1></div>
+				<div class="col-md-4"><?php echo $chapter->post_content; ?></div>
+				<div class="col-md-2"></div>
+			</div>
+			
+			<?php echo render_row_two_small_images( $chapter->ID ); ?>
+			<?php echo render_row_four_small_images( $chapter->ID ); ?>
+			<?php echo render_row_two_medium_images( $chapter->ID ); ?>
+			<?php echo render_row_one_large_image( $chapter->ID ); ?>
+
+		</div>
+	</div>
+
+	<footer class="entry-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10">
+					<?php edit_post_link( esc_html__( 'Edit', 'twentyfourteen' ), '<div class="edit-link">', '</div>', $paragraph->ID ); ?>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+</article>
+
+
+<?php
+/**
+ *
+ * Loop through all third level pages
+ *
+ */
+?>
+
+<?php $paragraphs = get_pages( array( 'sort_order' => 'ASC', 'sort_column' => 'menu_order', 'parent' => $chapter->ID )); ?>
+<?php foreach( $paragraphs as $paragraph ): ?>
+
+<article id="post-<?php echo $paragraph->ID; ?>" <?php post_class( 'paragraph' ); ?>>
+
+	<div class="entry-content">
+		<div class="container">
+		
+			<div class="row">
+				<div class="col-md-4"><h1 class="entry-title"><?php echo $paragraph->post_title; ?></h1></div>
+				<div class="col-md-4"><?php echo $paragraph->post_content; ?></div>
+				<div class="col-md-2"></div>
+			</div>
+			
+			<?php echo render_row_two_small_images( $paragraph->ID ); ?>
+			<?php echo render_row_four_small_images( $paragraph->ID ); ?>
+			<?php echo render_row_two_medium_images( $paragraph->ID ); ?>
+			<?php echo render_row_one_large_image( $paragraph->ID ); ?>
+
+		</div>
+	</div>
+
+	<footer class="entry-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10">
+					<?php edit_post_link( esc_html__( 'Edit', 'twentyfourteen' ), '<div class="edit-link">', '</div>', $paragraph->ID ); ?>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+</article>
+
+<?php endforeach; ?>
+<?php endforeach; ?>

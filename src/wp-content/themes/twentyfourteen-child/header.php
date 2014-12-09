@@ -14,7 +14,6 @@
 
 <body <?php body_class(); ?>>
 
-	<!-- Modal: Menu -->
 	<div class="modal fade" id="menu" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="container">
@@ -25,14 +24,13 @@
 					<div class="col-md-2"></div>
 					<div class="col-md-2"></div>
 					<div class="col-md-2"></div>
-					<div class="col-md-2"><a href="/" title="Close" data-dismiss="modal"><i class="icon icon_close-icon"></i></a></div>
+					<div class="col-md-2"><a href="#" title="Close" data-dismiss="modal"><i class="icon icon_close-icon"></i></a></div>
 				</div>
 			</div>
 			<?php echo render_header_menu(); ?>
 		</div>
 	</div>
 
-	<!-- Modal: Image -->
 	<div class="modal fade" id="image" role="dialog" aria-hidden="true">
 		<div class="modal-dialog"></div>
 	</div>
@@ -46,7 +44,7 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-2"><a href="/?s=" title="Search"><i class="icon icon_search-icon"></i></a></div>
 				<div class="col-md-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Info' ) ) ); ?>" title="Info"><i class="icon icon_info-icon"></i></a></div>
-				<div class="col-md-2"><a href="/" title="Menu" data-toggle="modal" data-target="#menu"><i class="icon icon_menu-icon"></i></a></div>
+				<div class="col-md-2"><a href="#" title="Menu" data-toggle="modal" data-target="#menu"><i class="icon icon_menu-icon"></i></a></div>
 			</div>
 		</div>
 	</header>

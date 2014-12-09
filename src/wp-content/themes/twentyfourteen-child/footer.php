@@ -18,7 +18,7 @@
 				<?php 
 					$prev_cat_position = $this_cat_position -1;
 					if( $prev_cat_position >= 0 ){ $prev_cat_id = array_slice( $cat_ids, $prev_cat_position, 1 );
-					echo '<a href="' . get_category_link( $prev_cat_id[ 0 ]) . '"><i class="icon icon_arrow-left-icon"></i> <label>' . get_category( $prev_cat_id[ 0 ])->name . '</label></a>'; }
+					echo '<a href="' . get_category_link( $prev_cat_id[ 0 ]) . '"><i class="icon icon_arrow-left-icon"></i> <span class="label">' . get_category( $prev_cat_id[ 0 ])->name . '</span></a>'; }
 				?>
 
 				</div>
@@ -27,11 +27,11 @@
 				<?php 
 					$next_cat_position = $this_cat_position +1;
 					if( $next_cat_position < count( $cat_ids )){ $next_cat_id = array_slice( $cat_ids, $next_cat_position, 1 );
-					echo '<a href="' . get_category_link( $next_cat_id[ 0 ]) . '"><i class="icon icon_arrow-right-icon"></i> <label>' . get_category( $next_cat_id[ 0 ])->name . '</label></a>'; }
+					echo '<a href="' . get_category_link( $next_cat_id[ 0 ]) . '"><i class="icon icon_arrow-right-icon"></i> <span class="label">' . get_category( $next_cat_id[ 0 ])->name . '</span></a>'; }
 				?>
 
 				</div>
-				<div class="col-md-2"><a href="/" title="To the top"><i class="icon icon_arrow-top-icon"></i> <label>To the top</label></a></div>
+				<div class="col-md-2"><a href="/" title="To the top"><i class="icon icon_arrow-top-icon"></i> <span class="label">To the top</span></a></div>
 			</div>
 		</div>
 	</footer>
