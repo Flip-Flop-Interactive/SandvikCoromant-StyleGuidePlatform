@@ -343,103 +343,104 @@ function sandvik_render_post_media($post_id) {
 /**
 * render row with two small images
 */
-function render_row_two_small_images( $post_id ){
+function render_row_two_small_images( $id ){
 
-	$image_1 = simple_fields_get_post_value( get_the_ID(), array( 5, 1 ), true, 1 );
-	$image_caption_1 = simple_fields_get_post_value( get_the_ID(), array( 5, 4 ), true, 1 );
+	$images   = [ array( 5, 1 ), array( 5, 2 )];
+	$captions = [ array( 5, 4 ), array( 5, 5 )];
+	$html     = '<div class="row">';
+	$html    .= '<div class ="col-md-4"></div>';
 
-	$image_2 = simple_fields_get_post_value( get_the_ID(), array( 5, 2 ), true, 1 );
-	$image_caption_2 = simple_fields_get_post_value( get_the_ID(), array( 5, 5 ), true, 1 );
+	for( $i = 0; $i < count( $images ); $i++ ) {
 
-	if( !empty( $image_1 ) && !empty( $image_2 )){
+		$image	 = simple_fields_get_post_value( $id, $images[ $i ], true, 1 );
+		$caption = simple_fields_get_post_value( $id, $captions[ $i ], true, 1 );
 
-		if( $image_1[ 'image' ][ 'small-image-size' ] != '' && $image_2[ 'image' ][ 'small-image-size' ] != '' ){
+		if( $image[ 'url' ] != '' ){
 
-			$html  = '<div class="row">';
-			$html .= '<div class="col-md-4"></div>';
-			$html .= sprintf( '<div class="col-md-2">%s<br/>%s</div>', $image_1[ 'image' ][ 'small-image-size' ], $image_caption_1 );
-			$html .= sprintf( '<div class="col-md-2">%s<br/>%s</div>', $image_2[ 'image' ][ 'small-image-size' ], $image_caption_2 );
-			$html .= '</div>';
-			return $html;
+			$html .= sprintf( '<div class="col-md-2"><a href="#" class="zoom-image" data-toggle="modal" data-target="#image" data-target-url="%s">%s</a><br/>%s</div>', $image[ 'url' ], $image[ 'image' ][ 'small-image-size' ], $caption );
 		}
 	}
+
+	$html .= '</div>';
+	return $html;
 }
+
+
 
 /**
 * render row with four small images
 */
-function render_row_four_small_images( $post_id ){
+function render_row_four_small_images( $id ){
 
-	$image_1 = simple_fields_get_post_value( get_the_ID(), array( 6, 1 ), true, 1 );
-	$image_caption_1 = simple_fields_get_post_value( get_the_ID(), array( 6, 2 ), true, 1 );
+	$images   = [ array( 6, 1 ), array( 6, 4 ), array( 6, 7 ), array( 6, 10 )];
+	$captions = [ array( 6, 2 ), array( 6, 5 ), array( 6, 8 ), array( 6, 11 )];
+	$html     = '<div class="row">';
 
-	$image_2 = simple_fields_get_post_value( get_the_ID(), array( 6, 4 ), true, 1 );
-	$image_caption_2 = simple_fields_get_post_value( get_the_ID(), array( 6, 5 ), true, 1 );
+	for( $i = 0; $i < count( $images ); $i++ ) {
 
-	$image_3 = simple_fields_get_post_value( get_the_ID(), array( 6, 7 ), true, 1 );
-	$image_caption_3 = simple_fields_get_post_value( get_the_ID(), array( 6, 8 ), true, 1 );
+		$image	 = simple_fields_get_post_value( $id, $images[ $i ], true, 1 );
+		$caption = simple_fields_get_post_value( $id, $captions[ $i ], true, 1 );
 
-	$image_4 = simple_fields_get_post_value( get_the_ID(), array( 6, 10 ), true, 1 );
-	$image_caption_4 = simple_fields_get_post_value( get_the_ID(), array( 6, 11 ), true, 1 );
+		if( $image[ 'url' ] != '' ){
 
-	if( !empty( $image_1 ) && !empty( $image_2 ) && !empty( $image_3 ) && !empty( $image_4 )){
-
-		if( $image_1[ 'image' ][ 'small-image-size' ] != '' && $image_2[ 'image' ][ 'small-image-size' ] != '' && $image_3[ 'image' ][ 'small-image-size' ] != '' && $image_4[ 'image' ][ 'small-image-size' ] != '' ){
-
-			$html  = '<div class="row">';
-			$html .= sprintf( '<div class="col-md-2">%s<br/>%s</div>', $image_1[ 'image' ][ 'small-image-size' ], $image_caption_1 );
-			$html .= sprintf( '<div class="col-md-2">%s<br/>%s</div>', $image_2[ 'image' ][ 'small-image-size' ], $image_caption_2 );
-			$html .= sprintf( '<div class="col-md-2">%s<br/>%s</div>', $image_3[ 'image' ][ 'small-image-size' ], $image_caption_3 );
-			$html .= sprintf( '<div class="col-md-2">%s<br/>%s</div>', $image_4[ 'image' ][ 'small-image-size' ], $image_caption_4 );
-			$html .= '</div>';
-			return $html;
+			$html .= sprintf( '<div class="col-md-2"><a href="#" data-toggle="modal" data-target="#image">%s</a><br/>%s</div>', $image[ 'image' ][ 'small-image-size' ], $caption );
 		}
 	}
+
+	$html .= '</div>';
+	return $html;
 }
+
+
 
 /**
 * render row with two medium images
 */
-function render_row_two_medium_images( $post_id ){
+function render_row_two_medium_images( $id ){
 
-	$image_1 = simple_fields_get_post_value( get_the_ID(), array( 7, 1 ), true, 1 );
-	$image_caption_1 = simple_fields_get_post_value( get_the_ID(), array( 7, 2 ), true, 1 );
+	$images   = [ array( 7, 1 ), array( 7, 4 )];
+	$captions = [ array( 7, 2 ), array( 7, 5 )];
+	$html     = '<div class="row">';
 
-	$image_2 = simple_fields_get_post_value( get_the_ID(), array( 7, 4 ), true, 1 );
-	$image_caption_2 = simple_fields_get_post_value( get_the_ID(), array( 7, 5 ), true, 1 );
+	for( $i = 0; $i < count( $images ); $i++ ) {
 
-	if( !empty( $image_1 ) && !empty( $image_2 )){
+		$image	 = simple_fields_get_post_value( $id, $images[ $i ], true, 1 );
+		$caption = simple_fields_get_post_value( $id, $captions[ $i ], true, 1 );
 
-		if( $image_1[ 'image' ][ 'medium-image-size' ] != '' && $image_2[ 'image' ][ 'medium-image-size' ] != '' ){
+		if( $image[ 'url' ] != '' ){
 
-			$html  = '<div class="row">';
-			$html .= sprintf( '<div class="col-md-4">%s<br/>%s</div>', $image_1[ 'image' ][ 'medium-image-size' ], $image_caption_1 );
-			$html .= sprintf( '<div class="col-md-4">%s<br/>%s</div>', $image_2[ 'image' ][ 'medium-image-size' ], $image_caption_2 );
-			$html .= '</div>';
-			return $html;
+			$html .= sprintf( '<div class="col-md-4">%s<br/>%s</div>', $image[ 'image' ][ 'medium-image-size' ], $caption );
 		}
 	}
+
+	$html .= '</div>';
+	return $html;
 }
+
 
 
 /**
 * render row with one large image
 */
-function render_row_one_large_image( $post_id ){
+function render_row_one_large_image( $id ){
 
-	$image = simple_fields_get_post_value( get_the_ID(), array( 8, 1 ), true, 1 );
-	$image_caption = simple_fields_get_post_value( get_the_ID(), array( 8, 2 ), true, 1 );
+	$images   = [ array( 8, 1 )];
+	$captions = [ array( 8, 2 )];
+	$html     = '<div class="row">';
 
-	if( !empty( $image )){
+	for( $i = 0; $i < count( $images ); $i++ ) {
 
-		if( $image[ 'image' ][ 'large-image-size' ] != '' ){
+		$image	 = simple_fields_get_post_value( $id, $images[ $i ], true, 1 );
+		$caption = simple_fields_get_post_value( $id, $captions[ $i ], true, 1 );
 
-			$html  = '<div class="row">';
-			$html .= sprintf( '<div class="col-md-8">%s<br/>%s</div>', $image[ 'image' ][ 'large-image-size' ], $image_caption );
-			$html .= '</div>';
-			return $html;
+		if( $image[ 'url' ] != '' ){
+
+			$html .= sprintf( '<div class="col-md-8">%s<br/>%s</div>', $image[ 'image' ][ 'large-image-size' ], $caption );
 		}
 	}
+
+	$html .= '</div>';
+	return $html;
 }
 
 function mydie($obj) {

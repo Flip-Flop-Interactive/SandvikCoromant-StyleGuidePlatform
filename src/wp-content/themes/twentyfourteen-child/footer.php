@@ -17,7 +17,8 @@ $pager_data = sandvik_get_top_level_pager();
             $link = $pager_data['previous'];
             $permalink = get_permalink($link['post_id']);
             $title = $link['post_title'];
-					  echo sprintf('<a href="%s"><i class="icon icon_arrow-left-icon"></i> <label>%s</label></a>', $permalink, $title);
+					  echo sprintf('<a href="%s"><i class="icon icon_arrow-left-icon"></i> <span class="label">%s</span></a>', $permalink, $title);
+					  
 				  }
 				?></div>
 				<div class="col-md-2"><?php 
@@ -25,10 +26,12 @@ $pager_data = sandvik_get_top_level_pager();
               $link = $pager_data['next'];
               $permalink = get_permalink($link['post_id']);
               $title = $link['post_title'];
-  					  echo sprintf('<a href="%s"><i class="icon icon_arrow-right-icon"></i> <label>%s</label></a>', $permalink, $title);
+  					  echo sprintf('<a href="%s"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a>', $permalink, $title);
   				  }
 				?></div>
-				<div class="col-md-2"><a href="/" title="To the top"><i class="icon icon_arrow-top-icon"></i> <label>To the top</label></a></div>
+
+        <div class="col-md-2"><a href="/" title="To the top"><i class="icon icon_arrow-top-icon"></i> <span class="label">To the top</span></a></div>
+        
 			</div>
 		</div>
 	</footer>
