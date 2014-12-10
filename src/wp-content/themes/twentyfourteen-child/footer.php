@@ -1,40 +1,37 @@
+<?php
 
+// find index of $current_page_parent in $pages
+$pager_data = sandvik_get_top_level_pager();
+
+?>
 	    </div>
 	</div><!-- .site-content -->
-
-	<?php
-    $cat_ids = array();
-    foreach( get_categories() as $all_cat ){
-		  $cat_ids[] = $all_cat->term_id;
-		}
-		$this_cat = get_query_var( 'cat' );
-		$this_cat_position = array_search( $this_cat, $cat_ids );
-	?>
 
 	<footer id="footer" class="site-footer headroom" role="contentinfo">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-2"></div>
-				<div class="col-md-2">
-					
-				<?php 
-					$prev_cat_position = $this_cat_position -1;
-					if( $prev_cat_position >= 0 ){ $prev_cat_id = array_slice( $cat_ids, $prev_cat_position, 1 );
-					echo '<a href="' . get_category_link( $prev_cat_id[ 0 ]) . '"><i class="icon icon_arrow-left-icon"></i> <span class="label">' . get_category( $prev_cat_id[ 0 ])->name . '</span></a>'; }
-				?>
+				<div class="col-md-2"><?php 
+				  if (!empty($pager_data) && !empty($pager_data['previous']) && !empty($pager_data['previous']['post_title'])) {
+            $link = $pager_data['previous'];
+            $permalink = get_permalink($link['post_id']);
+            $title = $link['post_title'];
+					  echo sprintf('<a href="%s"><i class="icon icon_arrow-left-icon"></i> <span class="label">%s</span></a>', $permalink, $title);
+					  
+				  }
+				?></div>
+				<div class="col-md-2"><?php 
+  				  if (!empty($pager_data) && !empty($pager_data['next']) && !empty($pager_data['next']['post_title'])) {
+              $link = $pager_data['next'];
+              $permalink = get_permalink($link['post_id']);
+              $title = $link['post_title'];
+  					  echo sprintf('<a href="%s"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a>', $permalink, $title);
+  				  }
+				?></div>
 
-				</div>
-				<div class="col-md-2">
-					
-				<?php 
-					$next_cat_position = $this_cat_position +1;
-					if( $next_cat_position < count( $cat_ids )){ $next_cat_id = array_slice( $cat_ids, $next_cat_position, 1 );
-					echo '<a href="' . get_category_link( $next_cat_id[ 0 ]) . '"><i class="icon icon_arrow-right-icon"></i> <span class="label">' . get_category( $next_cat_id[ 0 ])->name . '</span></a>'; }
-				?>
-
-				</div>
-				<div class="col-md-2"><a href="/" title="To the top"><i class="icon icon_arrow-top-icon"></i> <span class="label">To the top</span></a></div>
+        <div class="col-md-2"><a href="/" title="To the top"><i class="icon icon_arrow-top-icon"></i> <span class="label">To the top</span></a></div>
+        
 			</div>
 		</div>
 	</footer>

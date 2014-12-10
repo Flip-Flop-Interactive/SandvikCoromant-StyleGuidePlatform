@@ -1,5 +1,7 @@
 <?php
 
+define('PAGE_TOP_LEVEL_ID', 0);
+
 if ( !function_exists( 'twentyfourteen_child_setup' ) ) :
 function twentyfourteen_child_setup() {
 
@@ -75,31 +77,55 @@ function livereload() {
  * render header menu overlay
  */
 function render_header_menu() {
-	$menu = array();
+	$menu = sandvik_get_page_hierarchy();
 
-	$args = array(
-		'sort_order' => 'ASC',
-		'sort_column' => 'menu_order, post_title',
-		'hierarchical' => 1,
-		'exclude' => '2',
-		'include' => '',
-		'meta_key' => '',
-		'meta_value' => '',
-		'authors' => '',
-		'child_of' => 0,
-		'parent' => -1,
-		'exclude_tree' => '',
-		'number' => '',
-		'offset' => 0,
-		'post_type' => 'page',
-		'post_status' => 'publish'
-	); 
+	return sandvik_render_menu($menu);
+}
+
+/**
+* get link metadata for page hierarchy
+* @returns array
+*/
+function sandvik_get_page_hierarchy($parent_id = -1) {
+	// store in static cache for performance
+	static $menu = array();
+	if ( empty( $menu[$parent_id] ) ) {
+		
+		$args = array(
+			'sort_order' => 'ASC',
+			'sort_column' => 'menu_order, post_title',
+			'hierarchical' => 1,
+			'exclude' => '2',
+			'include' => '',
+			'meta_key' => '',
+			'meta_value' => '',
+			'authors' => '',
+			'child_of' => 0,
+			'parent' => $parent_id,
+			'exclude_tree' => '',
+			'number' => '',
+			'offset' => 0,
+			'post_type' => 'page',
+			'post_status' => 'publish'
+		);
+
+		$pages = get_pages( $args );
+
+		// transform the array of all page data into a hierarchical array of menu link metadata
+		$menu[$parent_id] = sandvik_get_page_metadata($pages);
+	}
 	
-	$pages = get_pages( $args );
-	
-	// transform the array of all page data into a hierarchical array of menu link metadata
+	return $menu[$parent_id];
+}
+
+/**
+* parse page data into a useful array
+* @returns array
+*/
+function sandvik_get_page_metadata(&$pages) {
+	$arr = array();
 	foreach ($pages as $page_metadata) {
-		$menu[$page_metadata->post_parent][] = array(
+		$arr[$page_metadata->post_parent][$page_metadata->ID] = array(
 			'post_id'	=> $page_metadata->ID,
 			'post_title'	=> $page_metadata->post_title,
 			'post_name'	=> $page_metadata->post_name,
@@ -107,8 +133,8 @@ function render_header_menu() {
 			'guid'	=> $page_metadata->guid,
 		);
 	}
-
-	return sandvik_render_menu($menu);
+	
+	return $arr;
 }
 
 /**
@@ -134,9 +160,9 @@ function sandvik_render_menu(&$menu, $post_parent = 0) {
 			$classes[] = 'active-trail';
 		}
 
-		$permalink = get_permalink($link['post_id']);
-		
-		if ($post_parent == 0) {
+		if ($post_parent == PAGE_TOP_LEVEL_ID) {
+			$permalink = get_permalink($link['post_id']);
+
 			// open parent-level row
 			$html .= '<div class="container menu-items"><div class="row">';
 			
@@ -155,6 +181,8 @@ function sandvik_render_menu(&$menu, $post_parent = 0) {
 			$html .= '</div></div>';
 			
 		} else {
+			$permalink = get_permalink($link['post_parent']) . '#post-' . $link['post_id'];
+
 			// child row
 			$html .= sprintf('<div class="menu-item"><a href="%s" class="%s">%s</a></div>', $permalink, implode(' ', $classes), $link['post_title']);
 		}
@@ -162,6 +190,45 @@ function sandvik_render_menu(&$menu, $post_parent = 0) {
 
 	return $html;
 }
+
+/**
+*
+*/
+function sandvik_get_top_level_pager() {
+	$current_page_id = get_the_ID();
+	$current_page_parents = get_post_ancestors($current_page_id);
+	$current_page_parent = reset($current_page_parents);
+
+	if (empty($current_page_parent)) {
+		$current_page_parent = $current_page_id;
+	}
+
+	// fetch metadata for top-level pages
+	$pages = sandvik_get_page_hierarchy(PAGE_TOP_LEVEL_ID);
+
+	// reindex top-level array from 0
+	$pages = array_values(reset($pages));
+	
+	foreach ($pages AS $offset => $page_metadata) {
+		if ($page_metadata['post_id'] == $current_page_id) {
+			
+			if ($offset > 0) {
+				$previous = array_slice($pages, $offset - 1, 1);
+				$previous = reset($previous); // we just want the element
+			} else {
+				$previous = array();
+			}
+			$next = array_slice($pages, $offset + 1, 1);
+			$next = reset($next); // we just want the element
+
+			return compact('previous', 'next');
+		}
+	}
+	
+	return array(); // no results
+}
+
+
 
 
 /**
@@ -290,11 +357,16 @@ function render_row_columns( $rows, $limit, $classes, $image_size ){
 
 
 
+function mydie( $obj ){
+
+	die( sprintf( '<pre style="%s">%s</pre>', "width:100%;background-color:#fff;color:#111;", json_encode( $obj, JSON_PRETTY_PRINT )));
+}
+
 
 /**
  * register hooks
  */
-add_action('init', 'remove_twentyfourteen_scripts');
-add_action('wp_enqueue_scripts', 'twentyfourteen_child_scripts');
-add_action('wp_enqueue_scripts', 'livereload');
+add_action( 'init', 'remove_twentyfourteen_scripts' );
+add_action( 'wp_enqueue_scripts', 'twentyfourteen_child_scripts' );
+add_action( 'wp_enqueue_scripts', 'livereload' );
 
