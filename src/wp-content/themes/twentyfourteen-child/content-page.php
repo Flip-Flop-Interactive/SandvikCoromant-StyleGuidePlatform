@@ -39,14 +39,13 @@
 		
 			<div class="row">
 				<div class="col-md-4"><h1 class="entry-title"><?php echo $chapter->post_title; ?></h1></div>
-				<div class="col-md-4"><?php echo $chapter->post_content; ?></div>
+				<div class="col-md-4"><?php echo wpautop( $chapter->post_content ); ?></div>
 				<div class="col-md-2"></div>
 			</div>
 			
-			<?php echo render_row_two_small_images( $chapter->ID ); ?>
-			<?php echo render_row_four_small_images( $chapter->ID ); ?>
-			<?php echo render_row_two_medium_images( $chapter->ID ); ?>
-			<?php echo render_row_one_large_image( $chapter->ID ); ?>
+			<?php echo render_small_images( $chapter->ID ); ?>
+			<?php echo render_medium_images( $chapter->ID ); ?>
+			<?php echo render_large_images( $chapter->ID ); ?>
 
 		</div>
 	</div>
@@ -72,14 +71,13 @@
 		
 			<div class="row">
 				<div class="col-md-4"><h1 class="entry-title"><?php echo $paragraph->post_title; ?></h1></div>
-				<div class="col-md-4"><?php echo $paragraph->post_content; ?></div>
+				<div class="col-md-4"><?php echo wpautop( $paragraph->post_content ); ?></div>
 				<div class="col-md-2"></div>
 			</div>
 			
-			<?php echo render_row_two_small_images( $paragraph->ID ); ?>
-			<?php echo render_row_four_small_images( $paragraph->ID ); ?>
-			<?php echo render_row_two_medium_images( $paragraph->ID ); ?>
-			<?php echo render_row_one_large_image( $paragraph->ID ); ?>
+			<?php echo render_small_images( $paragraph->ID ); ?>
+			<?php echo render_medium_images( $paragraph->ID ); ?>
+			<?php echo render_large_images( $paragraph->ID ); ?>
 
 		</div>
 	</div>

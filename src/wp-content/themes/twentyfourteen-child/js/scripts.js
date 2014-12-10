@@ -35,7 +35,7 @@
 
 
 	// Get dynamic data within Image modal and display
-	$( '.zoom-image' ).click( function(){
+	$( '.entry-image' ).click( function(){
 
 		var target 	= $( this ).data( 'target-url' );
 		var image 	= $( '<img/>' );
