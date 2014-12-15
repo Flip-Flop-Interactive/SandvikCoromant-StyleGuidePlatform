@@ -40,7 +40,7 @@
 			<div class="row">
 				<div class="col-md-4"><h1 class="entry-title"><?php echo $chapter->post_title; ?></h1></div>
 				<div class="col-md-4"><?php echo wpautop( $chapter->post_content ); ?></div>
-				<div class="col-md-2"></div>
+				<div class="col-md-2"><?php echo render_download( $chapter->ID ); ?></div>
 			</div>
 			
 			<?php echo render_small_images( $chapter->ID ); ?>
@@ -72,7 +72,7 @@
 			<div class="row">
 				<div class="col-md-4"><h1 class="entry-title"><?php echo $paragraph->post_title; ?></h1></div>
 				<div class="col-md-4"><?php echo wpautop( $paragraph->post_content ); ?></div>
-				<div class="col-md-2"></div>
+				<div class="col-md-2"><?php echo render_download( $paragraph->ID ); ?></div>
 			</div>
 			
 			<?php echo render_small_images( $paragraph->ID ); ?>

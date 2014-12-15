@@ -18,13 +18,13 @@
 		<div class="modal-dialog">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 						<div class="logo"><a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><i class="icon icon_sandvik-coromant-icon"></i></a></div>
 					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-2"></div>
-					<div class="col-md-2"></div>
-					<div class="col-md-2"><a href="#" title="Close" data-dismiss="modal"><i class="icon icon_close-icon"></i></a></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" title="Close" data-dismiss="modal"><i class="icon icon_close-icon"></i></a></div>
 				</div>
 			</div>
 			<?php echo render_header_menu(); ?>
@@ -38,13 +38,13 @@
 	<header id="header" class="site-header headroom" role="banner">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 					<div class="logo"><a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><i class="icon icon_sandvik-coromant-icon"></i></a></div>
 				</div>
-				<div class="col-md-2"></div>
-				<div class="col-md-2"><a href="/?s=" title="Search"><i class="icon icon_search-icon"></i></a></div>
-				<div class="col-md-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Info' ) ) ); ?>" title="Info"><i class="icon icon_info-icon"></i></a></div>
-				<div class="col-md-2"><a href="#" title="Menu" data-toggle="modal" data-target="#menu"><i class="icon icon_menu-icon"></i></a></div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="/?s=" title="Search"><i class="icon icon_search-icon"></i></a></div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Info' ) ) ); ?>" title="Info"><i class="icon icon_info-icon"></i></a></div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" title="Menu" data-toggle="modal" data-target="#menu"><i class="icon icon_menu-icon"></i></a></div>
 			</div>
 		</div>
 	</header>

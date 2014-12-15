@@ -2,15 +2,19 @@
 
 define('PAGE_TOP_LEVEL_ID', 0);
 
-if ( !function_exists( 'twentyfourteen_child_setup' ) ) :
-function twentyfourteen_child_setup() {
-
-	add_image_size( 'small-image-size', 296, 296, true );
-	add_image_size( 'medium-image-size', 612, 400, true );
-	add_image_size( 'large-image-size', 1244, 720, true );
+/**
+ * Remove all unnecessary image sizes from media library
+ */
+function filter_image_sizes( $sizes ){
+		
+	unset( $sizes[ 'thumbnail' ]);
+	unset( $sizes[ 'medium' ]);
+	unset( $sizes[ 'large' ]);
+	unset( $sizes[ 'post-thumbnail' ]);
+	unset( $sizes[ 'twentyfourteen-full-width' ]);
+	return $sizes;
 }
-endif; // twentyfourteen_child_setup
-add_action( 'after_setup_theme', 'twentyfourteen_child_setup' );
+add_filter( 'intermediate_image_sizes_advanced', 'filter_image_sizes' );
 
 
 /**
@@ -65,10 +69,13 @@ function twentyfourteen_child_scripts() {
  * enable livereload on localhost
  */
 function livereload() {
-	if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
-		if (gethostname() != 'monarch.local') {
-			wp_register_script('livereload', 'http://localhost:35729/livereload.js?snipver=1', NULL, FALSE, TRUE);
-			wp_enqueue_script('livereload');
+
+	if( in_array( $_SERVER[ 'REMOTE_ADDR' ], array( '127.0.0.1', '::1' ))){
+
+		if( gethostname() != 'monarch.local' ){
+
+			wp_register_script( 'livereload', 'http://localhost:35729/livereload.js?snipver=1', NULL, FALSE, TRUE );
+			wp_enqueue_script( 'livereload' );
 		}
 	}
 }
@@ -77,8 +84,8 @@ function livereload() {
  * render header menu overlay
  */
 function render_header_menu() {
-	$menu = sandvik_get_page_hierarchy();
 
+	$menu = sandvik_get_page_hierarchy();
 	return sandvik_render_menu($menu);
 }
 
@@ -86,7 +93,8 @@ function render_header_menu() {
 * get link metadata for page hierarchy
 * @returns array
 */
-function sandvik_get_page_hierarchy($parent_id = -1) {
+function sandvik_get_page_hierarchy( $parent_id = -1 ){
+
 	// store in static cache for performance
 	static $menu = array();
 	if ( empty( $menu[$parent_id] ) ) {
@@ -231,7 +239,7 @@ function sandvik_get_top_level_pager() {
 
 
 
-/**
+/*
 * get featured image url
 */
 function get_featured_image_as_background( $post_id ) {
@@ -242,7 +250,7 @@ function get_featured_image_as_background( $post_id ) {
 
 
 
-/**
+/*
 * Render multipe rows with multiple small sized images and additional captions
 */
 
@@ -250,16 +258,15 @@ function render_small_images( $id ){
 
 	$limit 		= 4;
 	$classes 	= "col-md-2";
-	$image_size = "small-image-size";
 	$collection = simple_fields_fieldgroup( 'small_images', $id );
 	$rows 		= get_collection_in_rows( $collection, $limit );
-	$html 		= render_row_columns( $rows, $limit, $classes, $image_size );
+	$html 		= render_row_columns( $rows, $limit, $classes );
 
 	return $html;
 }
 
 
-/**
+/*
 * Render multipe rows with multiple medium sized images and additional captions
 */
 
@@ -267,16 +274,15 @@ function render_medium_images( $id ){
 
 	$limit 		= 2;
 	$classes 	= "col-md-4";
-	$image_size = "medium-image-size";
 	$collection = simple_fields_fieldgroup( 'medium_images', $id );
 	$rows 		= get_collection_in_rows( $collection, $limit );
-	$html 		= render_row_columns( $rows, $limit, $classes, $image_size );
+	$html 		= render_row_columns( $rows, $limit, $classes );
 
 	return $html;
 }
 
 
-/**
+/*
 * Render multipe rows with multiple large sized images and additional captions
 */
 
@@ -284,22 +290,21 @@ function render_large_images( $id ){
 
 	$limit 		= 1;
 	$classes 	= "col-md-8";
-	$image_size = "large-image-size";
 	$collection = simple_fields_fieldgroup( 'large_images', $id );
 	$rows 		= get_collection_in_rows( $collection, $limit );
-	$html 		= render_row_columns( $rows, $limit, $classes, $image_size );
+	$html 		= render_row_columns( $rows, $limit, $classes );
 
 	return $html;	
 }
 
 
-/**
+/*
 * Nest an array within a new array within params limit increments
 */
 
 function get_collection_in_rows( $collection, $limit ){
 
-	$rows	= [];
+	$rows  = [];
 	$index = 0;
 	$count = 0;
 
@@ -317,11 +322,11 @@ function get_collection_in_rows( $collection, $limit ){
 }
 
 
-/**
+/*
 * Render the actual rows and columns with spacing to the right side
 */
 
-function render_row_columns( $rows, $limit, $classes, $image_size ){
+function render_row_columns( $rows, $limit, $classes ){
 
 	$html = '';
 
@@ -337,13 +342,11 @@ function render_row_columns( $rows, $limit, $classes, $image_size ){
 
 		foreach( $row as $column ){
 
-
-			$html .= sprintf( '<div class="%s">', $classes );
-			$html .= sprintf( '<a href="#" class="entry-image" data-toggle="modal" data-target="#image" data-target-url="%s">%s</a>', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'image' ][ $image_size ]);
+			$html .= sprintf( '<div class="%s">%s', $classes, $column[ 'image' ][ 'link' ][ 'full' ]);
 
 			if( $column[ 'caption' ] != '' ){
 
-				$html .= sprintf( '<p class="entry-image-caption">%s</p>', nl2br( $column[ 'caption' ]));
+				$html .= sprintf( '<p class="entry-caption">%s</p>', nl2br( $column[ 'caption' ]));
 			}
 
 			$html .= '</div>';
@@ -357,10 +360,31 @@ function render_row_columns( $rows, $limit, $classes, $image_size ){
 
 
 
+/*
+* Render the download section within a page, chapter or paragraph
+*/
+
+function render_download( $id ){
+
+	$download = simple_fields_value( 'file', $id );
+
+	if( $download ){
+
+		$html = sprintf( '<a href="%s" target="_blank" class="hidden-sm hidden-xs"><i class="icon icon_download-icon"></i> <span class="label">Download Section</span></a>', $download[ 'url' ]);
+		return $html;		
+	}
+}
+
+
+
+/*
+ * Don't know what this does..:S
+ */
 function mydie( $obj ){
 
 	die( sprintf( '<pre style="%s">%s</pre>', "width:100%;background-color:#fff;color:#111;", json_encode( $obj, JSON_PRETTY_PRINT )));
 }
+
 
 
 /**
