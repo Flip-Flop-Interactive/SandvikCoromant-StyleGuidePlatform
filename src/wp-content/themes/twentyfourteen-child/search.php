@@ -12,6 +12,8 @@ get_header(); ?>
 	<section id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 
+			<?php if( isset( $_GET[ 's' ]) && empty( $_GET[ 's' ])){ ?>
+
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10">
@@ -19,8 +21,6 @@ get_header(); ?>
 					</div>
 				</div>
 			</div>
-
-			<?php if (isset($_GET['s']) && empty($_GET['s'])){ ?>
 
 			<div class="container">
 				<div class="row">
@@ -35,7 +35,9 @@ get_header(); ?>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10">
-						<h1><?php printf( __( 'Search Results for: %s', 'twentyfourteen' ), get_search_query() ); ?></h1>
+						<div class="search-result-title">
+							<h1><?php printf( __( 'Search Results for: %s', 'twentyfourteen' ), get_search_query() ); ?></h1>
+						</div>
 					</div>
 				</div>
 			</div>

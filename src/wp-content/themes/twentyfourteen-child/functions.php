@@ -172,7 +172,7 @@ function sandvik_render_menu(&$menu, $post_parent = 0) {
 			$permalink = get_permalink($link['post_id']);
 
 			// open parent-level row
-			$html .= '<div class="container menu-items"><div class="row">';
+			$html .= '<div class="container menu-items"><hr/><div class="row">';
 			
 			$html .= sprintf('<div class="col-md-4"><h1 class="menu-item-top"><a href="%s" class="%s">%s</a></h1></div>', $permalink, implode(' ', $classes), $link['post_title']);
 

@@ -43,9 +43,10 @@
 				</div>
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="/?s=" title="Search"><i class="icon icon_search-icon"></i></a></div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Info' ) ) ); ?>" title="Info"><i class="icon icon_info-icon"></i></a></div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Information' ) ) ); ?>" title="Info"><i class="icon icon_info-icon"></i></a></div>
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" title="Menu" data-toggle="modal" data-target="#menu"><i class="icon icon_menu-icon"></i></a></div>
 			</div>
+			<hr/>
 		</div>
 	</header>
 

@@ -9,58 +9,83 @@
 				color: @gray;
 				text-transform: none;
 			}
+
+			.search-form {
+
+				padding-top: 30px;
+				padding-bottom: 19px;
+				border-bottom-width: 2px;
+				border-bottom-style: solid;
+				border-bottom-color: @black;
+
+				.search-field {
+
+					padding: 0;
+					font-size: @font-size-h1;
+					font-weight: @headings-font-weight;
+					line-height: @headings-line-height;
+
+					background-color: transparent;
+					border: none;
+					
+					&:focus {
+
+						appearance: none;
+						outline: 0;
+					}
+				}
+			}
+
+			.search-result-title {
+
+				margin-bottom: 30px;
+				padding-top: 30px;
+				padding-bottom: 19px;
+				border-bottom-width: 2px;
+				border-bottom-style: solid;
+				border-bottom-color: @black;
+
+				h1 {
+					margin: 0;
+					color: @black;
+				}
+			}
 		}
 	}
 }
 
-.search-field {
-  &:extend(h1);
-  
-  background-color: rgba(0, 0, 0, 0);
-  border-width: 0 0 2px 0 !important;
-  border-color: #000 !important;
-  margin-top: 6px;
-  
-  &:focus {
-    appearance: none;
-    outline: 0;
-  }
-}
 
-#secondary #primary-sidebar {
-  display: none;
-}
 
 /**
 * search autocomplete
 */
 .ui-autocomplete {
-  border: 0;
-  z-index: 1100;
+	border: 0;
+	z-index: 1100;
 }
 .ui-widget-content {
-  background-image: none !important;
-  background-color: rgba(0, 0, 0, 0) !important;
+	background-image: none !important;
+	background-color: rgba(0, 0, 0, 0) !important;
 }
 .ui-menu .ui-menu-item {
-  background-color: @white;
+	background-color: @white;
 }
 .ui-menu-item a {
-  &:extend(h1);
+	&:extend(h1);
 
-  color: @gray;
-  font-weight: 400;
-  padding: 2px 6px;
-  line-height: 1;
-  padding-top: 15px;
-  padding-bottom: 0px;
-  margin-top: 0;
-  margin-bottom: 0;
+	color: @gray;
+	font-weight: 400;
+	padding: 2px 6px;
+	line-height: 1;
+	padding-top: 15px;
+	padding-bottom: 0px;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-  color: @brand-primary;
-  background: @white none;
-  border: 0 !important;
-  margin: 0 !important;
+	color: @brand-primary;
+	background: @white none;
+	border: 0 !important;
+	margin: 0 !important;
 	cursor: pointer;
 }
