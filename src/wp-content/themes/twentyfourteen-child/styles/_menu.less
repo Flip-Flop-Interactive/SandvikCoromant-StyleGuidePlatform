@@ -9,83 +9,88 @@
 
 		.container {
 
-			margin-bottom: 60px;
+			margin-bottom: 55px;
 
 			hr {
-				margin-bottom: 30px;
+				margin-top: 25px;
+				margin-bottom: 17px;
 				border-top-color: @brand-primary;
 			}
 
 			.row {
 
-				.logo {
-					display: inline-block;
-					padding: 15px;
-					background-color: @brand-primary;
-
-					a {
-						.icon {
-							color: @brand-secondary;
-							margin-top: 49px;
-						}
-					}
-				}
-
 				a {
-					outline: none;
-
-					h1, .icon {
-
-						color: @brand-primary;
-					}
-
-					h1 {
-						margin-top: 0;
-					}
-
 					.icon {
-						margin-top: 71px;
-						font-size: 29px;
+						color: @brand-primary;
+						margin-top: 76px;
+						font-size: 28px;
 					}
 
 					&:hover {
-
-						color: @gray;
-
-						h1, .icon {
+						.icon {
 							color: @gray;
 						}
 					}
 
 					&:focus {
-
-						color: @brand-primary;
-
-						h1, .icon {
+						.icon {
 							color: @brand-primary;
 						}
 					}
-				}
 
-				.menu {
+					.logo {
+						display: inline-block;
+						padding: 72px 15px 15px;
+						background-color: @brand-primary;
+						border-bottom-left-radius: 2px;
+						border-bottom-right-radius: 2px;
 
-					margin: 0;
-				}
-			}
-
-			&:first-child {
-
-				margin-bottom: 30px;
-				border-top: none;
-
-				.row {
-					padding: 0;
+						.icon {
+							color: @brand-secondary;
+							font-size: 33px;
+							margin-top: 0;
+						}
+					}
 				}
 			}
 		}
-	}
-}
 
-.menu-item-top {
-  margin: 0;
+		.menu-header {
+
+			margin-bottom: 0;
+		}
+
+		.menu-items {
+
+			.menu-item-top {
+
+				margin: 0;
+			}
+
+			.menu-item-top, .menu-item-list {
+
+				.menu-item {
+
+					color: @brand-primary;
+					
+					&:hover {
+
+						color: @gray;
+					}
+
+					&:focus {
+
+						color: @brand-primary;
+					}
+				}
+			}
+
+			.menu-item-list {
+
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+		}
+	}
 }

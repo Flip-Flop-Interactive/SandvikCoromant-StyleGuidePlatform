@@ -81,13 +81,85 @@ function livereload() {
 }
 
 /**
- * render header menu overlay
+ * render menu - to be used on main page and overlay
  */
-function render_header_menu() {
+function render_menu() {
 
-	$menu = sandvik_get_page_hierarchy();
-	return sandvik_render_menu($menu);
+	$arguments = array(
+		'menu' 			  => 'Navigation',
+		'container_class' => 'container menu-items',
+		'items_wrap'	  => '%3$s',
+		'depth'			  => 0,
+		'walker'		  => new Menu_Walker()
+	);
+	return wp_nav_menu( $arguments );
 }
+
+/**
+ * Custom Walker_Nav_Menu to walk through navigation setup in back-end
+ */
+class Menu_Walker extends Walker_Nav_Menu {
+
+	public function start_lvl( &$output, $depth = 0, $args = array() ){
+
+		if( $depth == 0 ){
+
+			$output .= '<div class="col-md-2"><ul class="menu-item-list">';
+		}
+	}
+
+	public function end_lvl( &$output, $depth = 0, $args = array() ){
+
+		if( $depth == 0 ){
+
+			$output .= '</ul></div>';
+		}
+	}
+
+	public function start_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ){
+
+		if( $depth == 0 ){
+
+			$output .= sprintf( '<hr/><div class="row"><div class="col-md-4"><h1 class="menu-item-top"><a href="%s" class="%s">%s</a></h1></div>', esc_attr( $object->url ), implode( ' ', $object->classes ), esc_attr( $object->title ));
+		}
+
+		if( $depth == 1 ){
+
+			$output .= sprintf( '<li><a href="%s" class="%s">%s</a></li>', esc_attr( $object->url ), implode( ' ', $object->classes ), esc_attr( $object->title ));
+		}
+	}
+
+	public function end_el( &$output, $object, $depth = 0, $args = array() ){
+
+		if( $depth == 0 ){
+
+			$output .= '</div>';
+		}
+	}
+}
+
+
+
+
+/*
+ *  Rewrite the query URL to support anchors within parent pages
+ */
+
+function rewrite_permalink(){
+
+	$page 	= get_queried_object();
+	$parent = get_post( $page->post_parent )->post_name;
+	$child 	= $page->post_name;
+
+	if( $parent && $parent != '' && $child && $child != '' && $parent != $child ){
+
+		$permalink = get_bloginfo( 'url' ) . '/' . $parent . '/#' . $child;
+		wp_redirect( $permalink, 301 );
+	}
+}
+add_action( 'get_header', 'rewrite_permalink', 0 );
+
+
 
 /**
 * get link metadata for page hierarchy
@@ -130,74 +202,24 @@ function sandvik_get_page_hierarchy( $parent_id = -1 ){
 * parse page data into a useful array
 * @returns array
 */
-function sandvik_get_page_metadata(&$pages) {
+function sandvik_get_page_metadata( &$pages ){
+
 	$arr = array();
-	foreach ($pages as $page_metadata) {
-		$arr[$page_metadata->post_parent][$page_metadata->ID] = array(
-			'post_id'	=> $page_metadata->ID,
+
+	foreach( $pages as $page_metadata ){
+
+		$arr[ $page_metadata->post_parent ][ $page_metadata->ID ] = array(
+			'post_id' 		=> $page_metadata->ID,
 			'post_title'	=> $page_metadata->post_title,
-			'post_name'	=> $page_metadata->post_name,
+			'post_name'		=> $page_metadata->post_name,
 			'post_parent'	=> $page_metadata->post_parent,
-			'guid'	=> $page_metadata->guid,
+			'guid'			=> $page_metadata->guid,
 		);
 	}
 	
 	return $arr;
 }
 
-/**
-* render HTML for a hierarchical menu structure
-*/
-function sandvik_render_menu(&$menu, $post_parent = 0) {
-	$html = '';
-
-	if (!isset($menu[$post_parent])) {
-		return $html;
-	}
-
-	$current_page_id = get_the_ID();
-	$current_page_parents = get_post_ancestors($current_page_id);
-	
-	$classes = array('menu-link');
-
-	// transform menu link metadata into HTML links
-	foreach ($menu[$post_parent] AS $link) {
-		if ($link['post_id'] == $current_page_id) {
-			$classes[] = 'active';
-		} else if (in_array($link['post_parent'], $current_page_parents)) {
-			$classes[] = 'active-trail';
-		}
-
-		if ($post_parent == PAGE_TOP_LEVEL_ID) {
-			$permalink = get_permalink($link['post_id']);
-
-			// open parent-level row
-			$html .= '<div class="container menu-items"><hr/><div class="row">';
-			
-			$html .= sprintf('<div class="col-md-4"><h1 class="menu-item-top"><a href="%s" class="%s">%s</a></h1></div>', $permalink, implode(' ', $classes), $link['post_title']);
-
-			if (isset($menu[$link['post_id']])) {
-				// render child links recursively
-				$submenu = sandvik_render_menu($menu, $link['post_id']);
-			} else {
-				$submenu = '';
-			}
-
-			$html .= sprintf('<div class="col-md-2 menu-items">%s</div><div class="col-md-2">&nbsp;</div>', $submenu);
-			
-			// close parent-level row
-			$html .= '</div></div>';
-			
-		} else {
-			$permalink = get_permalink($link['post_parent']) . '#post-' . $link['post_id'];
-
-			// child row
-			$html .= sprintf('<div class="menu-item"><a href="%s" class="%s">%s</a></div>', $permalink, implode(' ', $classes), $link['post_title']);
-		}
-	}
-
-	return $html;
-}
 
 /**
 *

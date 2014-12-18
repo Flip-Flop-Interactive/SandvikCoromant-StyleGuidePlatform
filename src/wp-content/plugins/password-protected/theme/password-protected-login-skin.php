@@ -64,61 +64,66 @@ do_action( 'password_protected_login_head' );
 
 <body class="login login-password-protected login-action-password-protected-login wp-core-ui" <?php echo get_featured_image_as_background( get_page_by_title( 'Home' )->ID ); ?>>
 
-	<header id="header" class="site-header headroom" role="banner">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-2">
-					<div class="logo"><a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><i class="icon icon_sandvik-coromant-icon"></i></a></div>
+	<div id="menu">
+		<div class="modal-dialog">
+			<div class="container menu-header">
+				<div class="row">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+						<a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><div class="logo"><i class="icon icon_sandvik-coromant-icon"></i></div></a>
+					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-2"></div>
+					<div class="col-md-2"></div>
+					<div class="col-md-2"></div>
 				</div>
-				<div class="col-md-2"></div>
-				<div class="col-md-2"></div>
-				<div class="col-md-2"></div>
-				<div class="col-md-2"></div>
+			</div>
+			<div class="container">
+				<hr/>
+				<div class="row">
+					<div class="col-md-4">
+						<h1>Welcome</h1>
+					</div>
+					<div class="col-md-6">
+						<h1>Sum vent, culpa aut es rem quo vollaboria dunt prerectorem volupta disseditis a simincit auda verrovi duciat aspicabo. Abore voluptatus, et quiduciatem.</h1>
+						<div id="login">
+							<h1 id="call_to_action">Log in here.</h1>
+							<?php do_action( 'password_protected_before_login_form' ); ?>
+							<form name="loginform" id="loginform" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="post" autocomplete="off">
+								<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" /></label>
+								<input type="hidden" name="testcookie" value="1" />
+								<input type="hidden" name="password-protected" value="login" />
+								<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $_REQUEST['redirect_to'] ); ?>" />
+							</form>
+							<?php do_action( 'password_protected_after_login_form' ); ?>
+						</div>
+						<?php do_action( 'password_protected_login_messages' ); ?>
+					</div>
+				</div>
 			</div>
 		</div>
-	</header>
-
-	<div id="page" class="hfeed site">
-		<div id="content" class="site-content">
-			<div id="primary" class="content-area">
-				<main id="main" class="site-main" role="main">
-
-					<div class="container">
-						<div class="row">
-							<div class="col-md-4">
-								
-								<h1>Welcome</h1>
-
-							</div>
-							<div class="col-md-6">
-
-								<h1>Sum vent, culpa aut es rem quo vol- laboria dunt prerectorem volupta dis- seditis a simincit auda verrovi duciat aspicabo. Abore voluptatus, et quidu- ciatem.</h1>
-							
-								<div id="login">
-									<?php do_action( 'password_protected_before_login_form' ); ?>
-									<form name="loginform" id="loginform" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="post">
-										<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" placeholder="Log in here." size="20" tabindex="20" /></label>
-										<input type="hidden" name="testcookie" value="1" />
-										<input type="hidden" name="password-protected" value="login" />
-										<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $_REQUEST['redirect_to'] ); ?>" />
-									</form>
-									<?php do_action( 'password_protected_after_login_form' ); ?>
-								</div>
-
-								<?php do_action( 'password_protected_login_messages' ); ?>
-
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-	    </div>
 	</div>
 
 <script type="text/javascript">
-try{document.getElementById('password_protected_pass').focus();}catch(e){}
-if(typeof wpOnload=='function')wpOnload();
+
+var call_to_action 			= document.getElementById( 'call_to_action' );
+var password_protected_pass = document.getElementById( 'password_protected_pass' );
+var login_error				= document.getElementById( 'login_error' );
+
+call_to_action.onclick = function(){
+	call_to_action.style.display 			= 'none';
+	password_protected_pass.style.display 	= 'block';
+	password_protected_pass.focus();
+
+	if( login_error ){
+
+		login_error.style.display 			= 'none';
+	}
+};
+
+if( typeof wpOnload == 'function' ){
+	wpOnload();
+}
+
 </script>
 
 <?php do_action( 'login_footer' ); ?>

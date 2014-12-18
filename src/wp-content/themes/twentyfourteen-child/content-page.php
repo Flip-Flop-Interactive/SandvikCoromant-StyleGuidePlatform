@@ -8,7 +8,7 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="<?php echo $post->post_name; ?>" <?php post_class(); ?>>
 	<div class="entry-header">
 		<div class="container">
 			<div class="row">
@@ -30,7 +30,7 @@
 <?php $chapters = get_pages( array( 'sort_order' => 'ASC', 'sort_column' => 'menu_order', 'parent' => get_the_ID() )); ?>
 <?php foreach( $chapters as $chapter ): ?>
 
-<article id="post-<?php echo $chapter->ID; ?>" <?php post_class( 'chapter' ); ?>>
+<article id="<?php echo $chapter->post_name; ?>" <?php post_class( 'chapter' ); ?>>
 	<div class="entry-content">
 		<div class="container">
 			<hr/>
@@ -58,9 +58,10 @@
 <?php $paragraphs = get_pages( array( 'sort_order' => 'ASC', 'sort_column' => 'menu_order', 'parent' => $chapter->ID )); ?>
 <?php foreach( $paragraphs as $paragraph ): ?>
 
-<article id="post-<?php echo $paragraph->ID; ?>" <?php post_class( 'paragraph' ); ?>>
+<article id="<?php echo $paragraph->post_name; ?>" <?php post_class( 'paragraph' ); ?>>
 	<div class="entry-content">
 		<div class="container">
+			<hr/>
 			<div class="row">
 				<div class="col-md-4"><h1 class="entry-title"><?php echo $paragraph->post_title; ?></h1></div>
 				<div class="col-md-4"><?php echo wpautop( $paragraph->post_content ); ?></div>

@@ -34,7 +34,7 @@ $pager_data = sandvik_get_top_level_pager();
 					}
 				?>
 				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-5"><a href="/" title="To the top"><i class="icon icon_arrow-top-icon"></i> <span class="label">To the top</span></a></div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-5"><a href="/" title="To the top" id="scroll_to_top"><i class="icon icon_arrow-top-icon"></i> <span class="label">To the top</span></a></div>
 				
 			</div>
 		</div>
