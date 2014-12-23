@@ -1,7 +1,5 @@
 <?php
 
-define('PAGE_TOP_LEVEL_ID', 0);
-
 /**
  * Remove all unnecessary image sizes from media library
  */
@@ -16,7 +14,6 @@ function filter_image_sizes( $sizes ){
 }
 add_filter( 'intermediate_image_sizes_advanced', 'filter_image_sizes' );
 
-
 /**
  * Global function to retrieve the relative child template directory
  */
@@ -30,6 +27,7 @@ function get_child_template_directory_uri() {
 function remove_twentyfourteen_scripts() {
 	remove_action('wp_enqueue_scripts', 'twentyfourteen_scripts');
 }
+add_action( 'init', 'remove_twentyfourteen_scripts' );
 
 /**
  * main theme asset hook
@@ -64,6 +62,7 @@ function twentyfourteen_child_scripts() {
 	// Load custom javascript scripts
 	wp_enqueue_script('custom-scripts', get_child_template_directory_uri() . '/js/scripts.js', array(), '1.0.0', TRUE);
 }
+add_action( 'wp_enqueue_scripts', 'twentyfourteen_child_scripts' );
 
 /**
  * enable livereload on localhost
@@ -79,6 +78,7 @@ function livereload() {
 		}
 	}
 }
+add_action( 'wp_enqueue_scripts', 'livereload' );
 
 /**
  * render menu - to be used on main page and overlay
@@ -138,20 +138,16 @@ class Menu_Walker extends Walker_Nav_Menu {
 	}
 }
 
-
-
-
 /*
  *  Rewrite the query URL to support anchors within parent pages
  */
-
 function rewrite_permalink(){
 
 	$page 	= get_queried_object();
 	$parent = get_post( $page->post_parent )->post_name;
 	$child 	= $page->post_name;
 
-	if( $parent && $parent != '' && $child && $child != '' && $parent != $child ){
+	if( isset( $parent ) && isset( $child ) && $parent != $child ){
 
 		$permalink = get_bloginfo( 'url' ) . '/' . $parent . '/#' . $child;
 		wp_redirect( $permalink, 301 );
@@ -159,244 +155,191 @@ function rewrite_permalink(){
 }
 add_action( 'get_header', 'rewrite_permalink', 0 );
 
-
-
-/**
-* get link metadata for page hierarchy
-* @returns array
-*/
-function sandvik_get_page_hierarchy( $parent_id = -1 ){
-
-	// store in static cache for performance
-	static $menu = array();
-	if ( empty( $menu[$parent_id] ) ) {
-		
-		$args = array(
-			'sort_order' => 'ASC',
-			'sort_column' => 'menu_order, post_title',
-			'hierarchical' => 1,
-			'exclude' => '2',
-			'include' => '',
-			'meta_key' => '',
-			'meta_value' => '',
-			'authors' => '',
-			'child_of' => 0,
-			'parent' => $parent_id,
-			'exclude_tree' => '',
-			'number' => '',
-			'offset' => 0,
-			'post_type' => 'page',
-			'post_status' => 'publish'
-		);
-
-		$pages = get_pages( $args );
-
-		// transform the array of all page data into a hierarchical array of menu link metadata
-		$menu[$parent_id] = sandvik_get_page_metadata($pages);
-	}
-	
-	return $menu[$parent_id];
-}
-
-/**
-* parse page data into a useful array
-* @returns array
-*/
-function sandvik_get_page_metadata( &$pages ){
-
-	$arr = array();
-
-	foreach( $pages as $page_metadata ){
-
-		$arr[ $page_metadata->post_parent ][ $page_metadata->ID ] = array(
-			'post_id' 		=> $page_metadata->ID,
-			'post_title'	=> $page_metadata->post_title,
-			'post_name'		=> $page_metadata->post_name,
-			'post_parent'	=> $page_metadata->post_parent,
-			'guid'			=> $page_metadata->guid,
-		);
-	}
-	
-	return $arr;
-}
-
-
-/**
-*
-*/
-function sandvik_get_top_level_pager() {
-	$current_page_id = get_the_ID();
-	$current_page_parents = get_post_ancestors($current_page_id);
-	$current_page_parent = reset($current_page_parents);
-
-	if (empty($current_page_parent)) {
-		$current_page_parent = $current_page_id;
-	}
-
-	// fetch metadata for top-level pages
-	$pages = sandvik_get_page_hierarchy(PAGE_TOP_LEVEL_ID);
-
-	// reindex top-level array from 0
-	$pages = array_values(reset($pages));
-	
-	foreach ($pages AS $offset => $page_metadata) {
-		if ($page_metadata['post_id'] == $current_page_id) {
-			
-			if ($offset > 0) {
-				$previous = array_slice($pages, $offset - 1, 1);
-				$previous = reset($previous); // we just want the element
-			} else {
-				$previous = array();
-			}
-			$next = array_slice($pages, $offset + 1, 1);
-			$next = reset($next); // we just want the element
-
-			return compact('previous', 'next');
-		}
-	}
-	
-	return array(); // no results
-}
-
-
-
-
 /*
-* get featured image url
-*/
-function get_featured_image_as_background( $post_id ) {
+ * Render featured image url as background
+ */
+function render_featured_image_as_background( $post_id ){
 
 	$featured_image_url = wp_get_attachment_url( get_post_thumbnail_id( $post_id ));
 	return sprintf( 'style="background-image:url(\'%s\');"', $featured_image_url );
 }
 
-
-
 /*
-* Render multipe rows with multiple small sized images and additional captions
-*/
+ * Render multipe rows with multiple different sized images spanning over multiple columns 
+ */
+function render_images( $id ){
 
-function render_small_images( $id ){
-
-	$limit 		= 4;
-	$classes 	= "col-md-2";
-	$collection = simple_fields_fieldgroup( 'small_images', $id );
+	$limit		= 8;
+	$collection = simple_fields_fieldgroup( 'images', $id );
 	$rows 		= get_collection_in_rows( $collection, $limit );
-	$html 		= render_row_columns( $rows, $limit, $classes );
+	$html 		= render_rows( $rows, $limit );
 
 	return $html;
 }
 
-
 /*
-* Render multipe rows with multiple medium sized images and additional captions
-*/
-
-function render_medium_images( $id ){
-
-	$limit 		= 2;
-	$classes 	= "col-md-4";
-	$collection = simple_fields_fieldgroup( 'medium_images', $id );
-	$rows 		= get_collection_in_rows( $collection, $limit );
-	$html 		= render_row_columns( $rows, $limit, $classes );
-
-	return $html;
-}
-
-
-/*
-* Render multipe rows with multiple large sized images and additional captions
-*/
-
-function render_large_images( $id ){
-
-	$limit 		= 1;
-	$classes 	= "col-md-8";
-	$collection = simple_fields_fieldgroup( 'large_images', $id );
-	$rows 		= get_collection_in_rows( $collection, $limit );
-	$html 		= render_row_columns( $rows, $limit, $classes );
-
-	return $html;	
-}
-
-
-/*
-* Nest an array within a new array within params limit increments
-*/
-
+ * Nest an array within a new array within set limit increments
+ */
 function get_collection_in_rows( $collection, $limit ){
 
-	$rows  = [];
-	$index = 0;
-	$count = 0;
-
+	$increment 	= 0;
+	$count 		= 0;
+	$index 		= 0;
+	$rows  		= [];
+	
 	foreach( $collection as $item ){
 
-		$rows[ $index ][] = $item;
+		$increment  = intval( $item[ 'column_span' ][ 'selected_value' ]);
+		$count 	   += $increment;
 
-		if( $count % $limit == $limit - 1 ){
+		if( $count > $limit ){
+
 			$index += 1;
+			$count  = $increment;
 		}
 
-		$count += 1;
+		$rows[ $index ][] = $item;
 	}
 	return $rows;
 }
 
-
 /*
-* Render the actual rows and columns with spacing to the right side
-*/
-
-function render_row_columns( $rows, $limit, $classes ){
+ * Render rows within a collection of images
+ */
+function render_rows( $rows, $limit ){
 
 	$html = '';
-
 	foreach( $rows as $row ){
 
 		$html .= '<div class="row">';
-
-		$count = $limit - count( $row );
-		while( $count-- ){
-
-			$html .= sprintf( '<div class ="%s"></div>', $classes );
-		}
-
-		foreach( $row as $column ){
-
-			$html .= sprintf( '<div class="%s">%s', $classes, $column[ 'image' ][ 'link' ][ 'full' ]);
-
-			if( $column[ 'caption' ] != '' ){
-
-				$html .= sprintf( '<p class="entry-caption">%s</p>', nl2br( $column[ 'caption' ]));
-			}
-
-			$html .= '</div>';
-		}
-
+		$html .= render_spacers( $row, $limit );
+		$html .= render_columns( $row );
 		$html .= '</div>';
 	}
-
 	return $html;	
 }
 
+/*
+ * Render spacers within a row, aligning the images to the right side
+ */
+function render_spacers( $row, $limit ){
 
+	$increment 	= 0;
+	$count 		= 0;
+	$deduction  = 0;
+
+	foreach( $row as $column ){
+
+		$increment 	= intval( $column[ 'column_span' ][ 'selected_value' ]);
+		$count 	   += $increment;
+	}
+
+	$deduction = $limit - $count;
+	$deduction = ( $deduction >= 6 ) ? 4 : $deduction;
+
+	if( $deduction > 0 ){
+
+		$html = '';
+		while( $deduction-- ){
+			$html .= '<div class="col-md-1"></div>';
+		}
+		return $html;
+	}
+}
 
 /*
-* Render the download section within a page, chapter or paragraph
-*/
+ * Render columns within a row
+ */
+function render_columns( $row ){
 
+	$classes = array(
+		'1' => 'col-md-1',
+		'2' => 'col-md-2',
+		'4' => 'col-md-4',
+		'8' => 'col-md-8',
+	);
+
+	$html = '';
+	foreach( $row as $column ){
+
+		$selected_value = $column[ 'column_span' ][ 'selected_value' ];
+		$html .= sprintf( '<div class="%s">', $classes[ $selected_value ]);
+		$html .= sprintf( '<a href="%s">', $column[ 'image' ][ 'url' ]);
+		$html .= ( $column[ 'stroke' ] != '' ) ? sprintf( '<img src="%s" class="stroke" />', $column[ 'image' ][ 'url' ]) : sprintf( '<img src="%s" />', $column[ 'image' ][ 'url' ]);
+		$html .= '</a>';
+		$html .= ( $column[ 'caption' ] != '' ) ? sprintf( '<p class="entry-caption">%s</p>', nl2br( $column[ 'caption' ])) : '';
+		$html .= '</div>';
+	}
+	return $html;
+}
+
+/*
+ * Render the download section within a page, chapter or paragraph
+ */
 function render_download( $id ){
 
 	$download = simple_fields_value( 'file', $id );
 
 	if( $download ){
 
-		$html = sprintf( '<a href="%s" target="_blank" class="hidden-sm hidden-xs"><i class="icon icon_download-icon"></i> <span class="label">Download Section</span></a>', $download[ 'url' ]);
+		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank" class="hidden-sm hidden-xs"><i class="icon icon_download-icon"></i> <span class="label">Download Section</span></a></div>', $download[ 'url' ]);
 		return $html;		
 	}
 }
 
+/*
+ * Render the previous link used in the footer
+ */
+function render_prev_link(){
+
+	$id 	= get_sibling_page_id( -1 );
+	$html   = ( isset( $id )) ? sprintf('<a href="%s"><i class="icon icon_arrow-left-icon"></i> <span class="label">%s</span></a>', get_page_link( $id ), get_the_title( $id )) : '';
+
+	return $html;
+}
+
+/*
+ * Render the next link used in the footer
+ */
+function render_next_link(){
+
+	$id 	= get_sibling_page_id( 1 );
+	$html   = ( isset( $id )) ? sprintf('<a href="%s"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a>', get_page_link( $id ), get_the_title( $id )) : '';
+
+	return $html;
+}
+
+/*
+ * Get the ID of the sibling page; to be used in render_prev_link and render_next_link
+ */
+function get_sibling_page_id( $increment ){
+
+	$pages 			 = get_top_level_pages( array( '2', '351' ));
+	$current_page_id = get_queried_object_id();
+
+	for( $i = 0; $i <= count( $pages ); $i++ ) {
+
+		if( $current_page_id == $pages[ $i ]->ID ){
+
+			return $pages[ $i + $increment ]->ID;
+		}
+	}
+}
+
+/*
+ * Get all top level pages with a allowed parameter to exclude some
+ */
+function get_top_level_pages( $exclude ){
+
+	$arguments = array(
+
+		'sort_column' => 'ID',
+		'exclude'	  => $exclude,
+		'parent' 	  => 0,
+	);
+
+	return get_pages( $arguments );
+}
 
 
 /*
@@ -406,13 +349,4 @@ function mydie( $obj ){
 
 	die( sprintf( '<pre style="%s">%s</pre>', "width:100%;background-color:#fff;color:#111;", json_encode( $obj, JSON_PRETTY_PRINT )));
 }
-
-
-
-/**
- * register hooks
- */
-add_action( 'init', 'remove_twentyfourteen_scripts' );
-add_action( 'wp_enqueue_scripts', 'twentyfourteen_child_scripts' );
-add_action( 'wp_enqueue_scripts', 'livereload' );
 

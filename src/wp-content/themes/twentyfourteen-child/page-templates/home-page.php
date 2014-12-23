@@ -24,7 +24,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?> <?php echo get_featured_image_as_background( $post->ID ); ?>>
+<body <?php body_class(); ?> <?php echo render_featured_image_as_background( $post->ID ); ?>>
 
 	<div id="menu">
 		<div class="modal-dialog">

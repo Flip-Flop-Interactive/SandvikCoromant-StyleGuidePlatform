@@ -53,6 +53,10 @@
 
 			.row {
 
+				a {
+					text-decoration: underline;
+				}
+
 				.entry-title {
 
 					font-size: @font-size-h1;
@@ -71,14 +75,60 @@
 					margin-top: 15px;
 				}
 
-				a {
-					text-decoration: none;
+				.entry-action {
+
+					a {
+						text-decoration: none;
+						outline: none;
+
+						.icon {
+							font-size: 28px;
+						}
+
+						.label {
+							position: relative;
+							top: 4px;
+							left: 5px;
+							font-size: @font-size-base;
+							cursor: pointer;
+						}
+
+						&:focus {
+							.icon, .label {
+								color: @black;
+							}
+						}
+					}
+				}
+
+				.stroke {
+
+					border-width: 1px;
+					border-style: solid;
+					border-color: @black;
 				}
 			}
 		}
 	}
 
 	&.page {}
+
+	&.chapter {
+
+		.entry-content {
+
+			.container {
+
+				.row {
+
+					.entry-title {
+
+						color: @black;
+					}
+				}
+			}
+		}		
+	}
 
 	&.paragraph {
 

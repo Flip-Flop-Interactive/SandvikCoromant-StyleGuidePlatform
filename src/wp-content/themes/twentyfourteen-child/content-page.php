@@ -39,9 +39,7 @@
 				<div class="col-md-4"><?php echo wpautop( $chapter->post_content ); ?></div>
 				<div class="col-md-2"><?php echo render_download( $chapter->ID ); ?></div>
 			</div>
-			<?php echo render_small_images( $chapter->ID ); ?>
-			<?php echo render_medium_images( $chapter->ID ); ?>
-			<?php echo render_large_images( $chapter->ID ); ?>
+			<?php echo render_images( $chapter->ID ); ?>
 		</div>
 	</div>
 </article>
@@ -67,9 +65,7 @@
 				<div class="col-md-4"><?php echo wpautop( $paragraph->post_content ); ?></div>
 				<div class="col-md-2"><?php echo render_download( $paragraph->ID ); ?></div>
 			</div>
-			<?php echo render_small_images( $paragraph->ID ); ?>
-			<?php echo render_medium_images( $paragraph->ID ); ?>
-			<?php echo render_large_images( $paragraph->ID ); ?>
+			<?php echo render_images( $paragraph->ID ); ?>
 		</div>
 	</div>
 </article>
