@@ -62,7 +62,7 @@ do_action( 'password_protected_login_head' );
 
 </head>
 
-<body class="login login-password-protected login-action-password-protected-login wp-core-ui" <?php echo get_featured_image_as_background( get_page_by_title( 'Home' )->ID ); ?>>
+<body class="login login-password-protected login-action-password-protected-login wp-core-ui" <?php echo render_featured_image_as_background( get_page_by_title( 'Home' )->ID ); ?>>
 
 	<div id="menu">
 		<div class="modal-dialog">
