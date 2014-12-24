@@ -1,9 +1,3 @@
-<?php
-
-// find index of $current_page_parent in $pages
-$pager_data = sandvik_get_top_level_pager();
-
-?>
 			</div>
 	</div><!-- .site-content -->
 
