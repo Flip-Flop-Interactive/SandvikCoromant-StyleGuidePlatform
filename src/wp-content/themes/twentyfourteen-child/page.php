@@ -10,9 +10,10 @@
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */
-?>
 
-<?php get_header(); ?>
+get_header();
+
+?>
 
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
@@ -23,7 +24,9 @@
 
 		<?php endwhile; // end of the loop. ?>
 
-		</main>
-	</div>
+	</main>
+</div>
 
-<?php get_footer(); ?>
+<?php 
+
+get_footer();
