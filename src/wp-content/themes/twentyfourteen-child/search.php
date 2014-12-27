@@ -6,59 +6,57 @@
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */
+?>
 
-get_header(); ?>
+<?php get_header(); ?>
 
 	<section id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 
-			<?php if( isset( $_GET[ 's' ]) && empty( $_GET[ 's' ])){ ?>
-
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10">
-						<?php get_search_form( true ); ?>
+						<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
+							<label>
+								<span class="screen-reader-text"><?php echo _x( 'Search for:', 'label' ) ?></span>
+								<input id="search-field" type="search" class="search-field" placeholder="" value="<?php echo get_search_query(); ?>" name="s" title="<?php echo esc_attr_x( 'Search', 'label' ) ?>" />
+							</label>
+							<input type="submit" class="search-submit" value="<?php echo esc_attr_x( 'Search', 'submit button' ) ?>" />
+						</form>
 					</div>
 				</div>
 			</div>
+
+			<?php if( isset( $_GET[ 's' ]) && empty( $_GET[ 's' ])){ ?>
+
 			<div class="container">
+				<hr/>
 				<div class="row">
 					<div class="col-md-10">
-						<h1><label for="s">Type and hit enter to search.</label></h1>
+						<h1 class="search-label">Type and hit enter to search.</h1>
 					</div>
 				</div>
 			</div>
 
 			<?php } else if ( have_posts() ) : ?>
 
-			<div class="container">
-				<div class="row">
-					<div class="col-md-10">
-						<div class="search-result-title">
-							<h1><?php printf( __( 'Search Results for: %s', 'twentyfourteen' ), get_search_query() ); ?></h1>
-						</div>
-					</div>
-				</div>
-			</div>
+				<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php
+					<?php get_template_part( 'content', get_post_format() ); ?>
 
-				// render the search results
-				while ( have_posts() ) : the_post();
+				<?php endwhile; ?>
 
-					get_template_part( 'content', get_post_format() );
+			<?php else: ?>
 
-				endwhile;
+				<?php get_template_part( 'content', 'none' ); ?>
 
-			else:
-
-				get_template_part( 'content', 'none' );
-
-			endif;
-			?>
+			<?php endif; ?>
 
 		</div><!-- #content -->
 	</section><!-- #primary -->
 
-<?php
-get_footer();
+<script type="text/javascript">
+try{document.getElementById('search-field').focus();}catch(e){}
+</script>
+
+<?php get_footer(); ?>

@@ -37,7 +37,7 @@
 			<div class="row">
 				<div class="col-md-4"><h1 class="entry-title"><?php echo $chapter->post_title; ?></h1></div>
 				<div class="col-md-4"><?php echo wpautop( $chapter->post_content ); ?></div>
-				<div class="col-md-2"><?php echo render_download( $chapter->ID ); ?></div>
+				<div class="col-md-2"><?php echo render_download_link( $chapter->ID ); ?></div>
 			</div>
 			<?php echo render_images( $chapter->ID ); ?>
 		</div>
@@ -63,7 +63,7 @@
 			<div class="row">
 				<div class="col-md-4"><h1 class="entry-title"><?php echo $paragraph->post_title; ?></h1></div>
 				<div class="col-md-4"><?php echo wpautop( $paragraph->post_content ); ?></div>
-				<div class="col-md-2"><?php echo render_download( $paragraph->ID ); ?></div>
+				<div class="col-md-2"><?php echo render_details_link( $paragraph->ID ); ?></div>
 			</div>
 			<?php echo render_images( $paragraph->ID ); ?>
 		</div>

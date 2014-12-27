@@ -12,7 +12,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class( 'nonbounce' ); ?>>
+<body <?php body_class(); ?>>
 
 	<div class="modal fade" id="menu" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">

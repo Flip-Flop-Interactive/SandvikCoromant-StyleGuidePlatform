@@ -62,7 +62,9 @@ do_action( 'password_protected_login_head' );
 
 </head>
 
-<body class="login login-password-protected login-action-password-protected-login wp-core-ui" <?php echo render_featured_image_as_background( get_page_by_title( 'Home' )->ID ); ?>>
+<body class="login login-password-protected login-action-password-protected-login wp-core-ui">
+
+	<div style="position: fixed; width: 100%; height: 100%;" data-vide-bg="mp4: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/videos/background-video, poster: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/images/background-video" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: jpg"></div>
 
 	<div id="menu">
 		<div class="modal-dialog">

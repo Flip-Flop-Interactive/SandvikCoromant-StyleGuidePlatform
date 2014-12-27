@@ -143,26 +143,27 @@ class Menu_Walker extends Walker_Nav_Menu {
  */
 function rewrite_permalink(){
 
-	$page 	= get_queried_object();
-	$parent = get_post( $page->post_parent )->post_name;
-	$child 	= $page->post_name;
+	// Check if page is not search page otherwise go ahead and rewrite url
+	if( !is_search() ){
 
-	if( isset( $parent ) && isset( $child ) && $parent != $child ){
+		// Check if page is not details page template otherwise go ahead and rewrite url
+		if( !is_page_template( 'page-templates/details-page.php' )){
 
-		$permalink = get_bloginfo( 'url' ) . '/' . $parent . '/#' . $child;
-		wp_redirect( $permalink, 301 );
+			$paragraph  = get_queried_object();
+			$ancestors 	= get_post_ancestors( $paragraph->ID );
+
+			if( $ancestors ){
+
+				$page_id 	= $ancestors[ count( $ancestors ) -1 ];
+				$page_name  = get_post( $page_id )->post_name;
+
+				$permalink = get_bloginfo( 'url' ) . '/' . $page_name . '/#' . $paragraph->post_name;
+				wp_redirect( $permalink, 301 );
+			}
+		}
 	}
 }
 add_action( 'get_header', 'rewrite_permalink', 0 );
-
-/*
- * Render featured image url as background
- */
-function render_featured_image_as_background( $post_id ){
-
-	$featured_image_url = wp_get_attachment_url( get_post_thumbnail_id( $post_id ));
-	return sprintf( 'style="background-image:url(\'%s\');"', $featured_image_url );
-}
 
 /*
  * Render multipe rows with multiple different sized images spanning over multiple columns 
@@ -274,16 +275,47 @@ function render_columns( $row ){
 }
 
 /*
- * Render the download section within a page, chapter or paragraph
+ * Render the download section link within a page, chapter or paragraph
  */
-function render_download( $id ){
+function render_download_link( $id ){
 
 	$download = simple_fields_value( 'file', $id );
 
-	if( $download ){
+	if( $download && $download[ 'url' ] != '' ){
 
 		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank" class="hidden-sm hidden-xs"><i class="icon icon_download-icon"></i> <span class="label">Download Section</span></a></div>', $download[ 'url' ]);
-		return $html;		
+		return $html;
+	}
+}
+
+/*
+ * Render the details link within a paragraph
+ */
+function render_details_link( $id ){
+
+	$html  = '';
+	$pages = get_pages( array( 'parent' => $id ));
+
+	foreach( $pages as $page ){
+
+		$html .= sprintf( '<div class="entry-action"><a href="%s"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></div>', get_page_link( $page->ID ), get_the_title( $page->ID ));
+	}
+
+	return $html;
+}
+
+/*
+ * Render the back link used in the footer
+ */
+function render_back_link(){
+
+	// Check if page is not details page template otherwise go ahead and rewrite url
+	if( is_page_template( 'page-templates/details-page.php' )){
+
+		$page 	= get_queried_object();
+		$id 	= get_post( $page->post_parent )->ID;
+		$html   = sprintf('<a href="%s"><i class="icon icon_arrow-left-icon"></i> <span class="label">%s</span></a>', get_page_link( $id ), 'Back' );
+		return $html;
 	}
 }
 
@@ -292,10 +324,12 @@ function render_download( $id ){
  */
 function render_prev_link(){
 
-	$id 	= get_sibling_page_id( -1 );
-	$html   = ( isset( $id )) ? sprintf('<a href="%s"><i class="icon icon_arrow-left-icon"></i> <span class="label">%s</span></a>', get_page_link( $id ), get_the_title( $id )) : '';
+	if( !is_search() ){
 
-	return $html;
+		$id 	= get_sibling_page_id( -1 );
+		$html   = ( isset( $id )) ? sprintf('<a href="%s"><i class="icon icon_arrow-left-icon"></i> <span class="label">%s</span></a>', get_page_link( $id ), get_the_title( $id )) : '';
+		return $html;
+	}
 }
 
 /*
@@ -303,10 +337,12 @@ function render_prev_link(){
  */
 function render_next_link(){
 
-	$id 	= get_sibling_page_id( 1 );
-	$html   = ( isset( $id )) ? sprintf('<a href="%s"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a>', get_page_link( $id ), get_the_title( $id )) : '';
+	if( !is_search() ){
 
-	return $html;
+		$id 	= get_sibling_page_id( 1 );
+		$html   = ( isset( $id )) ? sprintf('<a href="%s"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a>', get_page_link( $id ), get_the_title( $id )) : '';
+		return $html;
+	}
 }
 
 /*
@@ -340,13 +376,3 @@ function get_top_level_pages( $exclude ){
 
 	return get_pages( $arguments );
 }
-
-
-/*
- * Don't know what this does..:S
- */
-function mydie( $obj ){
-
-	die( sprintf( '<pre style="%s">%s</pre>', "width:100%;background-color:#fff;color:#111;", json_encode( $obj, JSON_PRETTY_PRINT )));
-}
-

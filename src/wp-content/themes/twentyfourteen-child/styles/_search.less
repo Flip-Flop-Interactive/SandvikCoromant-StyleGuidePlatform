@@ -5,18 +5,16 @@
 		.row {
 
 			h1 {
-
+				margin-top: 20px;
+				margin-bottom: 8px;
 				color: @gray;
 				text-transform: none;
 			}
 
 			.search-form {
 
-				padding-top: 30px;
-				padding-bottom: 19px;
-				border-bottom-width: 2px;
-				border-bottom-style: solid;
-				border-bottom-color: @black;
+				padding-top: 20px;
+				padding-bottom: 8px;
 
 				.search-field {
 
@@ -33,21 +31,28 @@
 						appearance: none;
 						outline: 0;
 					}
-				}
-			}
 
-			.search-result-title {
+					&::-webkit-search-cancel-button {
 
-				margin-bottom: 30px;
-				padding-top: 30px;
-				padding-bottom: 19px;
-				border-bottom-width: 2px;
-				border-bottom-style: solid;
-				border-bottom-color: @black;
+						-webkit-appearance: none;
+						font-family: "icons";
+						font-size: 28px;
+						display: inline-block;
+						vertical-align: top;
+						line-height: 1;
+						font-weight: normal;
+						font-style: normal;
+						speak: none;
+						text-decoration: inherit;
+						text-transform: none;
+						text-rendering: optimizeLegibility;
+						-webkit-font-smoothing: antialiased;
+						-moz-osx-font-smoothing: grayscale;
 
-				h1 {
-					margin: 0;
-					color: @black;
+						&:before {
+							content:"\f105";
+						}
+					}
 				}
 			}
 		}
@@ -61,7 +66,7 @@
 */
 .ui-autocomplete {
 
-	top: 268px !important;
+	top: 220px !important;
 	padding: 0;
 	border: 0;
 	z-index: 1100;
@@ -78,7 +83,7 @@
 			font-family: @headings-font-family;
 			font-size: @font-size-h1;
 			font-weight: @headings-font-weight;
-			line-height: @line-height-base;
+			line-height: 1.2;
 
 			&:hover, &:focus {
 

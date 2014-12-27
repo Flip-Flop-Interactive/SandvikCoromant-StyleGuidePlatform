@@ -24,7 +24,9 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?> <?php echo render_featured_image_as_background( $post->ID ); ?>>
+<body <?php body_class(); ?>>
+
+	<div style="position: fixed; width: 100%; height: 100%;" data-vide-bg="mp4: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/videos/background-video, poster: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/images/background-video" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: jpg"></div>
 
 	<div id="menu">
 		<div class="modal-dialog">

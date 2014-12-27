@@ -10,12 +10,13 @@ module.exports = function(grunt) {
 	*/
 	grunt.mergeConfig = function(paths) {
 		var config = {};
-		for (var i in paths) {
-			var path = paths[i];
-			if (grunt.file.exists(path)) {
+		for( var i in paths ){
+			var path = paths[ i ];
+			if( grunt.file.exists( path )){
+
 				config = grunt.file.readJSON( path );
-				grunt.config.merge ( {config:config} );
-				grunt.log.subhead('merged in ' + path);
+				grunt.config.merge({ config: config });
+				grunt.log.subhead( 'merged in ' + path );
 			}
 		}
 	};
@@ -33,6 +34,8 @@ module.exports = function(grunt) {
 					'<%= config.dist.theme %>/*.png',
 					'<%= config.dist.theme %>/fonts/*.*',
 					'<%= config.dist.theme %>/js/scripts.js',
+					'<%= config.dist.theme %>/images/*.*',
+					'<%= config.dist.theme %>/videos/*.*',
 				]
 			},
 		},
@@ -42,7 +45,14 @@ module.exports = function(grunt) {
 				expand: true,
 				dest: '<%= config.dist.theme %>/',
 				cwd: '<%= config.src.theme %>/',
-				src: [ '*.php', 'page-templates/*.php', '*.png', 'fonts/*.*', 'js/*.*', 'images/*.*' ]
+				src: [ 
+					'*.php',
+					'page-templates/*.php', 
+					'*.png', 
+					'fonts/*.*', 
+					'js/*.*', 
+					'images/*.*', 
+					'videos/*.*' ]
 			},
 			plugin: {
 				expand: true,
@@ -131,7 +141,11 @@ module.exports = function(grunt) {
 		bower_concat: {
 			development: {
 				dest: '<%= config.dist.theme %>/js/libs.js',
-				dependencies: {}
+				dependencies: {
+					'bootstrap': 'jquery',
+					'headroom': 'jquery',
+					'vide': 'jquery'
+				}
 			}
 		},
 
