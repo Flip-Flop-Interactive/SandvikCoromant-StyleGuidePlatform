@@ -64,7 +64,7 @@ do_action( 'password_protected_login_head' );
 
 <body class="login login-password-protected login-action-password-protected-login wp-core-ui">
 
-	<div style="position: fixed; width: 100%; height: 100%;" data-vide-bg="mp4: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/videos/background-video, poster: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/images/background-video" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: jpg"></div>
+	<div style="position: fixed; width: 100%; height: 100%;" data-vide-bg="mp4: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/videos/background-video, ogv: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/videos/background-video, webm: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/videos/background-video, poster: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/images/background-video" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: jpg"></div>
 
 	<div id="menu">
 		<div class="modal-dialog">
@@ -73,19 +73,19 @@ do_action( 'password_protected_login_head' );
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 						<a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><div class="logo"><i class="icon icon_sandvik-coromant-icon"></i></div></a>
 					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-2"></div>
-					<div class="col-md-2"></div>
-					<div class="col-md-2"></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
 				</div>
 			</div>
 			<div class="container">
 				<hr/>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-lg-4 col-md-8 col-sm-10">
 						<h1>Welcome</h1>
 					</div>
-					<div class="col-md-6">
+					<div class="col-lg-6 col-md-8 col-sm-10">
 						<h1>Sum vent, culpa aut es rem quo vollaboria dunt prerectorem volupta disseditis a simincit auda verrovi duciat aspicabo. Abore voluptatus, et quiduciatem.</h1>
 						<div id="login">
 							<h1 id="call_to_action">Log in here.</h1>

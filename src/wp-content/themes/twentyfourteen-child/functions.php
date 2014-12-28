@@ -104,7 +104,7 @@ class Menu_Walker extends Walker_Nav_Menu {
 
 		if( $depth == 0 ){
 
-			$output .= '<div class="col-md-2"><ul class="menu-item-list">';
+			$output .= '<div class="col-lg-2 col-md-2 col-sm-5 col-xs-5"><ul class="menu-item-list">';
 		}
 	}
 
@@ -120,7 +120,7 @@ class Menu_Walker extends Walker_Nav_Menu {
 
 		if( $depth == 0 ){
 
-			$output .= sprintf( '<hr/><div class="row"><div class="col-md-4"><h1 class="menu-item-top"><a href="%s" class="%s">%s</a></h1></div>', esc_attr( $object->url ), implode( ' ', $object->classes ), esc_attr( $object->title ));
+			$output .= sprintf( '<hr/><div class="row"><div class="col-lg-4 col-md-4 col-sm-5 col-xs-5"><h1 class="menu-item-top"><a href="%s" class="%s">%s</a></h1></div>', esc_attr( $object->url ), implode( ' ', $object->classes ), esc_attr( $object->title ));
 		}
 
 		if( $depth == 1 ){
@@ -242,7 +242,7 @@ function render_spacers( $row, $limit ){
 
 		$html = '';
 		while( $deduction-- ){
-			$html .= '<div class="col-md-1"></div>';
+			$html .= '<div class="col-lg-1 hidden-md hidden-sm"></div>';
 		}
 		return $html;
 	}
@@ -254,10 +254,10 @@ function render_spacers( $row, $limit ){
 function render_columns( $row ){
 
 	$classes = array(
-		'1' => 'col-md-1',
-		'2' => 'col-md-2',
-		'4' => 'col-md-4',
-		'8' => 'col-md-8',
+		'1' => 'col-lg-1 col-md-2 col-sm-5',
+		'2' => 'col-lg-2 col-md-4 col-sm-10',
+		'4' => 'col-lg-4 col-md-4 col-sm-10',
+		'8' => 'col-lg-8 col-md-8 col-sm-10',
 	);
 
 	$html = '';
@@ -283,7 +283,7 @@ function render_download_link( $id ){
 
 	if( $download && $download[ 'url' ] != '' ){
 
-		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank" class="hidden-sm hidden-xs"><i class="icon icon_download-icon"></i> <span class="label">Download Section</span></a></div>', $download[ 'url' ]);
+		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank" class="hidden-sm hidden-xs"><i class="icon icon_download-icon"></i> <span class="label">Download</span></a></div>', $download[ 'url' ]);
 		return $html;
 	}
 }
@@ -298,7 +298,7 @@ function render_details_link( $id ){
 
 	foreach( $pages as $page ){
 
-		$html .= sprintf( '<div class="entry-action"><a href="%s"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></div>', get_page_link( $page->ID ), get_the_title( $page->ID ));
+		$html .= sprintf( '<div class="entry-action"><a href="%s" class="hidden-sm hidden-xs"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></div>', get_page_link( $page->ID ), get_the_title( $page->ID ));
 	}
 
 	return $html;

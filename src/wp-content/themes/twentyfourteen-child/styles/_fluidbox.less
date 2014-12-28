@@ -5,6 +5,11 @@
 		img {
 
 			margin-top: 35px;
+
+			@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+
+				margin-top: 13px;
+			}
 		}
 	}
 
@@ -12,9 +17,4 @@
 
 		background-color: rgba( 247, 247, 247, 0.95 ) !important;
 	}
-}
-
-.fluidbox-opened {
-
-	// overflow: hidden;
 }

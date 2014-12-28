@@ -29,8 +29,16 @@
 		padding-bottom: 20px;
 		background-color: @white;
 
+		@media( max-width: @screen-sm-max ){
+			padding-bottom: 15px;
+		}
+
 		hr {
 			margin-bottom: 20px;
+
+			@media( max-width: @screen-sm-max ){
+				margin-bottom: 15px;
+			}
 		}
 
 		.row {
@@ -39,6 +47,14 @@
 
 				.icon {
 					font-size: 28px;
+
+					@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+						font-size: 25px;
+					}
+
+					@media( max-width: @screen-sm-max ){
+						font-size: 20px;
+					}
 				}
 
 				.label {
@@ -47,12 +63,19 @@
 					left: 5px;
 					font-size: @font-size-base;
 					cursor: pointer;
+
+					@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+						top: 4px;
+						font-size: @font-size-base-md;
+					}
+
+					@media( max-width: @screen-sm-max ){
+						display: none;
+					}
 				}
 
 				&:focus {
-
 					.icon, .label {
-
 						color: @black;
 					}
 				}

@@ -13,7 +13,7 @@
 			<div class="container">
 				<hr/>
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-10">
 						<h1>Ready to publish your first post?</h1>
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 			<div class="container">
 				<hr/>
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-10">
 						<h1>No results found.<br/>Try another key word.</h1>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 			<div class="container">
 				<hr/>
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-10">
 						<h1>It seems we can't find what you're looking for.</h1>
 					</div>
 				</div>

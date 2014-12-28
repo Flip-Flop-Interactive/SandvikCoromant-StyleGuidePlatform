@@ -15,7 +15,7 @@
 
 		.container {
 
-			padding-top: 20px;
+			padding-top: 18px;
 			padding-bottom: 8px;
 
 			.row {
@@ -31,6 +31,14 @@
 					margin-left: inherit;
 					color: @black;
 					text-transform: none;
+
+					@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+						font-size: @font-size-h1-md;
+					}
+
+					@media( max-width: @screen-sm-max ){
+						font-size: @font-size-h1-sm;
+					}
 				}
 			}
 		}
@@ -45,10 +53,26 @@
 
 		.container {
 
-			margin-bottom: 80px;
+			margin-bottom: 83px;
+
+			@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+				margin-bottom: 53px;
+			}
+
+			@media( max-width: @screen-sm-max ){
+				margin-bottom: 53px;
+			}
 
 			hr {
 				margin-bottom: 20px;
+
+				@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+					margin-bottom: 17px;
+				}
+
+				@media( max-width: @screen-sm-max ){
+					margin-bottom: 12px;
+				}
 			}
 
 			.row {
@@ -64,10 +88,18 @@
 					line-height: @headings-line-height;
 					margin-top: 0;
 					margin-right: inherit;
-					margin-bottom: inherit;
+					margin-bottom: 5px;
 					margin-left: inherit;
 					color: @gray;
 					text-transform: none;
+
+					@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+						font-size: @font-size-h1-md;
+					}
+
+					@media( max-width: @screen-sm-max ){
+						font-size: @font-size-h1-sm;
+					}
 				}
 
 				.entry-caption {
@@ -85,6 +117,14 @@
 
 						.icon {
 							font-size: 28px;
+
+							@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+								font-size: 25px;
+							}
+
+							@media( max-width: @screen-sm-max ){
+								font-size: 20px;
+							}
 						}
 
 						.label {
@@ -93,6 +133,14 @@
 							left: 5px;
 							font-size: @font-size-base;
 							cursor: pointer;
+
+							@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+								font-size: @font-size-base-md;
+							}
+
+							@media( max-width: @screen-sm-max ){
+								font-size: @font-size-base-sm;
+							}
 						}
 
 						&:focus {

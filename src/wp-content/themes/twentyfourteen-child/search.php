@@ -15,7 +15,7 @@
 
 			<div class="container">
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 						<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
 							<label>
 								<span class="screen-reader-text"><?php echo _x( 'Search for:', 'label' ) ?></span>
@@ -32,7 +32,7 @@
 			<div class="container">
 				<hr/>
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 						<h1 class="search-label">Type and hit enter to search.</h1>
 					</div>
 				</div>

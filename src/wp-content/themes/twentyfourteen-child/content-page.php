@@ -12,7 +12,7 @@
 	<div class="entry-header">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-10"><?php the_title( '<h1 class="entry-title">', '</h1>' ); ?></div>
+				<div class="col-lg-10 col-md-10 col-sm-10"><?php the_title( '<h1 class="entry-title">', '</h1>' ); ?></div>
 			</div>
 		</div>
 	</div>
@@ -35,9 +35,9 @@
 		<div class="container">
 			<hr/>
 			<div class="row">
-				<div class="col-md-4"><h1 class="entry-title"><?php echo $chapter->post_title; ?></h1></div>
-				<div class="col-md-4"><?php echo wpautop( $chapter->post_content ); ?></div>
-				<div class="col-md-2"><?php echo render_download_link( $chapter->ID ); ?></div>
+				<div class="col-lg-4 col-md-10 col-sm-10"><h1 class="entry-title"><?php echo $chapter->post_title; ?></h1></div>
+				<div class="col-lg-4 col-md-8 col-sm-10"><?php echo wpautop( $chapter->post_content ); ?></div>
+				<div class="col-lg-2 col-md-2 col-sm-10"><?php echo render_download_link( $chapter->ID ); ?></div>
 			</div>
 			<?php echo render_images( $chapter->ID ); ?>
 		</div>
@@ -61,9 +61,9 @@
 		<div class="container">
 			<hr/>
 			<div class="row">
-				<div class="col-md-4"><h1 class="entry-title"><?php echo $paragraph->post_title; ?></h1></div>
-				<div class="col-md-4"><?php echo wpautop( $paragraph->post_content ); ?></div>
-				<div class="col-md-2"><?php echo render_details_link( $paragraph->ID ); ?></div>
+				<div class="col-lg-4 col-md-10 col-sm-10"><h1 class="entry-title"><?php echo $paragraph->post_title; ?></h1></div>
+				<div class="col-lg-4 col-md-8 col-sm-10"><?php echo wpautop( $paragraph->post_content ); ?></div>
+				<div class="col-lg-2 col-md-2 col-sm-10"><?php echo render_details_link( $paragraph->ID ); ?></div>
 			</div>
 			<?php echo render_images( $paragraph->ID ); ?>
 		</div>

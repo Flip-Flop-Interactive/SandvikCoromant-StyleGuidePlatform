@@ -24,16 +24,16 @@ get_header();
 				<div class="entry-header">
 					<div class="container">
 						<div class="row">
-							<div class="col-md-10"><?php the_title( '<h1 class="entry-title">', '</h1>' ); ?></div>
+							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-10"><?php the_title( '<h1 class="entry-title">', '</h1>' ); ?></div>
 						</div>
 					</div>
 				</div>
 				<div class="entry-content">
 					<div class="container">
 						<div class="row">
-							<div class="col-md-8"><?php twentyfourteen_the_attached_image(); ?></div>
+							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-10"><?php twentyfourteen_the_attached_image(); ?></div>
 							<?php if ( has_excerpt() ) : ?>
-							<div class="col-md-2">
+							<div class="col-lg-2 col-md-8 col-sm-8 col-xs-10">
 								<?php the_excerpt(); ?>
 							</div><!-- .entry-caption -->
 							<?php endif; ?>

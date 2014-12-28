@@ -36,6 +36,16 @@
 				.icon {
 					margin-top: 76px;
 					font-size: 28px;
+
+					@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+						margin-top: 74px;
+						font-size: 25px;
+					}
+
+					@media( max-width: @screen-sm-max ){
+						margin-top: 59px;
+						font-size: 20px;
+					}
 				}
 
 				&:focus {
@@ -51,10 +61,26 @@
 					border-bottom-left-radius: 2px;
 					border-bottom-right-radius: 2px;
 
+					@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+						padding: 60px 10px 10px;
+					}
+
+					@media( max-width: @screen-sm-max ){
+						padding: 47px 8px 8px;
+					}
+
 					.icon {
 						color: @brand-secondary;
 						font-size: 33px;
 						margin-top: 0;
+
+						@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+							font-size: 29px;
+						}
+
+						@media( max-width: @screen-sm-max ){
+							font-size: 23px;
+						}
 					}
 				}
 
@@ -70,6 +96,14 @@
 
 		hr {
 			margin-top: 25px;
+
+			@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+				margin-top: 20px;
+			}
+
+			@media( max-width: @screen-sm-max ){
+				margin-top: 15px;
+			}
 		}
 	}
 }

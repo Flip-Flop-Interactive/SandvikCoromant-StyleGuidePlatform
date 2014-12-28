@@ -26,7 +26,7 @@
 
 <body <?php body_class(); ?>>
 
-	<div style="position: fixed; width: 100%; height: 100%;" data-vide-bg="mp4: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/videos/background-video, poster: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/images/background-video" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: jpg"></div>
+	<div style="position: fixed; width: 100%; height: 100%;" data-vide-bg="mp4: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/videos/background-video, ogv: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/videos/background-video, webm: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/videos/background-video, poster: <?php echo dirname( get_bloginfo( 'stylesheet_url' )); ?>/images/background-video" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: jpg, resize: true"></div>
 
 	<div id="menu">
 		<div class="modal-dialog">
@@ -35,10 +35,10 @@
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 						<a href="/" rel="home" title="<?php bloginfo( 'name' ); ?>"><div class="logo"><i class="icon icon_sandvik-coromant-icon"></i></div></a>
 					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-2"><a href="/?s=" title="Search"><i class="icon icon_search-icon"></i></a></div>
-					<div class="col-md-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Information' ))); ?>" title="Information"><i class="icon icon_info-icon"></i></a></div>
-					<div class="col-md-2"></div>
+					<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3"></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="/?s=" title="Search"><i class="icon icon_search-icon"></i></a></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="<?php echo esc_url( get_permalink( get_page_by_title( 'Information' ))); ?>" title="Information"><i class="icon icon_info-icon"></i></a></div>
+					<div class="col-lg-2 col-md-2 hidden-sm hidden-xs"></div>
 				</div>
 			</div>
 			<?php echo render_menu(); ?>
