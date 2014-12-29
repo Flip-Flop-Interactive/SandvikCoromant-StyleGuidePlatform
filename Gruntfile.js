@@ -145,7 +145,7 @@ module.exports = function(grunt) {
 					'bootstrap': 'jquery',
 					'headroom': 'jquery',
 					'vide': 'jquery'
-				}
+				},
 			}
 		},
 

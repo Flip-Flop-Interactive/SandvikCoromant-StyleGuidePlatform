@@ -269,7 +269,7 @@ function render_columns( $row ){
 		// Check if an image is selected, otherwise just render the column
 		if(( $column[ 'image' ][ 'url' ] != '' )){
 			$html .= sprintf( '<a href="%s">', $column[ 'image' ][ 'url' ]);
-			$html .= ( $column[ 'stroke' ] != '' ) ? sprintf( '<img src="%s" class="stroke" />', $column[ 'image' ][ 'url' ]) : sprintf( '<img src="%s" />', $column[ 'image' ][ 'url' ]);
+			$html .= ( $column[ 'stroke' ] != '' ) ? sprintf( '<img src="%s" width="%s" height="%s" class="stroke" />', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'metadata' ][ 'width' ], $column[ 'image' ][ 'metadata' ][ 'height' ]) : sprintf( '<img src="%s" width="%s" height="%s" />', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'metadata' ][ 'width' ], $column[ 'image' ][ 'metadata' ][ 'height' ]);
 			$html .= '</a>';
 			$html .= ( $column[ 'caption' ] != '' ) ? sprintf( '<p class="entry-caption">%s</p>', nl2br( $column[ 'caption' ])) : '';
 		}

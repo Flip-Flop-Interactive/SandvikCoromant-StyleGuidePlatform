@@ -18,6 +18,16 @@
 			padding-top: 24px;
 			padding-bottom: 11px;
 
+			@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+				padding-top: 17px;
+				padding-bottom: 8px;
+			}
+
+			@media( max-width: @screen-sm-max ){
+				padding-top: 13px;
+				padding-bottom: 4px;
+			}
+
 			.row {
 
 				.entry-title {
@@ -51,6 +61,14 @@
 		padding-right: 0;
 		background-color: transparent;
 
+		@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+			display: block !important;
+		}
+
+		@media( max-width: @screen-sm-max ){
+			display: block !important;
+		}
+
 		.container {
 
 			margin-bottom: 80px;
@@ -71,7 +89,7 @@
 				}
 
 				@media( max-width: @screen-sm-max ){
-					margin-bottom: 12px;
+					margin-bottom: 13px;
 				}
 			}
 
