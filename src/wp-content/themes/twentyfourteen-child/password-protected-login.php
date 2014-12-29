@@ -68,6 +68,7 @@ do_action( 'password_protected_login_head' );
 
 	<div id="menu">
 		<div class="modal-dialog">
+			
 			<div class="container menu-header">
 				<div class="row">
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -79,14 +80,17 @@ do_action( 'password_protected_login_head' );
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
 				</div>
 			</div>
+
+			<!-- Manage the content of this page within pages section in admin, title: "Welcome" -->
+
 			<div class="container">
 				<hr/>
 				<div class="row">
 					<div class="col-lg-4 col-md-8 col-sm-10">
-						<h1>Welcome</h1>
+						<h1><?php echo get_post( 2 )->post_title; ?></h1>
 					</div>
 					<div class="col-lg-6 col-md-8 col-sm-10">
-						<h1>Sum vent, culpa aut es rem quo vollaboria dunt prerectorem volupta disseditis a simincit auda verrovi duciat aspicabo. Abore voluptatus, et quiduciatem.</h1>
+						<h1><?php echo get_post( 2 )->post_content; ?></h1>
 						<div id="login">
 							<h1 id="call_to_action">Log in here.</h1>
 							<?php do_action( 'password_protected_before_login_form' ); ?>
@@ -102,6 +106,7 @@ do_action( 'password_protected_login_head' );
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 
