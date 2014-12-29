@@ -104,7 +104,7 @@ class Menu_Walker extends Walker_Nav_Menu {
 
 		if( $depth == 0 ){
 
-			$output .= '<div class="col-lg-2 col-md-2 col-sm-5 col-xs-5"><ul class="menu-item-list">';
+			$output .= '<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5"><ul class="menu-item-list">';
 		}
 	}
 
@@ -265,10 +265,15 @@ function render_columns( $row ){
 
 		$selected_value = $column[ 'column_span' ][ 'selected_value' ];
 		$html .= sprintf( '<div class="%s">', $classes[ $selected_value ]);
-		$html .= sprintf( '<a href="%s">', $column[ 'image' ][ 'url' ]);
-		$html .= ( $column[ 'stroke' ] != '' ) ? sprintf( '<img src="%s" class="stroke" />', $column[ 'image' ][ 'url' ]) : sprintf( '<img src="%s" />', $column[ 'image' ][ 'url' ]);
-		$html .= '</a>';
-		$html .= ( $column[ 'caption' ] != '' ) ? sprintf( '<p class="entry-caption">%s</p>', nl2br( $column[ 'caption' ])) : '';
+
+		// Check if an image is selected, otherwise just render the column
+		if(( $column[ 'image' ][ 'url' ] != '' )){
+			$html .= sprintf( '<a href="%s">', $column[ 'image' ][ 'url' ]);
+			$html .= ( $column[ 'stroke' ] != '' ) ? sprintf( '<img src="%s" class="stroke" />', $column[ 'image' ][ 'url' ]) : sprintf( '<img src="%s" />', $column[ 'image' ][ 'url' ]);
+			$html .= '</a>';
+			$html .= ( $column[ 'caption' ] != '' ) ? sprintf( '<p class="entry-caption">%s</p>', nl2br( $column[ 'caption' ])) : '';
+		}
+		
 		$html .= '</div>';
 	}
 	return $html;
@@ -283,7 +288,7 @@ function render_download_link( $id ){
 
 	if( $download && $download[ 'url' ] != '' ){
 
-		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank" class="hidden-sm hidden-xs"><i class="icon icon_download-icon"></i> <span class="label">Download</span></a></div>', $download[ 'url' ]);
+		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank" class="hidden-sm hidden-xs"><i class="icon icon_download-icon"></i> <span class="label">Download section</span></a></div>', $download[ 'url' ]);
 		return $html;
 	}
 }
@@ -314,7 +319,7 @@ function render_back_link(){
 
 		$page 	= get_queried_object();
 		$id 	= get_post( $page->post_parent )->ID;
-		$html   = sprintf('<a href="%s"><i class="icon icon_arrow-left-icon"></i> <span class="label">%s</span></a>', get_page_link( $id ), 'Back' );
+		$html   = sprintf('<a href="%s"><i class="icon icon_arrow-left-icon"></i> <span class="label">%s</span></a>', get_page_link( $id ), 'Back to section' );
 		return $html;
 	}
 }
