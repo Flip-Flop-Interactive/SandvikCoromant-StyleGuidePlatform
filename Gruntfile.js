@@ -29,22 +29,22 @@ module.exports = function(grunt) {
 		clean: {
 			development: {
 				src: [ 
-					'<%= config.dist.theme %>/*.php',
-					'<%= config.dist.theme %>/page-templates/*.php',
-					'<%= config.dist.theme %>/*.png',
-					'<%= config.dist.theme %>/fonts/*.*',
-					'<%= config.dist.theme %>/js/scripts.js',
-					'<%= config.dist.theme %>/images/*.*',
-					'<%= config.dist.theme %>/videos/*.*',
+					'<%= config.dist %>/*.php',
+					'<%= config.dist %>/page-templates/*.php',
+					'<%= config.dist %>/*.png',
+					'<%= config.dist %>/fonts/*.*',
+					'<%= config.dist %>/js/scripts.js',
+					'<%= config.dist %>/images/*.*',
+					'<%= config.dist %>/videos/*.*',
 				]
 			},
 		},
 
 		copy: {
-			theme: {
+			development: {
 				expand: true,
-				dest: '<%= config.dist.theme %>/',
-				cwd: '<%= config.src.theme %>/',
+				dest: '<%= config.dist %>/',
+				cwd: '<%= config.src %>/',
 				src: [ 
 					'*.php',
 					'page-templates/*.php', 
@@ -54,18 +54,12 @@ module.exports = function(grunt) {
 					'images/*.*', 
 					'videos/*.*' ]
 			},
-			plugin: {
-				expand: true,
-				dest: '<%= config.dist.plugin %>/',
-				cwd: '<%= config.src.plugin %>/',
-				src: [ 'password-protected-login-skin.php' ]
-			},
 		},
 
 		less: {
 			development: {
 				files: {
-					'<%= config.dist.theme %>/style.css': '<%= config.src.theme %>/styles/style.less'
+					'<%= config.dist %>/style.css': '<%= config.src %>/styles/style.less'
 				}
 			},
 			production: {
@@ -73,7 +67,7 @@ module.exports = function(grunt) {
 					cleancss: true,
 				},
 				files: {
-					'<%= config.dist.theme %>/style.css': '<%= config.src.theme %>/styles/style.less'
+					'<%= config.dist %>/style.css': '<%= config.src %>/styles/style.less'
 				}
 			}
 		},
@@ -92,24 +86,24 @@ module.exports = function(grunt) {
 				]
 			},
 			development: {
-				src: '<%= config.dist.theme %>/style.css'
+				src: '<%= config.dist %>/style.css'
 			},
 			production: {
-				src: '<%= config.dist.theme %>/style.css'
+				src: '<%= config.dist %>/style.css'
 			},
 		},
 
 		webfont: {
 			icons: {
-				src: '<%= config.src.theme %>/icons/*.svg',
-				dest: '<%= config.dist.theme %>/fonts/',
-				destCss: '<%= config.src.theme %>/styles/',
+				src: '<%= config.src %>/icons/*.svg',
+				dest: '<%= config.dist %>/fonts/',
+				destCss: '<%= config.src %>/styles/',
 				options: {
 					engine: 'node',
 					font: 'icons',
 					stylesheet: 'less',
 					relativeFontPath: './fonts/',
-					destHtml: '<%= config.src.theme %>/icons/'
+					destHtml: '<%= config.src %>/icons/'
 				}
 			}
 		},
@@ -119,7 +113,7 @@ module.exports = function(grunt) {
 
 				files: [
 
-					{ src: [ '<%= config.src.theme %>/styles/icons.less' ], dest: [ '<%= config.src.theme %>/styles/_icons.less' ] },
+					{ src: [ '<%= config.src %>/styles/icons.less' ], dest: [ '<%= config.src %>/styles/_icons.less' ] },
 				]
 			}
 		},
@@ -140,7 +134,7 @@ module.exports = function(grunt) {
 
 		bower_concat: {
 			development: {
-				dest: '<%= config.dist.theme %>/js/libs.js',
+				dest: '<%= config.dist %>/js/libs.js',
 				dependencies: {
 					'bootstrap': 'jquery',
 					'headroom': 'jquery',
@@ -153,9 +147,8 @@ module.exports = function(grunt) {
 				development: {
 					files: [
 						'Gruntfile.js',
-						'<%= config.src.theme %>/**/*.*',
-						'<%= config.src.plugin %>/*.*',
-						'!<%= config.src.theme %>/styles/_icons.less',
+						'<%= config.src %>/**/*.*',
+						'!<%= config.src %>/styles/_icons.less',
 					],
 					tasks: [ 
 						'prepare:development'
@@ -173,26 +166,16 @@ module.exports = function(grunt) {
 		},
 
 		'ftp-deploy': {
-			theme: {
+			development: {
 				auth: {
 					host: 'theidentitymanual.com',
 					port: 21,
 					authKey: 'key',
 				},
-				src: '<%= config.dist.theme %>',
-				dest: '<%= config.ftp_dist.theme %>',
-				exclusions: [ '<%= config.dist.theme %>/**/.DS_Store' ]
+				src: '<%= config.dist %>',
+				dest: '<%= config.ftp_dist %>',
+				exclusions: [ '<%= config.dist %>/**/.DS_Store' ]
 			},
-			plugin: {
-				auth: {
-					host: 'theidentitymanual.com',
-					port: 21,
-					authKey: 'key',
-				},
-				src: '<%= config.dist.plugin %>',
-				dest: '<%= config.ftp_dist.plugin %>',
-				exclusions: [ '<%= config.dist.plugin %>/**/.DS_Store' ]
-			},			
 		}
 	});
 
@@ -205,8 +188,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'prepare:development', [
 
 		'clean:development',
-		'copy:theme',
-		'copy:plugin',
+		'copy:development',
 		'less:development',
 		'prepare:icons',
 		'autoprefixer:development',
@@ -224,8 +206,7 @@ module.exports = function(grunt) {
 
 		'prepare:development',
 		'bower_concat:development',
-		'ftp-deploy:theme',
-		'ftp-deploy:plugin',
+		'ftp-deploy:development',
 	]);
 	
 	// optional overrides from local config file

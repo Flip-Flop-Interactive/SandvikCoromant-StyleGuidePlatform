@@ -1,18 +1,6 @@
 {
-	"src": {
-		"plugin": "./src/wp-content/plugins/password-protected/theme",
-		"theme": "./src/wp-content/themes/twentyfourteen-child"
-	},
-
-	"dist": {
-		"plugin": "./dist/wp-content/plugins/password-protected/theme",
-		"theme": "./dist/wp-content/themes/twentyfourteen-child"
-	},
-
+	"src": 		 "./src/wp-content/themes/twentyfourteen-child",
+	"dist": 	 "./dist/wp-content/themes/twentyfourteen-child",
 	"local_url": "http://local.sandvikcoromant.styleguideplatform.com/",
-
-	"ftp_dist": {
-		"plugin": "./wp-content/plugins/password-protected/theme",
-		"theme": "./wp-content/themes/twentyfourteen-child/"
-	}
+	"ftp_dist":  "./wp-content/themes/twentyfourteen-child/"
 }

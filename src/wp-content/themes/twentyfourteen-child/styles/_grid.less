@@ -1,0 +1,22 @@
+// XLarge screen
+@screen-xlg:                   1500px;
+@screen-xlg-min:               @screen-xlg;
+@screen-xlg-hughdesktop:       @screen-xlg-min;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-lg-max:                ( @screen-xlg-min - 1 );
+
+//== Container sizes
+// Large screen / wide desktop
+@container-xlarge-desktop:     (( 1470px + @grid-gutter-width ));
+@container-xlg:                @container-xlarge-desktop;
+
+// Container widths
+//
+// Set the container width, and override it for fixed navbars in media queries.
+
+.container {
+	@media ( min-width: @screen-xlg-min ){
+		width: @container-xlg;
+	}
+}
