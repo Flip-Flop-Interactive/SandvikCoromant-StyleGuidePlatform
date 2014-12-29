@@ -118,26 +118,19 @@
 
 	.ui-menu-item {
 
-		a {
-			padding: 0;
-			color: @gray;
-			font-family: @headings-font-family;
-			font-size: @font-size-h1;
-			font-weight: @headings-font-weight;
-			line-height: 1.2;
+		padding: 0;
+		color: @gray;
+		font-family: @headings-font-family;
+		font-size: @font-size-h1;
+		font-weight: @headings-font-weight;
+		line-height: 1.2;
 
-			@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
-				font-size: @font-size-h1-md;
-			}
+		@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+			font-size: @font-size-h1-md;
+		}
 
-			@media( max-width: @screen-sm-max ){
-				font-size: @font-size-h1-sm;
-			}
-
-			&:hover, &:focus {
-
-				color: @brand-primary;			
-			}
+		@media( max-width: @screen-sm-max ){
+			font-size: @font-size-h1-sm;
 		}
 	}	
 }
