@@ -19,10 +19,10 @@
 		footerHeadroom.init();
 	}
 
-	// #menu links should close modal
-	$( '#menu a' ).click( function(){
+	// clicking in the #menu should close modal
+	$( '#menu .modal-dialog').click( function(){
 		$( '#menu' ).modal( 'toggle' );
-	});
+	})
 
 	// enable fluidbox functionality
 	$( 'a[rel="lightbox"]' ).fluidbox({
