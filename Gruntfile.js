@@ -138,7 +138,8 @@ module.exports = function(grunt) {
 				dependencies: {
 					'bootstrap': 'jquery',
 					'headroom': 'jquery',
-					'vide': 'jquery'
+					'fluidbox': 'jquery',
+					'vide': 'jquery',
 				},
 			}
 		},

@@ -18,6 +18,8 @@
   "devDependencies": {
     "bootstrap": "~3.3.1",
     "headroom.js": "~0.7.0",
-    "vide": "~0.3.0"
+    "vide": "~0.3.0",
+    "fluidbox": "~1.4.2",
+    "covervid": "*"
   }
 }

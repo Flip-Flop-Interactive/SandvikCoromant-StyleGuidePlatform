@@ -4,6 +4,7 @@
  */
 ( function( $, window, document, undefined ){
 
+	// #header & #footer slide in & out of viewport on scroll
 	var header = {}, headerHeadroom = {}, footer = {}, footerHeadroom = {};
 	
 	header = document.querySelector( '#header' );
@@ -21,6 +22,12 @@
 	// #menu links should close modal
 	$( '#menu a' ).click( function(){
 		$( '#menu' ).modal( 'toggle' );
+	});
+
+	// enable fluidbox functionality
+	$( 'a[rel="lightbox"]' ).fluidbox({
+		overlayColor: 'rgba( 247, 247, 247, 0.95 )',
+		closeTrigger: [{ selector: 'window', event: 'scroll' }]
 	});
 
 	// #scroll to top functionality

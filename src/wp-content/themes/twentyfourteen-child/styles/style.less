@@ -28,17 +28,21 @@
 @import './bower_components/bootstrap/less/type.less';
 @import './bower_components/bootstrap/less/grid.less';
 
-// Components
-@import './bower_components/bootstrap/less/modals.less';
-
-// Plugins
-
-
-// Custom
+// Overwrite core CSS
 @import '_scaffolding.less';
 @import '_type.less';
 @import '_grid.less';
+
+// Components
+@import './bower_components/bootstrap/less/modals.less';
+
+// Overwrite components
 @import '_modals.less';
+
+// Plugins
+@import './bower_components/fluidbox/css/fluidbox.less';
+
+// Custom
 @import '_header.less';
 @import '_content.less';
 @import '_footer.less';
@@ -49,7 +53,9 @@
 @import '_category.less';
 @import '_attachment.less';
 
-
 // Utility classes
 @import './bower_components/bootstrap/less/utilities.less';
 @import './bower_components/bootstrap/less/responsive-utilities.less';
+
+// Custom utility classes
+@import '_responsive-utilities.less';

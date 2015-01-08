@@ -242,7 +242,7 @@ function render_spacers( $row, $limit ){
 
 		$html = '';
 		while( $deduction-- ){
-			$html .= '<div class="col-lg-1 hidden-md hidden-sm"></div>';
+			$html .= '<div class="col-lg-1 hidden-tablet hidden-mobile"></div>';
 		}
 		return $html;
 	}
@@ -268,7 +268,7 @@ function render_columns( $row ){
 
 		// Check if an image is selected, otherwise just render the column
 		if(( $column[ 'image' ][ 'url' ] != '' )){
-			$html .= sprintf( '<a href="%s">', $column[ 'image' ][ 'url' ]);
+			$html .= sprintf( '<a href="%s" rel="lightbox">', $column[ 'image' ][ 'url' ]);
 			$html .= ( $column[ 'stroke' ] != '' ) ? sprintf( '<img src="%s" width="%s" height="%s" class="stroke" />', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'metadata' ][ 'width' ], $column[ 'image' ][ 'metadata' ][ 'height' ]) : sprintf( '<img src="%s" width="%s" height="%s" />', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'metadata' ][ 'width' ], $column[ 'image' ][ 'metadata' ][ 'height' ]);
 			$html .= '</a>';
 			$html .= ( $column[ 'caption' ] != '' ) ? sprintf( '<p class="entry-caption">%s</p>', nl2br( $column[ 'caption' ])) : '';
@@ -382,56 +382,4 @@ function get_top_level_pages( $exclude ){
 	return get_pages( $arguments );
 }
 
-
-
-/**
- * Remove initial FluidBox plugin script
- */
-function remove_fluidbox_frontend_scripts(){
-	remove_action( 'wp_enqueue_scripts', 'fluidbox_frontend_scripts' );
-}
-add_action( 'wp_head', 'remove_fluidbox_frontend_scripts' );
-
-/**
- * Register FluidBox frontend child scripts
- */
-function fluidbox_frontend_child_scripts() {
-
-    ob_start();
-    ?>
-
-    <script>
-        (function ( $ ) {
-            "use strict";
-
-            $(document).ready( function() {
-
-                // Add rel attribute to image links
-                $("a[href$='.jpg'], a[href$='.jpeg'], a[href$='.gif'], a[href$='.png']").has("img").attr("rel", "fluidbox");
-
-                // Enhancement for WP Galleries
-                $('.gallery-item').addClass('gallery-item-fluidbox');
-            });
-
-            $(function () {
-
-                // Init fluidbox
-                $('a[rel="fluidbox"]').fluidbox({
-                    overlayColor: 'rgba( 247, 247, 247, 0.95 )',
-                    closeTrigger: [
-                        { selector: 'window', event: 'scroll'}
-                    ]
-                });
-
-            });
-
-        }(jQuery));
-    </script>
-
-    <?php
-
-    $out = ob_get_clean();
-    echo $out;
-}
-add_action( 'wp_head', 'fluidbox_frontend_child_scripts' );
 
