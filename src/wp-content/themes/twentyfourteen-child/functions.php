@@ -242,7 +242,7 @@ function render_spacers( $row, $limit ){
 
 		$html = '';
 		while( $deduction-- ){
-			$html .= '<div class="col-lg-1 hidden-tablet hidden-mobile"></div>';
+			$html .= '<div class="col-lg-1"></div>';
 		}
 		return $html;
 	}
@@ -288,7 +288,7 @@ function render_download_link( $id ){
 
 	if( $download && $download[ 'url' ] != '' ){
 
-		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank" class="hidden-sm hidden-xs"><i class="icon icon_download-icon"></i> <span class="label">Download section</span></a></div>', $download[ 'url' ]);
+		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank" class="hidden-tablet hidden-mobile"><i class="icon icon_download-icon"></i> <span class="label">Download section</span></a></div>', $download[ 'url' ]);
 		return $html;
 	}
 }
@@ -303,10 +303,25 @@ function render_details_link( $id ){
 
 	foreach( $pages as $page ){
 
-		$html .= sprintf( '<div class="entry-action"><a href="%s" class="hidden-sm hidden-xs"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></div>', get_page_link( $page->ID ), get_the_title( $page->ID ));
+		$html .= sprintf( '<div class="entry-action"><a href="%s"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></div>', get_page_link( $page->ID ), get_the_title( $page->ID ));
 	}
 
 	return $html;
+}
+
+/*
+ * Render the external link within a paragraph
+ */
+function render_external_link( $id ){
+
+	$label = simple_fields_value( 'label', $id );
+	$link = simple_fields_value( 'link', $id );
+
+	if( $label && $link ){
+
+		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></div>', $link, $label );
+		return $html;
+	}
 }
 
 /*
