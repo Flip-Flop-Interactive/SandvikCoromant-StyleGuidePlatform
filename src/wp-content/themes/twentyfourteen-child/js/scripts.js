@@ -30,6 +30,12 @@
 		closeTrigger: [{ selector: 'window', event: 'scroll' }]
 	});
 
+	// manually add a shadow to the fullscreen image when it is enabled with a stroke
+	// if( $( 'a[rel="lightbox"] img' ).hasClass( 'stroke' )){
+		// $( 'a[rel="lightbox"] .fluidbox-ghost' ).addClass( 'shadow' );
+	// }
+
+
 	// #scroll to top functionality
 	$( '#scroll_to_top' ).click( function( event ){
 		event.preventDefault();

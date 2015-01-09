@@ -318,20 +318,22 @@ function render_external_link( $id ){
 	$link = simple_fields_fieldgroup( 'link', $id );
 	$html = '';
 
-	if( $link[ 'link' ] && $link[ 'link' ] != '' ){
+	if( $link ){
+		if( $link[ 'link' ] && $link[ 'link' ] != '' ){
 
-		$html .= '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-10">';
+			$html .= '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-10">';
 
-		if( $link[ 'label' ] != '' ){
+			if( $link[ 'label' ] != '' ){
 
-			$html .= sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></p></div>', $link[ 'link' ], $link[ 'label' ] );
+				$html .= sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></p></div>', $link[ 'link' ], $link[ 'label' ] );
 
-		} else {
+			} else {
 
-			$html .= sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">External link</span></a></p></div>', $link[ 'link' ] );
+				$html .= sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">External link</span></a></p></div>', $link[ 'link' ] );
+			}
+
+			$html .= '</div>';
 		}
-
-		$html .= '</div>';
 	}
 
 	return $html;
