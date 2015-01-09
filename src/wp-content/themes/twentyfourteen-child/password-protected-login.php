@@ -92,7 +92,7 @@ do_action( 'password_protected_login_head' );
 					<div class="col-lg-6 col-md-8 col-sm-10">
 						<h1><?php echo get_post( 2 )->post_content; ?></h1>
 						<div id="login">
-							<h1 id="call_to_action">Log in here.</h1>
+							<h1 id="call_to_action">Log in here</h1>
 							<?php do_action( 'password_protected_before_login_form' ); ?>
 							<form name="loginform" id="loginform" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="post" autocomplete="off">
 								<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" /></label>

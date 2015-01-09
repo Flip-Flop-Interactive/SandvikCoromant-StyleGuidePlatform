@@ -27,6 +27,37 @@
 						margin-bottom: 12px;
 						font-size: @font-size-h1-sm;
 					}
+
+					a {
+						display: inline-block;
+						margin: 0;
+						width: auto;
+						height: auto;
+						background: none;
+						color: @brand-primary;
+						font-size: @font-size-h1;
+						line-height: @headings-line-height;
+						text-indent: 0;
+						overflow: inherit;
+
+						&:hover {
+
+							color: @gray;
+						}
+
+						&:focus {
+
+							color: @brand-primary;
+						}
+
+						@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+							font-size: @font-size-h1-md;
+						}
+
+						@media( max-width: @screen-sm-max ){
+							font-size: @font-size-h1-sm;
+						}
+					}
 				}
 			}
 		}

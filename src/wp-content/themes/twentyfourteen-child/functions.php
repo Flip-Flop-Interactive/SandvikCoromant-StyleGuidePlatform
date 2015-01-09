@@ -254,10 +254,10 @@ function render_spacers( $row, $limit ){
 function render_columns( $row ){
 
 	$classes = array(
-		'1' => 'col-lg-1 col-md-2 col-sm-5',
-		'2' => 'col-lg-2 col-md-4 col-sm-10',
-		'4' => 'col-lg-4 col-md-4 col-sm-10',
-		'8' => 'col-lg-8 col-md-8 col-sm-10',
+		'1' => 'col-lg-1 col-md-2 col-sm-5 col-xs-5',
+		'2' => 'col-lg-2 col-md-4 col-sm-5 col-xs-5',
+		'4' => 'col-lg-4 col-md-4 col-sm-10 col-xs-10',
+		'8' => 'col-lg-8 col-md-8 col-sm-10 col-xs-10',
 	);
 
 	$html = '';
@@ -288,7 +288,7 @@ function render_download_link( $id ){
 
 	if( $download && $download[ 'url' ] != '' ){
 
-		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank" class="hidden-tablet hidden-mobile"><i class="icon icon_download-icon"></i> <span class="label">Download section</span></a></div>', $download[ 'url' ]);
+		$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank" class="hidden-tablet hidden-mobile"><i class="icon icon_download-icon"></i> <span class="label">Download section</span></a></p></div>', $download[ 'url' ]);
 		return $html;
 	}
 }
@@ -303,7 +303,7 @@ function render_details_link( $id ){
 
 	foreach( $pages as $page ){
 
-		$html .= sprintf( '<div class="entry-action"><a href="%s"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></div>', get_page_link( $page->ID ), get_the_title( $page->ID ));
+		$html .= sprintf( '<div class="entry-action"><p><a href="%s"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></p></div>', get_page_link( $page->ID ), get_the_title( $page->ID ));
 	}
 
 	return $html;
@@ -319,7 +319,7 @@ function render_external_link( $id ){
 
 	if( $label && $link ){
 
-		$html = sprintf( '<div class="entry-action"><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></div>', $link, $label );
+		$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></p></div>', $link, $label );
 		return $html;
 	}
 }
