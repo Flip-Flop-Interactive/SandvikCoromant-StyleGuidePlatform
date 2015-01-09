@@ -172,10 +172,29 @@ function render_images( $id ){
 
 	$limit		= 8;
 	$collection = simple_fields_fieldgroup( 'images', $id );
-	$rows 		= get_collection_in_rows( $collection, $limit );
+	$rows 		= get_collection_in_rows( set_last_item_in_collection( $collection ), $limit );
 	$html 		= render_rows( $rows, $limit );
 
 	return $html;
+}
+
+/*
+ * Set last item in collection
+ */
+function set_last_item_in_collection( $collection ){
+
+	$lenght 	= count( $collection );
+	$index 		= 0;
+	$revised	= [];
+
+	foreach( $collection as $item ){
+
+		$item[ 'last' ] = ( $index == $lenght - 1 ) ? true : false;
+		$revised[] = $item;
+		$index += 1;
+	}
+
+	return $revised;
 }
 
 /*
@@ -192,10 +211,6 @@ function get_collection_in_rows( $collection, $limit ){
 
 		$increment  = intval( $item[ 'column_span' ][ 'selected_value' ]);
 		$count 	   += $increment;
-
-		// $item[ 'last' ] = true;
-
-		// print_r( $item );
 
 		if( $count > $limit ){
 
@@ -273,7 +288,16 @@ function render_columns( $row ){
 		// Check if an image is selected, otherwise just render the column
 		if(( $column[ 'image' ][ 'url' ] != '' )){
 			$html .= sprintf( '<a href="%s" rel="lightbox">', $column[ 'image' ][ 'url' ]);
-			$html .= ( $column[ 'stroke' ] != '' ) ? sprintf( '<img src="%s" width="%s" height="%s" class="stroke" />', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'metadata' ][ 'width' ], $column[ 'image' ][ 'metadata' ][ 'height' ]) : sprintf( '<img src="%s" width="%s" height="%s" />', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'metadata' ][ 'width' ], $column[ 'image' ][ 'metadata' ][ 'height' ]);
+
+			if( $column[ 'caption' ] == '' && $column[ 'last' ]){
+
+				$html .= ( $column[ 'stroke' ] != '' ) ? sprintf( '<img src="%s" width="%s" height="%s" class="stroke last" />', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'metadata' ][ 'width' ], $column[ 'image' ][ 'metadata' ][ 'height' ]) : sprintf( '<img src="%s" width="%s" height="%s" class="last" />', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'metadata' ][ 'width' ], $column[ 'image' ][ 'metadata' ][ 'height' ]);
+
+			} else {
+
+				$html .= ( $column[ 'stroke' ] != '' ) ? sprintf( '<img src="%s" width="%s" height="%s" class="stroke" />', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'metadata' ][ 'width' ], $column[ 'image' ][ 'metadata' ][ 'height' ]) : sprintf( '<img src="%s" width="%s" height="%s" />', $column[ 'image' ][ 'url' ], $column[ 'image' ][ 'metadata' ][ 'width' ], $column[ 'image' ][ 'metadata' ][ 'height' ]);
+			}
+
 			$html .= '</a>';
 			$html .= ( $column[ 'caption' ] != '' ) ? sprintf( '<p class="entry-caption">%s</p>', nl2br( $column[ 'caption' ])) : '';
 		}
@@ -288,11 +312,19 @@ function render_columns( $row ){
  */
 function render_download_link( $id ){
 
-	$download = simple_fields_value( 'file', $id );
+	$download = simple_fields_fieldgroup( 'download', $id );
 
-	if( $download && $download[ 'url' ] != '' ){
+	if( $download[ 'file' ] && $download[ 'file' ][ 'url' ] != '' ){
 
-		$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank" class="hidden-tablet hidden-mobile"><i class="icon icon_download-icon"></i> <span class="label">Download section</span></a></p></div>', $download[ 'url' ]);
+		if( $download[ 'label' ] != '' ){
+
+			$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank" class="hidden-tablet hidden-mobile"><i class="icon icon_download-icon"></i> <span class="label">%s</span></a></p></div>', $download[ 'file' ][ 'url' ], $download[ 'label' ]);
+
+		} else {
+
+			$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank" class="hidden-tablet hidden-mobile"><i class="icon icon_download-icon"></i> <span class="label">Download section</span></a></p></div>', $download[ 'file' ][ 'url' ]);
+		}
+		
 		return $html;
 	}
 }
@@ -313,17 +345,44 @@ function render_details_link( $id ){
 	return $html;
 }
 
+
+/*
+ * Check if external link exists
+ */
+function check_external_link_exists( $id ){
+
+	// $link = simple_fields_fieldgroup( 'link', $id );
+
+	// if( $link[ 'link' ] && $link[ 'link' ] != '' ){
+
+	// 	return true;
+
+	// else {
+
+	// 	return false;
+	// }
+}
+
+
+
 /*
  * Render the external link within a paragraph
  */
 function render_external_link( $id ){
 
-	$label = simple_fields_value( 'label', $id );
-	$link = simple_fields_value( 'link', $id );
+	$link = simple_fields_fieldgroup( 'link', $id );
 
-	if( $label && $link ){
+	if( $link[ 'link' ] && $link[ 'link' ] != '' ){
 
-		$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></p></div>', $link, $label );
+		if( $link[ 'label' ] != '' ){
+
+			$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></p></div>', $link[ 'link' ], $link[ 'label' ] );
+
+		} else {
+
+			$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">External link</span></a></p></div>', $link[ 'link' ] );
+		}
+		
 		return $html;
 	}
 }
