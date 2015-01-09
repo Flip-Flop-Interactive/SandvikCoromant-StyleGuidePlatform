@@ -173,7 +173,7 @@ function render_images( $id ){
 	$limit		= 8;
 	$collection = simple_fields_fieldgroup( 'images', $id );
 	$rows 		= get_collection_in_rows( set_last_item_in_collection( $collection ), $limit );
-	$html 		= render_rows( $rows, $limit );
+	$html 		= render_rows( $rows, $limit, $id );
 
 	return $html;
 }
@@ -226,7 +226,7 @@ function get_collection_in_rows( $collection, $limit ){
 /*
  * Render rows within a collection of images
  */
-function render_rows( $rows, $limit ){
+function render_rows( $rows, $limit, $id ){
 
 	$html = '';
 	foreach( $rows as $row ){
@@ -234,6 +234,7 @@ function render_rows( $rows, $limit ){
 		$html .= '<div class="row">';
 		$html .= render_spacers( $row, $limit );
 		$html .= render_columns( $row );
+		$html .= render_external_link( $id );
 		$html .= '</div>';
 	}
 	return $html;	
@@ -304,8 +305,38 @@ function render_columns( $row ){
 		
 		$html .= '</div>';
 	}
+
 	return $html;
 }
+
+
+/*
+ * Render the external link within a paragraph
+ */
+function render_external_link( $id ){
+
+	$link = simple_fields_fieldgroup( 'link', $id );
+	$html = '';
+
+	if( $link[ 'link' ] && $link[ 'link' ] != '' ){
+
+		$html .= '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-10">';
+
+		if( $link[ 'label' ] != '' ){
+
+			$html .= sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></p></div>', $link[ 'link' ], $link[ 'label' ] );
+
+		} else {
+
+			$html .= sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">External link</span></a></p></div>', $link[ 'link' ] );
+		}
+
+		$html .= '</div>';
+	}
+
+	return $html;
+}
+
 
 /*
  * Render the download section link within a page, chapter or paragraph
@@ -343,48 +374,6 @@ function render_details_link( $id ){
 	}
 
 	return $html;
-}
-
-
-/*
- * Check if external link exists
- */
-function check_external_link_exists( $id ){
-
-	// $link = simple_fields_fieldgroup( 'link', $id );
-
-	// if( $link[ 'link' ] && $link[ 'link' ] != '' ){
-
-	// 	return true;
-
-	// else {
-
-	// 	return false;
-	// }
-}
-
-
-
-/*
- * Render the external link within a paragraph
- */
-function render_external_link( $id ){
-
-	$link = simple_fields_fieldgroup( 'link', $id );
-
-	if( $link[ 'link' ] && $link[ 'link' ] != '' ){
-
-		if( $link[ 'label' ] != '' ){
-
-			$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">%s</span></a></p></div>', $link[ 'link' ], $link[ 'label' ] );
-
-		} else {
-
-			$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank"><i class="icon icon_arrow-right-icon"></i> <span class="label">External link</span></a></p></div>', $link[ 'link' ] );
-		}
-		
-		return $html;
-	}
 }
 
 /*
