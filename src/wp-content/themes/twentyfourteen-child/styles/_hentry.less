@@ -1,10 +1,20 @@
 .hentry {
 
-	margin: 0;
-	padding: 0;
+	margin: -145px 0;
+	padding: 145px 0 0;
 	border-top: none;
 	background-color: transparent;
 	box-shadow: none;
+
+	@media( min-width: @screen-md-min ) and ( max-width: @screen-md-max ){
+		margin: -117px 0;
+		padding: 117px 0 0;
+	}
+
+	@media( max-width: @screen-sm-max ){
+		margin: -90px 0;
+		padding: 90px 0 0;
+	}
 
 	.entry-header {
 

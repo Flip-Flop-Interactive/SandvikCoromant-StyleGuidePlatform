@@ -193,6 +193,10 @@ function get_collection_in_rows( $collection, $limit ){
 		$increment  = intval( $item[ 'column_span' ][ 'selected_value' ]);
 		$count 	   += $increment;
 
+		// $item[ 'last' ] = true;
+
+		// print_r( $item );
+
 		if( $count > $limit ){
 
 			$index += 1;
@@ -242,7 +246,7 @@ function render_spacers( $row, $limit ){
 
 		$html = '';
 		while( $deduction-- ){
-			$html .= '<div class="col-lg-1"></div>';
+			$html .= '<div class="col-lg-1 col-md-1 hidden-sm hidden-xs"></div>';
 		}
 		return $html;
 	}
@@ -254,10 +258,10 @@ function render_spacers( $row, $limit ){
 function render_columns( $row ){
 
 	$classes = array(
-		'1' => 'col-lg-1 col-md-2 col-sm-5 col-xs-5',
-		'2' => 'col-lg-2 col-md-4 col-sm-5 col-xs-5',
-		'4' => 'col-lg-4 col-md-4 col-sm-10 col-xs-10',
-		'8' => 'col-lg-8 col-md-8 col-sm-10 col-xs-10',
+		'1' => 'col-lg-1 col-md-2 col-sm-4 col-xs-5',
+		'2' => 'col-lg-2 col-md-4 col-sm-4 col-xs-5',
+		'4' => 'col-lg-4 col-md-4 col-sm-8 col-xs-10',
+		'8' => 'col-lg-8 col-md-8 col-sm-8 col-xs-10',
 	);
 
 	$html = '';

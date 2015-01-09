@@ -86,10 +86,10 @@ do_action( 'password_protected_login_head' );
 			<div class="container">
 				<hr/>
 				<div class="row">
-					<div class="col-lg-4 col-md-8 col-sm-10">
+					<div class="col-lg-4 col-md-8 col-sm-8 col-xs-10">
 						<h1><?php echo get_post( 2 )->post_title; ?></h1>
 					</div>
-					<div class="col-lg-6 col-md-8 col-sm-10">
+					<div class="col-lg-6 col-md-8 col-sm-8 col-xs-10">
 						<h1><?php echo get_post( 2 )->post_content; ?></h1>
 						<div id="login">
 							<h1 id="call_to_action">Log in here</h1>
@@ -112,19 +112,15 @@ do_action( 'password_protected_login_head' );
 
 <script type="text/javascript">
 
-var call_to_action 			= document.getElementById( 'call_to_action' );
+var call_to_action = document.getElementById( 'call_to_action' );
 var password_protected_pass = document.getElementById( 'password_protected_pass' );
-var login_error				= document.getElementById( 'login_error' );
+var login_error	= document.getElementById( 'login_error' );
 
 call_to_action.onclick = function(){
-	call_to_action.style.display 			= 'none';
-	password_protected_pass.style.display 	= 'block';
+	call_to_action.style.display = 'none';
+	password_protected_pass.style.display = 'block';
 	password_protected_pass.focus();
-
-	if( login_error ){
-
-		login_error.style.display 			= 'none';
-	}
+	if( login_error ){ login_error.style.display = 'none'; }
 };
 
 if( typeof wpOnload == 'function' ){
