@@ -21,7 +21,10 @@
 
 	// clicking in the #menu should close modal
 	$( '#menu .modal-dialog').click( function(){
-		$( '#menu' ).modal( 'toggle' );
+	  // if not on front page...
+	  if (!$('body').hasClass('login')) {
+  		$( '#menu' ).modal( 'toggle' );
+	  }
 	})
 
 	// enable fluidbox functionality
