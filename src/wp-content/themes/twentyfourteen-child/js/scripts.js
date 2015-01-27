@@ -21,14 +21,19 @@
 
 	// clicking in the #menu should close modal
 	$( '#menu .modal-dialog').click( function(){
-		$( '#menu' ).modal( 'toggle' );
+	  // if not on front page...
+	  if (!$('body').hasClass('login')) {
+  		$( '#menu' ).modal( 'toggle' );
+	  }
 	})
 
 	// enable fluidbox functionality
-	$( 'a[rel="lightbox"]' ).fluidbox({
-		overlayColor: 'rgba( 247, 247, 247, 0.95 )',
-		closeTrigger: [{ selector: 'window', event: 'scroll' }]
-	});
+	if( jQuery().fluidbox ) {
+  	$( 'a[rel="lightbox"]' ).fluidbox({
+  		overlayColor: 'rgba( 247, 247, 247, 0.95 )',
+  		closeTrigger: [{ selector: 'window', event: 'scroll' }]
+  	});
+  }
 
 	// manually add a shadow to the fullscreen image when it is enabled with a stroke
 	// if( $( 'a[rel="lightbox"] img' ).hasClass( 'stroke' )){

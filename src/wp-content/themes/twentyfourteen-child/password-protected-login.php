@@ -7,6 +7,8 @@
 
 global $wp_version, $Password_Protected, $error, $is_iphone;
 
+$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
+
 nocache_headers();
 header( 'Content-Type: ' . get_bloginfo( 'html_type' ) . '; charset=' . get_bloginfo( 'charset' ) );
 
@@ -98,7 +100,7 @@ do_action( 'password_protected_login_head' );
 								<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" /></label>
 								<input type="hidden" name="testcookie" value="1" />
 								<input type="hidden" name="password-protected" value="login" />
-								<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $_REQUEST['redirect_to'] ); ?>" />
+          			<input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>" />
 							</form>
 							<?php do_action( 'password_protected_after_login_form' ); ?>
 						</div>
