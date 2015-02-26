@@ -35,7 +35,7 @@
 		<div class="container">
 			<hr/>
 			<div class="row">
-				<div class="col-lg-4 col-md-10 col-sm-10 col-xs-10"><h1 class="entry-title"><?php echo $chapter->post_title; ?></h1></div>
+				<div class="col-lg-4 col-md-10 col-sm-10 col-xs-10"><h2 class="entry-title"><?php echo $chapter->post_title; ?></h2></div>
 				<div class="col-lg-4 col-md-8 col-sm-8 col-xs-10"><?php echo wpautop( $chapter->post_content ); ?></div>
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-10"><?php echo render_download_link( $chapter->ID ); ?></div>
 			</div>
@@ -61,7 +61,7 @@
 		<div class="container">
 			<hr/>
 			<div class="row">
-				<div class="col-lg-4 col-md-10 col-sm-10 col-xs-10"><h1 class="entry-title"><?php echo $paragraph->post_title; ?></h1></div>
+				<div class="col-lg-4 col-md-10 col-sm-10 col-xs-10"><h2 class="entry-title"><?php echo $paragraph->post_title; ?></h2></div>
 				<div class="col-lg-4 col-md-8 col-sm-8 col-xs-10"><?php echo wpautop( $paragraph->post_content ); ?></div>
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-10">
 					<?php echo render_download_link( $chapter->ID ); ?>
