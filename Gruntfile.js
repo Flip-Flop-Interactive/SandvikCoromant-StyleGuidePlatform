@@ -167,11 +167,21 @@ module.exports = function(grunt) {
 		},
 
 		'ftp-deploy': {
-			development: {
+			acceptance: {
 				auth: {
 					host: 'theidentitymanual.com',
 					port: 21,
-					authKey: 'key',
+					authKey: 'acceptance',
+				},
+				src: '<%= config.dist %>',
+				dest: '<%= config.ftp_dist %>',
+				exclusions: [ '<%= config.dist %>/**/.DS_Store' ]
+			},
+			production: {
+				auth: {
+					host: 'theidentitymanual.com',
+					port: 21,
+					authKey: 'production',
 				},
 				src: '<%= config.dist %>',
 				dest: '<%= config.ftp_dist %>',
@@ -207,7 +217,14 @@ module.exports = function(grunt) {
 
 		'prepare:development',
 		'bower_concat:development',
-		'ftp-deploy:development',
+		'ftp-deploy:acceptance',
+	]);
+
+	grunt.registerTask( 'production', [
+
+		'prepare:development',
+		'bower_concat:development',
+		'ftp-deploy:production',
 	]);
 	
 	// optional overrides from local config file

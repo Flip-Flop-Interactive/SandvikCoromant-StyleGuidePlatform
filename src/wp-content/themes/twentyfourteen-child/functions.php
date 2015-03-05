@@ -345,23 +345,27 @@ function render_external_link( $id ){
  */
 function render_download_link( $id ){
 
-	$download = simple_fields_fieldgroup( 'download', $id );
+	$downloads = simple_fields_fieldgroup( 'download', $id );
+	$html = '';
 
-	if( $download ){
+	if( $downloads ){
 
-		if( $download[ 'file' ] && $download[ 'file' ][ 'url' ] != '' ){
+		foreach( $downloads as $download ){
 
-			if( $download[ 'label' ] != '' ){
+			if( $download[ 'file' ] && $download[ 'file' ][ 'url' ] != '' ){
 
-				$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank" class="hidden-tablet hidden-mobile"><i class="icon icon_download-icon"></i> <span class="label">%s</span></a></p></div>', $download[ 'file' ][ 'url' ], $download[ 'label' ]);
+				if( $download[ 'label' ] != '' ){
 
-			} else {
+					$html .= sprintf( '<div class="entry-action"><p><a href="%s" target="_blank" class="hidden-tablet hidden-mobile"><i class="icon icon_download-icon"></i> <span class="label">%s</span></a></p></div>', $download[ 'file' ][ 'url' ], $download[ 'label' ]);
 
-				$html = sprintf( '<div class="entry-action"><p><a href="%s" target="_blank" class="hidden-tablet hidden-mobile"><i class="icon icon_download-icon"></i> <span class="label">Download section</span></a></p></div>', $download[ 'file' ][ 'url' ]);
+				} else {
+
+					$html .= sprintf( '<div class="entry-action"><p><a href="%s" target="_blank" class="hidden-tablet hidden-mobile"><i class="icon icon_download-icon"></i> <span class="label">Download section</span></a></p></div>', $download[ 'file' ][ 'url' ]);
+				}
 			}
-			
-			return $html;
 		}
+
+		return $html;
 	}
 }
 
